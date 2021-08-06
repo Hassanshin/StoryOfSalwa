@@ -9,6 +9,8 @@
 /[Bb]uilds/
 /[Ll]ogs/
 /[Mm]emoryCaptures/
+/[Ss]treamingAssets/
+/[Aa]ssetBundles/
 
 # Never ignore Asset meta data
 !/[Aa]ssets/**/*.meta
@@ -58,3 +60,6 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+*.mp4
+
+Assets/Video/
