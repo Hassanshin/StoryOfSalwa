@@ -11,10 +11,10 @@ public class MainMenuUI : Singleton<MainMenuUI>
     [SerializeField]
     private GameObject game;
 
-    [SerializeField]
-    private RawImage video;
-
-    public RawImage Video { get => video; }
+    public void setVideoPanel(bool state)
+    {
+        panel[2].gameObject.SetActive(state);
+    }
 
     public void PlayGame()
     {

@@ -53,7 +53,7 @@ public class VideoLoader : Singleton<VideoLoader>
     private void finishedVideoVoid()
     {
         Debug.Log($"{mPlayer.clip.name} finished playing");
-        MainMenuUI.Instance.Video.gameObject.SetActive(false);
+        MainMenuUI.Instance.setVideoPanel(false);
     }
 
     private IEnumerator download()
@@ -99,7 +99,7 @@ public class VideoLoader : Singleton<VideoLoader>
         }
 
         mPlayer.clip = mBundle.LoadAsset<VideoClip>(videoName);
-        MainMenuUI.Instance.Video.gameObject.SetActive(true);
+        MainMenuUI.Instance.setVideoPanel(true);
 
         mPlayer.Play();
     }
@@ -113,7 +113,7 @@ public class VideoLoader : Singleton<VideoLoader>
         }
 
         mPlayer.clip = mBundle.LoadAsset<VideoClip>(videoName);
-        MainMenuUI.Instance.Video.gameObject.SetActive(true);
+        MainMenuUI.Instance.setVideoPanel(true);
         mPlayer.Play();
     }
 
