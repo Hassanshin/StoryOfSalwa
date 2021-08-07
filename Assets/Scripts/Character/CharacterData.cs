@@ -5,5 +5,5 @@ using UnityEngine;
 
 public class CharacterData : ScriptableObject
 {
-    public float health;
+    public float maxHealth;
 }

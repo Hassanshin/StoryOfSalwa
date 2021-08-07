@@ -3,25 +3,37 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(CharUI))]
 public class BaseChar : MonoBehaviour
 {
     [SerializeField]
-    private float health = 1000;
+    private float curHealth = 1000;
+
+    private float maxHealth = 1000;
 
     [SerializeField]
     private Animator anim;
 
+    [SerializeField]
+    private CharUI ui;
+
     public virtual void SetData(CharacterData _data)
     {
-        health = _data.health;
+        maxHealth = _data.maxHealth;
+        curHealth = maxHealth;
+
+        ui.SetHealth(curHealth / maxHealth);
     }
 
     public virtual void DecreaseHealth(float _amount)
     {
-        health -= _amount;
-        health = Mathf.Clamp(health, 0, Mathf.Infinity);
+        curHealth -= _amount;
+        curHealth = Mathf.Clamp(curHealth, 0, maxHealth);
 
-        if (health <= 0)
+        ui.SetHealth(curHealth / maxHealth);
+        ui.SetFloatingText(-_amount);
+
+        if (curHealth <= 0)
         {
             Die();
         }
