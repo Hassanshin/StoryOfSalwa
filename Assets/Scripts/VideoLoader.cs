@@ -30,6 +30,7 @@ public class VideoLoader : Singleton<VideoLoader>
         if (mClearCache)
             ClearCache();
 
+        // start downloading assets from drive
         StartCoroutine(download());
 
         finishedEvent.AddListener(finishedVideoVoid);

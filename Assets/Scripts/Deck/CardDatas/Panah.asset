@@ -15,4 +15,4 @@ MonoBehaviour:
   type: 0
   cardName: Panah
   sprite: {fileID: 0}
-  damage: 100
+  damage: 700

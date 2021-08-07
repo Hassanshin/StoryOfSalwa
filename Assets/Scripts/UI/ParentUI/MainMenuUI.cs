@@ -20,13 +20,13 @@ public class MainMenuUI : Singleton<MainMenuUI>
     {
         panel[0].gameObject.SetActive(false);
         panel[1].gameObject.SetActive(true);
-        game.SetActive(true);
+        GameManager.Instance.StarGame();
     }
 
     public void BackToMain()
     {
         panel[0].gameObject.SetActive(true);
         panel[1].gameObject.SetActive(false);
-        game.SetActive(false);
+        GameManager.Instance.BackToMain();
     }
 }

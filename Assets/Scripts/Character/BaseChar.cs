@@ -16,6 +16,8 @@ public class BaseChar : MonoBehaviour
 
     [SerializeField]
     private CharUI ui;
+    public bool IsDie => isDie;
+    private bool isDie;
 
     public virtual void SetData(CharacterData _data)
     {
@@ -23,10 +25,12 @@ public class BaseChar : MonoBehaviour
         curHealth = maxHealth;
 
         ui.SetHealth(curHealth / maxHealth);
+        isDie = false;
     }
 
     public virtual void DecreaseHealth(float _amount)
     {
+        if (isDie) { return; }
         curHealth -= _amount;
         curHealth = Mathf.Clamp(curHealth, 0, maxHealth);
 
@@ -42,5 +46,8 @@ public class BaseChar : MonoBehaviour
     public virtual void Die()
     {
         gameObject.SetActive(false);
+        isDie = true;
+
+        GameManager.Instance.level.GameOverCheck();
     }
 }
