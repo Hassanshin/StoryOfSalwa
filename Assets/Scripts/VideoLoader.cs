@@ -1,57 +1,63 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Video;
 
 public class VideoLoader : MonoBehaviour
 {
-    //https://drive.google.com/uc?export=download&id=DRIVE_FILE_ID
-    //https://drive.google.com/uc?export=download&id=1adwiC6xkdZy20fIllVf1hZPe4cl9UiE1
+    /* https://drive.google.com/uc?export=download&id=DRIVE_FILE_ID
+     * https://drive.google.com/file/d/1-OK-ibBwEYcx_8fyFvTXgmZgG9INzaP6/view?usp=sharing
+     *
+     * https://drive.google.com/uc?export=download&id=1-OK-ibBwEYcx_8fyFvTXgmZgG9INzaP6
+     */
 
     public string MUrl = "";
-    private string mVideoName = "videoTest";
     public bool mClearCache = false;
-
     private VideoPlayer mPlayer = null;
     private AssetBundle mBundle = null;
+
+    [SerializeField]
+    private UnityEvent finishedEvent;
 
     private void Awake()
     {
         mPlayer = GetComponent<VideoPlayer>();
+        mPlayer.loopPointReached += finishedVideo;
+
         Caching.compressionEnabled = false;
 
         if (mClearCache)
-        {
-            Caching.ClearCache();
-        }
+            ClearCache();
 
-        StartCoroutine(downloadAndPlay());
+        StartCoroutine(download());
+
+        finishedEvent.AddListener(finishedAction);
     }
 
-    private IEnumerator downloadAndPlay()
+    public void ClearCache()
     {
-        LoadingHandler.Instance.ShowLoading(test);
+        mBundle = null;
+        mPlayer.clip = null;
 
-        yield return download();
-
-        if (!mBundle)
+        if (Caching.ClearCache())
         {
-            Debug.Log("BUNDLE FAILED TO LOAD");
-            yield break;
+            Debug.Log("Successfully cleaned the cache");
         }
-
-        VideoClip downloadedClip = mBundle.LoadAsset<VideoClip>(mVideoName);
-        mPlayer.clip = downloadedClip;
-        mPlayer.Play();
+        else
+        {
+            Debug.Log("Cache is being used");
+        }
     }
 
-    private void test()
+    private void finishedAction()
     {
-        Debug.Log("YEEY");
+        Debug.Log($"{mPlayer.clip.name} finished playing");
     }
 
     private IEnumerator download()
     {
+        LoadingHandler.Instance.ShowLoading();
         WWW request = WWW.LoadFromCacheOrDownload(MUrl, 0);
 
         while (!request.isDone)
@@ -75,5 +81,36 @@ public class VideoLoader : MonoBehaviour
         }
 
         yield return null;
+    }
+
+    public void PlayDone(string videoName, UnityAction doneAction = null)
+    {
+        finishedEvent.AddListener(doneAction);
+
+        if (!mBundle)
+        {
+            Debug.Log("BUNDLE FAILED TO LOAD");
+            return;
+        }
+
+        mPlayer.clip = mBundle.LoadAsset<VideoClip>(videoName);
+        mPlayer.Play();
+    }
+
+    public void Play(string videoName)
+    {
+        if (!mBundle)
+        {
+            Debug.Log("BUNDLE FAILED TO LOAD");
+            return;
+        }
+
+        mPlayer.clip = mBundle.LoadAsset<VideoClip>(videoName);
+        mPlayer.Play();
+    }
+
+    private void finishedVideo(VideoPlayer source)
+    {
+        finishedEvent?.Invoke();
     }
 }

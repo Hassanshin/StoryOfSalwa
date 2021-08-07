@@ -20,20 +20,19 @@ public class LoadingHandler : Singleton<LoadingHandler>
     [SerializeField]
     private UnityEvent finishedEvent;
 
-    public void ShowLoading(UnityAction doneAction = null)
+    public void ShowLoading(UnityAction finishAction = null)
     {
         loadingCanvas.gameObject.SetActive(true);
-        if (doneAction != null)
+        if (finishAction != null)
         {
-            finishedEvent.AddListener(doneAction);
-            //doneLoading += doneAction();
+            finishedEvent.AddListener(finishAction);
         }
     }
 
     public void Progress(float prog)
     {
         loadingBar.fillAmount = prog;
-        loadingText.text = $"{prog * 100}";
+        loadingText.text = $"{(prog * 100).ToString("0.00")}%";
     }
 
     public void FinishedLoading()
