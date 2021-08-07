@@ -10,14 +10,19 @@ public class BaseChar : MonoBehaviour
     private float curHealth = 1000;
 
     private float maxHealth = 1000;
+    public bool IsDie => isDie;
+    private bool isDie;
 
+    [SerializeField]
+    private float speed = 50f;
+    public float Speed => speed;
+
+    [Header("Components")]
     [SerializeField]
     private Animator anim;
 
     [SerializeField]
     private CharUI ui;
-    public bool IsDie => isDie;
-    private bool isDie;
 
     public virtual void SetData(CharacterData _data)
     {

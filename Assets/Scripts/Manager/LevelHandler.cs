@@ -13,15 +13,30 @@ public class LevelHandler : MonoBehaviour
 
     [Header("In Game")]
 
-    public List<BaseChar> Enemies;
+    [SerializeField]
+    private List<BaseChar> enemies;
 
-    public BaseChar player;
+    [SerializeField]
+    private BaseChar player;
+
+    public List<BaseChar> AllChar
+    {
+        get
+        {
+            List<BaseChar> all = new List<BaseChar>();
+
+            all.Add(player);
+            all.AddRange(enemies);
+
+            return all;
+        }
+    }
 
     private bool allEnemiesDie
     {
         get
         {
-            foreach (BaseChar item in Enemies)
+            foreach (BaseChar item in enemies)
             {
                 if (!item.IsDie) { return false; }
             }
@@ -85,7 +100,7 @@ public class LevelHandler : MonoBehaviour
             pos.z -= i;
             pos.x -= i;
             BaseChar _enemy = Instantiate(data.enemies[i], pos, Quaternion.identity, spawnParent).GetComponent<BaseChar>();
-            Enemies.Add(_enemy);
+            enemies.Add(_enemy);
         }
         yield return null;
     }
@@ -102,11 +117,11 @@ public class LevelHandler : MonoBehaviour
 
     internal void ClearSpawn()
     {
-        foreach (BaseChar baseChar in Enemies)
+        foreach (BaseChar baseChar in enemies)
         {
             Destroy(baseChar.gameObject);
         }
-        Enemies.Clear();
+        enemies.Clear();
 
         Destroy(player.gameObject);
         player = null;
