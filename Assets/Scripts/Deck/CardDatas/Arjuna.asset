@@ -16,4 +16,4 @@ MonoBehaviour:
   cardName: Arjuna
   sprite: {fileID: 0}
   damage: 500
-  clipName: {fileID: 0}
+  clipName: testVideo10sec

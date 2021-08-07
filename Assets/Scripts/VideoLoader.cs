@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Video;
 
-public class VideoLoader : MonoBehaviour
+public class VideoLoader : Singleton<VideoLoader>
 {
     /* https://drive.google.com/uc?export=download&id=DRIVE_FILE_ID
      * https://drive.google.com/file/d/1-OK-ibBwEYcx_8fyFvTXgmZgG9INzaP6/view?usp=sharing
@@ -23,7 +23,7 @@ public class VideoLoader : MonoBehaviour
     private void Awake()
     {
         mPlayer = GetComponent<VideoPlayer>();
-        mPlayer.loopPointReached += finishedVideo;
+        mPlayer.loopPointReached += endVideoReached;
 
         Caching.compressionEnabled = false;
 
@@ -32,7 +32,7 @@ public class VideoLoader : MonoBehaviour
 
         StartCoroutine(download());
 
-        finishedEvent.AddListener(finishedAction);
+        finishedEvent.AddListener(finishedVideoVoid);
     }
 
     public void ClearCache()
@@ -50,9 +50,10 @@ public class VideoLoader : MonoBehaviour
         }
     }
 
-    private void finishedAction()
+    private void finishedVideoVoid()
     {
         Debug.Log($"{mPlayer.clip.name} finished playing");
+        MainMenuUI.Instance.Video.gameObject.SetActive(false);
     }
 
     private IEnumerator download()
@@ -85,6 +86,10 @@ public class VideoLoader : MonoBehaviour
 
     public void PlayDone(string videoName, UnityAction doneAction = null)
     {
+        if (string.IsNullOrEmpty(videoName))
+        {
+            return;
+        }
         finishedEvent.AddListener(doneAction);
 
         if (!mBundle)
@@ -94,10 +99,12 @@ public class VideoLoader : MonoBehaviour
         }
 
         mPlayer.clip = mBundle.LoadAsset<VideoClip>(videoName);
+        MainMenuUI.Instance.Video.gameObject.SetActive(true);
+
         mPlayer.Play();
     }
 
-    public void Play(string videoName)
+    public void Play(string videoName) //testing
     {
         if (!mBundle)
         {
@@ -106,11 +113,15 @@ public class VideoLoader : MonoBehaviour
         }
 
         mPlayer.clip = mBundle.LoadAsset<VideoClip>(videoName);
+        MainMenuUI.Instance.Video.gameObject.SetActive(true);
         mPlayer.Play();
     }
 
-    private void finishedVideo(VideoPlayer source)
+    private void endVideoReached(VideoPlayer source)
     {
         finishedEvent?.Invoke();
+        finishedEvent.RemoveAllListeners();
+
+        finishedEvent.AddListener(finishedVideoVoid);
     }
 }

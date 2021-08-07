@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class CardDataUlt : CardDataAtk
 {
-    public UnityEngine.Video.VideoClip clipName;
+    public string clipName = "ult1";
 
     public CardDataUlt()
     {
@@ -14,7 +14,6 @@ public class CardDataUlt : CardDataAtk
 
     public override void Action(BaseChar target)
     {
-        base.Action(target);
-        Debug.Log($"Playing {clipName}");
+        VideoLoader.Instance.PlayDone(clipName, () => base.Action(target));
     }
 }
