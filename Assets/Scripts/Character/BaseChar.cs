@@ -7,26 +7,37 @@ using UnityEngine;
 public class BaseChar : MonoBehaviour
 {
     [SerializeField]
-    private float curHealth = 1000;
+    protected float curHealth = 1000;
 
-    private float maxHealth = 1000;
+    protected float maxHealth = 1000;
     public bool IsDie => isDie;
-    private bool isDie;
+    protected bool isDie;
 
     [SerializeField]
-    private float speed = 50f;
+    protected float speed = 50f;
     public float Speed => speed;
 
     [Header("Components")]
     [SerializeField]
-    private Animator anim;
+    protected Animator anim;
 
     [SerializeField]
-    private CharUI ui;
+    protected CharUI ui;
+
+    [SerializeField]
+    protected CharacterData data;
+
+    // move to set data
+    public void Initialized()
+    {
+        ui = GetComponent<CharUI>();
+    }
 
     public virtual void SetData(CharacterData _data)
     {
-        maxHealth = _data.maxHealth;
+        data = _data;
+
+        maxHealth = data.maxHealth;
         curHealth = maxHealth;
 
         ui.SetHealth(curHealth / maxHealth);
@@ -53,6 +64,14 @@ public class BaseChar : MonoBehaviour
         gameObject.SetActive(false);
         isDie = true;
 
-        GameManager.Instance.level.GameOverCheck();
+        //TurnManager.Instance.RemoveTurn(this);
+        GameManager.Instance.Level.GameOverCheck();
+    }
+
+    public virtual void DoneAttack(BaseChar target, CardData cardData)
+    {
+        // trigger animation?
+        cardData.Action(target);
+        TurnManager.Instance.NextTurn();
     }
 }

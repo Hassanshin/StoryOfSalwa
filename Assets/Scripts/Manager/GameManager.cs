@@ -8,7 +8,12 @@ public class GameManager : Singleton<GameManager>
     [SerializeField]
     private GameObject GameArena;
 
-    public LevelHandler level;
+    public LevelHandler Level;
+
+    private void Start()
+    {
+        Level = GetComponent<LevelHandler>();
+    }
 
     public void StarGame()
     {
@@ -17,15 +22,15 @@ public class GameManager : Singleton<GameManager>
 
     public void BackToMain()
     {
-        level.ClearSpawn();
+        Level.ClearSpawn();
     }
 
     private IEnumerator startGameCor()
     {
-        yield return level.spawnPlayer();
-        yield return level.spawnEnemy();
+        yield return Level.spawnPlayer();
+        yield return Level.spawnEnemy();
 
-        yield return TurnManager.Instance.RegisterTurn(level.AllChar);
+        yield return TurnManager.Instance.RegisterTurn(Level.AllChar);
         // random deck?
 
         Debug.Log("Spawning done");

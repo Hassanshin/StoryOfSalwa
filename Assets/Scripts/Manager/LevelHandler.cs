@@ -14,10 +14,11 @@ public class LevelHandler : MonoBehaviour
     [Header("In Game")]
 
     [SerializeField]
-    private List<BaseChar> enemies;
+    private List<EnemyChar> enemies;
 
     [SerializeField]
-    private BaseChar player;
+    private PlayerChar player;
+    public PlayerChar Player { get => player; }
 
     public List<BaseChar> AllChar
     {
@@ -99,16 +100,18 @@ public class LevelHandler : MonoBehaviour
             Vector3 pos = pointEnemy.position;
             pos.z -= i;
             pos.x -= i;
-            BaseChar _enemy = Instantiate(data.enemies[i], pos, Quaternion.identity, spawnParent).GetComponent<BaseChar>();
+            EnemyChar _enemy = Instantiate(data.enemies[i], pos, Quaternion.identity, spawnParent).GetComponent<EnemyChar>();
             enemies.Add(_enemy);
+            _enemy.Initialized(); // set data
         }
         yield return null;
     }
 
     public IEnumerator spawnPlayer()
     {
-        BaseChar _player = Instantiate(playerPrefab, pointPlayer.position, Quaternion.identity, spawnParent).GetComponent<BaseChar>();
+        PlayerChar _player = Instantiate(playerPrefab, pointPlayer.position, Quaternion.identity, spawnParent).GetComponent<PlayerChar>();
         player = _player;
+        player.Initialized(); // set data
 
         isGameOver = false;
 
