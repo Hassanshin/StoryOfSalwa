@@ -76,7 +76,7 @@ public class TurnManagerUI : MonoBehaviour
 
     public IEnumerator MoveToReady(BaseChar charReady)
     {
-        float delta = getDelta(findCharUi(charReady), 100);
+        float delta = getDelta(FindCharUi(charReady), 100);
         yield return moveAll(delta);
 
         yield return null;
@@ -92,7 +92,7 @@ public class TurnManagerUI : MonoBehaviour
         yield return null;
     }
 
-    private TurnCharUI findCharUi(BaseChar character)
+    public TurnCharUI FindCharUi(BaseChar character)
     {
         return turnCharUIs.Find(a => a.data == character);
     }

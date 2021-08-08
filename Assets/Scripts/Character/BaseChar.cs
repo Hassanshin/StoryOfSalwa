@@ -64,6 +64,7 @@ public class BaseChar : MonoBehaviour
         gameObject.SetActive(false);
         isDie = true;
 
+        TurnManager.Instance.ui.FindCharUi(this).gameObject.SetActive(false);
         //TurnManager.Instance.RemoveTurn(this);
     }
 
