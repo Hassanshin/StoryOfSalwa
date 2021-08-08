@@ -44,6 +44,7 @@ public class GameManager : Singleton<GameManager>
     {
         // TODO start loading
         yield return Level.spawnPlayer();
+
         yield return Level.spawnEnemy();
 
         yield return TurnManager.Instance.RegisterTurn(Level.AllChar);

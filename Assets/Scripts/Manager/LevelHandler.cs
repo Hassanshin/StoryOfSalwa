@@ -103,6 +103,7 @@ public class LevelHandler : MonoBehaviour
             enemies.Add(_enemy);
             _enemy.Initialized(); // set data
         }
+
         yield return null;
     }
 

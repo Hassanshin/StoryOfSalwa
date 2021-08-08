@@ -6,31 +6,34 @@ using UnityEngine;
 public class TurnManager : Singleton<TurnManager>
 {
     [SerializeField]
-    private float baseSliderTime = 100f;
-
-    [SerializeField]
     private int turnCount = 0;
 
     [SerializeField]
-    private List<BaseChar> charTurn = new List<BaseChar>();
+    private List<BaseChar> characters = new List<BaseChar>();
+    public List<BaseChar> Characters { get => characters; }
 
     private int totalChars = 0;
     private bool nextState = true;
 
     private Coroutine turnCoroutine = null;
 
+    public TurnManagerUI ui;
+
     public override void Initialization()
     {
         GameManager.Instance.Level.OnGameOver.AddListener(ResetTurn);
+        ui = GetComponent<TurnManagerUI>();
     }
 
     public IEnumerator RegisterTurn(List<BaseChar> chars)
     {
         chars.Sort((a, b) => b.Speed.CompareTo(a.Speed));
-        charTurn.AddRange(chars);
-        totalChars = charTurn.Count;
+        characters.AddRange(chars);
+        totalChars = characters.Count;
 
         // instantiate the UI from total Chars
+        yield return ui.generateCharTurn(totalChars);
+
         // set them lerping from its speed along the max slider length
 
         yield return null;
@@ -47,15 +50,16 @@ public class TurnManager : Singleton<TurnManager>
         {
             nextState = false;
 
-            if (!charTurn[i].IsDie)
+            if (!characters[i].IsDie)
             {
-                Debug.Log($"Turn {turnCount} = {charTurn[i]} : {charTurn[i].Speed}");
+                //Debug.Log($"Turn {turnCount} = {characters[i]} : {characters[i].Speed}");
 
-                yield return attackingPhase(charTurn[i]);
+                yield return attackingPhase(characters[i]);
             }
             else
             {
-                Debug.Log($"Skipped Turn {turnCount} = {charTurn[i]} : {charTurn[i].Speed}");
+                //Debug.Log($"Skipped Turn {turnCount} = {characters[i]} : {characters[i].Speed}");
+
                 nextState = true;
             }
 
@@ -68,6 +72,8 @@ public class TurnManager : Singleton<TurnManager>
     private IEnumerator attackingPhase(BaseChar baseChar)
     {
         yield return new WaitForSeconds(1);
+
+        yield return ui.MoveToReady(baseChar);
 
         if (baseChar is EnemyChar)
         {
@@ -96,17 +102,18 @@ public class TurnManager : Singleton<TurnManager>
         nextState = true;
     }
 
-    // register to game manager
     public void ResetTurn(bool isWin)
     {
         StopCoroutine(turnCoroutine);
 
-        charTurn.Clear();
+        characters.Clear();
         turnCount = 0;
+
+        ui.resetUiTurn();
     }
 
     public void RemoveTurn(BaseChar removed)
     {
-        charTurn.Remove(removed);
+        characters.Remove(removed);
     }
 }
