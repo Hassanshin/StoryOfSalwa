@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Pedang
   m_EditorClassIdentifier: 
   type: 0
-  cardName: Panah
+  cardName: Pedang
   sprite: {fileID: 0}
-  damage: 700
+  damage: 50

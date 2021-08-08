@@ -65,7 +65,6 @@ public class BaseChar : MonoBehaviour
         isDie = true;
 
         //TurnManager.Instance.RemoveTurn(this);
-        GameManager.Instance.Level.GameOverCheck();
     }
 
     public virtual void DoneAttack(BaseChar target, CardData cardData)

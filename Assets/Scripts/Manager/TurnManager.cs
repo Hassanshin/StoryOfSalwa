@@ -14,8 +14,15 @@ public class TurnManager : Singleton<TurnManager>
     [SerializeField]
     private List<BaseChar> charTurn = new List<BaseChar>();
 
-    private int totalChars;
+    private int totalChars = 0;
     private bool nextState = true;
+
+    private Coroutine turnCoroutine = null;
+
+    public override void Initialization()
+    {
+        GameManager.Instance.Level.OnGameOver.AddListener(ResetTurn);
+    }
 
     public IEnumerator RegisterTurn(List<BaseChar> chars)
     {
@@ -31,7 +38,7 @@ public class TurnManager : Singleton<TurnManager>
 
     public void StartTurn()
     {
-        StartCoroutine(StartTurnEnum()); // stop when game over
+        turnCoroutine = StartCoroutine(StartTurnEnum());
     }
 
     private IEnumerator StartTurnEnum()
@@ -42,7 +49,6 @@ public class TurnManager : Singleton<TurnManager>
 
             if (!charTurn[i].IsDie)
             {
-                yield return new WaitForSeconds(1);
                 Debug.Log($"Turn {turnCount} = {charTurn[i]} : {charTurn[i].Speed}");
 
                 yield return attackingPhase(charTurn[i]);
@@ -61,13 +67,19 @@ public class TurnManager : Singleton<TurnManager>
 
     private IEnumerator attackingPhase(BaseChar baseChar)
     {
+        yield return new WaitForSeconds(1);
+
         if (baseChar is EnemyChar)
         {
             EnemyChar enemy = baseChar as EnemyChar;
 
-            // change with animate
-
             enemy.Attack();
+        }
+        else if (baseChar is PlayerChar)
+        {
+            PlayerChar player = baseChar as PlayerChar;
+
+            player.AttackPhase();
         }
         yield return null;
     }
@@ -75,19 +87,20 @@ public class TurnManager : Singleton<TurnManager>
     private void endTurn()
     {
         turnCount++;
-        StartCoroutine(StartTurnEnum()); // stop when game over
+        turnCoroutine = StartCoroutine(StartTurnEnum());
     }
 
     [ContextMenu("Next")]
     public void NextTurn()
     {
         nextState = true;
-        //Debug.Log($"Next turn ");
     }
 
     // register to game manager
-    public void ResetTurn()
+    public void ResetTurn(bool isWin)
     {
+        StopCoroutine(turnCoroutine);
+
         charTurn.Clear();
         turnCount = 0;
     }

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [System.Serializable]
 public class LevelHandler : MonoBehaviour
@@ -10,6 +11,8 @@ public class LevelHandler : MonoBehaviour
     private LevelData data;
 
     private bool isGameOver;
+
+    public UnityEvent<bool> OnGameOver;
 
     [Header("In Game")]
 
@@ -67,28 +70,24 @@ public class LevelHandler : MonoBehaviour
 
     public void LoseCheck()
     {
+        if (!player.IsDie) { return; }
+
         Debug.Log("LOSE");
+        gameOver(false);
     }
 
     public void WinCheck()
     {
+        if (!allEnemiesDie) { return; }
+
         Debug.Log("WIN");
+        gameOver(true);
     }
 
-    public void GameOverCheck()
+    private void gameOver(bool isWin)
     {
-        if (isGameOver) { return; }
-
-        if (player.IsDie)
-        {
-            LoseCheck();
-            isGameOver = true;
-        }
-        else if (allEnemiesDie)
-        {
-            WinCheck();
-            isGameOver = true;
-        }
+        isGameOver = true;
+        OnGameOver?.Invoke(isWin);
     }
 
     #endregion Win Lose
@@ -118,7 +117,7 @@ public class LevelHandler : MonoBehaviour
         yield return null;
     }
 
-    internal void ClearSpawn()
+    public void ClearSpawn()
     {
         foreach (BaseChar baseChar in enemies)
         {

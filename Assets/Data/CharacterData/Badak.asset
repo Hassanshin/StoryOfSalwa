@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 0
   atkCard:
-  - {fileID: 11400000, guid: 37eb66d8d83e12943a257eeac511962e, type: 2}
+  - {fileID: 11400000, guid: c146abcda185d5f4e82baf6fdb10e229, type: 2}

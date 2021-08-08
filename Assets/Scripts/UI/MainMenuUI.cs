@@ -8,8 +8,9 @@ public class MainMenuUI : Singleton<MainMenuUI>
     [SerializeField]
     private List<Canvas> panel = new List<Canvas>();
 
-    [SerializeField]
-    private GameObject game;
+    public override void Initialization()
+    {
+    }
 
     public void setVideoPanel(bool state)
     {

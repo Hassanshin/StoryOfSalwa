@@ -15,5 +15,5 @@ MonoBehaviour:
   type: 2
   cardName: Jamu
   sprite: {fileID: 0}
-  healAmount: 100
+  healAmount: 1000
   speedAmount: 5
