@@ -13,5 +13,6 @@ public class CharacterData : ScriptableObject
     public CardData[] atkCard;
 
     [Header("sprite")]
+    public Sprite icon;
     public RuntimeAnimatorController anim;
 }

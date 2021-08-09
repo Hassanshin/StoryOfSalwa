@@ -26,6 +26,7 @@ public class BaseChar : MonoBehaviour
 
     [SerializeField]
     protected CharacterData data;
+    public CharacterData CharData { get => data; }
 
     public UnityEvent DoCardMove;
 

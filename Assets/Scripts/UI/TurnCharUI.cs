@@ -18,6 +18,7 @@ public class TurnCharUI : MonoBehaviour
         {
             curChar = value;
             charName.text = curChar.name;
+            icon.sprite = curChar.CharData.icon;
         }
     }
 

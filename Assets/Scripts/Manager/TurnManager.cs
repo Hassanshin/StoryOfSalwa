@@ -100,6 +100,8 @@ public class TurnManager : Singleton<TurnManager>
     public void NextTurn()
     {
         nextState = true;
+
+        ui.MoveToTop();
     }
 
     public void ResetTurn(bool isWin)

@@ -20,6 +20,8 @@ public class TurnManagerUI : MonoBehaviour
     [SerializeField]
     private RectTransform slider;
 
+    private TurnCharUI curReady;
+
     public IEnumerator generateCharTurn(int totalChars)
     {
         sliderHeight = slider.rect.height;
@@ -29,9 +31,8 @@ public class TurnManagerUI : MonoBehaviour
             TurnCharUI _spawn = Instantiate(charTurnPrefab, parentCharTurn).GetComponent<TurnCharUI>();
             _spawn.data = TurnManager.Instance.Characters[i];
 
-            // set UI as characters
-
             turnCharUIs.Add(_spawn);
+            _spawn.transform.SetAsFirstSibling();
             setPos(_spawn, _spawn.data.Speed);
         }
 
@@ -76,7 +77,9 @@ public class TurnManagerUI : MonoBehaviour
 
     public IEnumerator MoveToReady(BaseChar charReady)
     {
-        float delta = getDelta(FindCharUi(charReady), 100);
+        TurnCharUI _curReady = FindCharUi(charReady);
+        float delta = getDelta(_curReady, 100);
+        curReady = _curReady;
         yield return moveAll(delta);
 
         yield return null;
@@ -90,6 +93,12 @@ public class TurnManagerUI : MonoBehaviour
         }
         yield return new WaitForSeconds(1f);
         yield return null;
+    }
+
+    public void MoveToTop()
+    {
+        setPos(curReady, 0);
+        curReady = null;
     }
 
     public TurnCharUI FindCharUi(BaseChar character)
