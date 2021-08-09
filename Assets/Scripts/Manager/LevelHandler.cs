@@ -113,7 +113,7 @@ public class LevelHandler : MonoBehaviour
     {
         Vector3 pos = pointEnemy.position;
         pos.z -= i * 2;
-        pos.x -= i * 2;
+        pos.x -= (i % 2 == 0 ? -1 : 1) * 2;
         return pos;
     }
 

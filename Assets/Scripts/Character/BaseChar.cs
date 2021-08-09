@@ -88,12 +88,6 @@ public class BaseChar : MonoBehaviour
         }
     }
 
-    [ContextMenu("testing")]
-    public void AnimateTest()
-    {
-        anim.Play("atk");
-    }
-
     // called on idle start
     public virtual void FinishedAnimating()
     {
