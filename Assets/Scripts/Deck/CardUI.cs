@@ -30,7 +30,7 @@ public class CardUI : DragAndDrop
             // animate
 
             // then damage
-            GameManager.Instance.Level.Player.DoneAttack(target.parent.GetComponent<BaseChar>(), data);
+            GameManager.Instance.Level.Player.Attacking(target.parent.GetComponent<BaseChar>(), data);
         }
     }
 }

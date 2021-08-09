@@ -53,7 +53,7 @@ public class VideoLoader : Singleton<VideoLoader>
 
     private void finishedVideoVoid()
     {
-        Debug.Log($"{mPlayer.clip.name} finished playing");
+        //Debug.Log($"{mPlayer.clip.name} finished playing");
         MainMenuUI.Instance.setVideoPanel(false);
     }
 

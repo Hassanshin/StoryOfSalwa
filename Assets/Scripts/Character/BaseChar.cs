@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(CharUI))]
 public class BaseChar : MonoBehaviour
@@ -25,6 +26,8 @@ public class BaseChar : MonoBehaviour
 
     [SerializeField]
     protected CharacterData data;
+
+    public UnityEvent DoCardMove;
 
     public virtual void SetData(CharacterData _data)
     {
@@ -67,10 +70,36 @@ public class BaseChar : MonoBehaviour
         //TurnManager.Instance.RemoveTurn(this);
     }
 
-    public virtual void DoneAttack(BaseChar target, CardData cardData)
+    public virtual void Attacking(BaseChar target, CardData cardData)
     {
         // trigger animation?
-        cardData.Action(target);
+        if (cardData.type == CardType.Ult)
+        {
+            cardData.Action(target);
+        }
+        else
+        {
+            anim.Play("atk");
+            DoCardMove.AddListener(() =>
+            {
+                cardData.Action(target);
+            });
+            // do damage
+        }
+    }
+
+    [ContextMenu("testing")]
+    public void AnimateTest()
+    {
+        anim.Play("atk");
+    }
+
+    // called on idle start
+    public virtual void FinishedAnimating()
+    {
+        DoCardMove?.Invoke();
         TurnManager.Instance.NextTurn();
+
+        DoCardMove.RemoveAllListeners();
     }
 }

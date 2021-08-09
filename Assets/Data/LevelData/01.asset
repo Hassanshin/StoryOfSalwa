@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   totalEnemy: 3
   enemies:
-  - {fileID: 11400000, guid: 2e4d99cfb0737604594a7a5efb5baf9f, type: 2}
-  - {fileID: 11400000, guid: 2e4d99cfb0737604594a7a5efb5baf9f, type: 2}
   - {fileID: 11400000, guid: ae95bcbfad51f9242bdf2be8d3456f74, type: 2}
+  - {fileID: 11400000, guid: 2e4d99cfb0737604594a7a5efb5baf9f, type: 2}
+  - {fileID: 11400000, guid: 2e4d99cfb0737604594a7a5efb5baf9f, type: 2}
   player: {fileID: 11400000, guid: 97f9b25184b1c5e4285d0e32e21f23af, type: 2}

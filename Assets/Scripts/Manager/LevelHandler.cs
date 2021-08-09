@@ -112,8 +112,8 @@ public class LevelHandler : MonoBehaviour
     private Vector3 enemyPosGenerated(int i)
     {
         Vector3 pos = pointEnemy.position;
-        pos.z -= i;
-        pos.x -= i;
+        pos.z -= i * 2;
+        pos.x -= i * 2;
         return pos;
     }
 
@@ -121,6 +121,7 @@ public class LevelHandler : MonoBehaviour
     {
         PlayerChar _player = Instantiate(playerPrefab, pointPlayer.position, Quaternion.identity, spawnParent).GetComponent<PlayerChar>();
         player = _player;
+
         player.SetData(data.player);
 
         isGameOver = false;
