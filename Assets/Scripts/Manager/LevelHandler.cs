@@ -48,10 +48,14 @@ public class LevelHandler : MonoBehaviour
         }
     }
 
-    [Header("Components")]
+    [Header("Prefabs")]
     [SerializeField]
     private GameObject playerPrefab;
 
+    [SerializeField]
+    private GameObject enemyPrefab;
+
+    [Header("Components")]
     [SerializeField]
     private Transform spawnParent;
 
@@ -96,22 +100,28 @@ public class LevelHandler : MonoBehaviour
     {
         for (int i = 0; i < data.enemies.Length; i++)
         {
-            Vector3 pos = pointEnemy.position;
-            pos.z -= i;
-            pos.x -= i;
-            EnemyChar _enemy = Instantiate(data.enemies[i], pos, Quaternion.identity, spawnParent).GetComponent<EnemyChar>();
+            EnemyChar _enemy = Instantiate(enemyPrefab, enemyPosGenerated(i), Quaternion.identity, spawnParent).GetComponent<EnemyChar>();
+
             enemies.Add(_enemy);
-            _enemy.Initialized(); // set data
+            _enemy.SetData(data.enemies[i]); // set data
         }
 
         yield return null;
+    }
+
+    private Vector3 enemyPosGenerated(int i)
+    {
+        Vector3 pos = pointEnemy.position;
+        pos.z -= i;
+        pos.x -= i;
+        return pos;
     }
 
     public IEnumerator spawnPlayer()
     {
         PlayerChar _player = Instantiate(playerPrefab, pointPlayer.position, Quaternion.identity, spawnParent).GetComponent<PlayerChar>();
         player = _player;
-        player.Initialized(); // set data
+        player.SetData(data.player);
 
         isGameOver = false;
 

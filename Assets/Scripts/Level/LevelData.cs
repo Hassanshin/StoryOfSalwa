@@ -8,5 +8,6 @@ public class LevelData : ScriptableObject
     [Header("Enemy")]
     public int totalEnemy;
 
-    public GameObject[] enemies;
+    public CharacterData[] enemies;
+    public CharacterData player;
 }

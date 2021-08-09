@@ -13,10 +13,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   curHealth: 1000
-  speed: 76
-  anim: {fileID: 0}
-  ui: {fileID: 0}
-  data: {fileID: 11400000, guid: 2e4d99cfb0737604594a7a5efb5baf9f, type: 2}
+  anim: {fileID: 1440555808762568263}
+  ui: {fileID: 5984071575427844307}
+  data: {fileID: 0}
 --- !u!1001 &4555405321464322747
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -74,7 +73,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2869529115274192769, guid: f3546f0bb5c289e47baf87269573d46d, type: 3}
       propertyPath: m_Name
-      value: Enemy Ot
+      value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 5831708700493583142, guid: f3546f0bb5c289e47baf87269573d46d, type: 3}
       propertyPath: m_FlipX
@@ -84,10 +83,30 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 9176079610096696661, guid: 8f1a7842a9eb0de40940b70b9829c87a, type: 3}
+    - target: {fileID: 5831708700493583142, guid: f3546f0bb5c289e47baf87269573d46d, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f3546f0bb5c289e47baf87269573d46d, type: 3}
 --- !u!1 &1795406315204459834 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2869529115274192769, guid: f3546f0bb5c289e47baf87269573d46d, type: 3}
+  m_PrefabInstance: {fileID: 4555405321464322747}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5984071575427844307 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7796782524204421736, guid: f3546f0bb5c289e47baf87269573d46d, type: 3}
+  m_PrefabInstance: {fileID: 4555405321464322747}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1795406315204459834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07d8b63ff098d8943894ebf1ceb5238d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!95 &1440555808762568263 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 3226245160092632316, guid: f3546f0bb5c289e47baf87269573d46d, type: 3}
   m_PrefabInstance: {fileID: 4555405321464322747}
   m_PrefabAsset: {fileID: 0}

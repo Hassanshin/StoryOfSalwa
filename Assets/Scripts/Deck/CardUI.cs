@@ -27,7 +27,9 @@ public class CardUI : DragAndDrop
 
         if (target != null && data != null)
         {
-            // Always player attacking with theses cards
+            // animate
+
+            // then damage
             GameManager.Instance.Level.Player.DoneAttack(target.parent.GetComponent<BaseChar>(), data);
         }
     }

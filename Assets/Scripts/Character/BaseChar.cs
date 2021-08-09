@@ -13,8 +13,7 @@ public class BaseChar : MonoBehaviour
     public bool IsDie => isDie;
     protected bool isDie;
 
-    [SerializeField]
-    protected float speed = 50f;
+    protected float speed;
     public float Speed => speed;
 
     [Header("Components")]
@@ -27,14 +26,11 @@ public class BaseChar : MonoBehaviour
     [SerializeField]
     protected CharacterData data;
 
-    // move to set data
-    public void Initialized()
-    {
-        ui = GetComponent<CharUI>();
-    }
-
     public virtual void SetData(CharacterData _data)
     {
+        //ui = GetComponent<CharUI>();
+        //anim = transform.GetChild(0).GetChild(0).GetComponent<Animator>();
+
         data = _data;
 
         maxHealth = data.maxHealth;
@@ -42,6 +38,9 @@ public class BaseChar : MonoBehaviour
 
         ui.SetHealth(curHealth / maxHealth);
         isDie = false;
+
+        speed = data.speed;
+        anim.runtimeAnimatorController = _data.anim;
     }
 
     public virtual void DecreaseHealth(float _amount)
