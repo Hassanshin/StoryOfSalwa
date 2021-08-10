@@ -17,6 +17,9 @@ public class CardDataSup : CardData
     public override void Action(BaseChar target)
     {
         base.Action(target);
+
+        AudioManager.Instance.PlaySfx(2);
+
         target.DecreaseHealth(-healAmount);
     }
 }

@@ -18,6 +18,7 @@ public class CardDataUlt : CardDataAtk
         VideoLoader.Instance.PlayDone(clipName, () =>
         {
             base.Action(target);
+
             TurnManager.Instance.NextTurn();
         });
     }

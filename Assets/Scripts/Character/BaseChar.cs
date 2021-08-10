@@ -67,13 +67,14 @@ public class BaseChar : MonoBehaviour
         gameObject.SetActive(false);
         isDie = true;
 
+        AudioManager.Instance.PlaySfx(4);
+
         TurnManager.Instance.ui.FindCharUi(this).gameObject.SetActive(false);
         //TurnManager.Instance.RemoveTurn(this);
     }
 
     public virtual void Attacking(BaseChar target, CardData cardData)
     {
-        // trigger animation?
         if (cardData.type == CardType.Ult)
         {
             cardData.Action(target);
@@ -85,7 +86,6 @@ public class BaseChar : MonoBehaviour
             {
                 cardData.Action(target);
             });
-            // do damage
         }
     }
 

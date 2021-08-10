@@ -16,6 +16,7 @@ public class CardDataAtk : CardData
     public override void Action(BaseChar target)
     {
         base.Action(target);
+        AudioManager.Instance.PlaySfx(3);
         target.DecreaseHealth(damage);
     }
 }

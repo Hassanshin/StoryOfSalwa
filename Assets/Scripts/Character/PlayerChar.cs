@@ -14,6 +14,8 @@ public class PlayerChar : BaseChar
 
     public void AttackPhase()
     {
+        AudioManager.Instance.PlaySfx(1);
+
         GameUI.Instance.Deck.StateActive();
     }
 

@@ -32,11 +32,15 @@ public class GameManager : Singleton<GameManager>
 
     public void StarGame()
     {
+        AudioManager.Instance.PlaySfx(0);
+
         StartCoroutine(startGameCor());
     }
 
     public void BackToMain()
     {
+        AudioManager.Instance.PlaySfx(0);
+
         OnBackToMenu?.Invoke();
     }
 
