@@ -93,7 +93,6 @@ public class BaseChar : MonoBehaviour
     public virtual void FinishedAnimating()
     {
         DoCardMove?.Invoke();
-        TurnManager.Instance.NextTurn();
 
         DoCardMove.RemoveAllListeners();
     }

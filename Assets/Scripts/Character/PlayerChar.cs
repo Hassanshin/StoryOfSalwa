@@ -9,14 +9,20 @@ public class PlayerChar : BaseChar
         // animating
         base.Attacking(target, cardData);
 
-        GameUI.Instance.Deck.StateActive(false);
+        StartCoroutine(GameManager.Instance.Deck.UsedCard(cardData));
     }
 
     public void AttackPhase()
     {
         AudioManager.Instance.PlaySfx(1);
 
-        GameUI.Instance.Deck.StateActive();
+        GameManager.Instance.Deck.DeckActive();
+    }
+
+    public void EndTurnButton()
+    {
+        TurnManager.Instance.NextTurn();
+        GameManager.Instance.Deck.DeckActive(false);
     }
 
     public override void Die()

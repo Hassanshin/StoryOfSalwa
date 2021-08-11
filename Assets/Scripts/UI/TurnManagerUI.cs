@@ -97,7 +97,8 @@ public class TurnManagerUI : MonoBehaviour
 
     public void MoveToTop()
     {
-        setPos(curReady, 0);
+        if (curReady != null)
+            setPos(curReady, 0);
         curReady = null;
     }
 

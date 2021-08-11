@@ -7,7 +7,6 @@ using UnityEngine.UI;
 public class GameUI : Singleton<GameUI>
 {
     public Canvas Canvas;
-    public DeckUI Deck;
 
     [Header("GameOverPanel")]
     [SerializeField]
@@ -18,7 +17,6 @@ public class GameUI : Singleton<GameUI>
 
     public override void Initialization()
     {
-        Deck = GetComponent<DeckUI>();
         GameManager.Instance.Level.OnGameOver.AddListener(showGameOverPanel);
         GameManager.Instance.OnBackToMenu.AddListener(resetPanel);
     }

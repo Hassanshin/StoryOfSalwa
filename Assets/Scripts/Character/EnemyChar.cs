@@ -16,4 +16,10 @@ public class EnemyChar : BaseChar
         base.Die();
         GameManager.Instance.Level.WinCheck();
     }
+
+    public override void FinishedAnimating()
+    {
+        base.FinishedAnimating();
+        TurnManager.Instance.NextTurn();
+    }
 }

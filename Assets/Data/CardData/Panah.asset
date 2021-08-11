@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   cardName: Panah
-  sprite: {fileID: 0}
-  damage: 700
+  sprite: {fileID: 9122645907860882979, guid: 5f2cb5eb0cb53854e89b725dd03de867, type: 3}
+  damage: 300

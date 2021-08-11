@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 2
   cardName: Jamu
-  sprite: {fileID: 0}
-  healAmount: 1000
+  sprite: {fileID: 1272625545277882964, guid: 5f2cb5eb0cb53854e89b725dd03de867, type: 3}
+  healAmount: 500
   speedAmount: 5

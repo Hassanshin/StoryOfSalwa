@@ -15,13 +15,17 @@ public class GameManager : Singleton<GameManager>
     private GameObject GameArena;
 
     public LevelHandler Level;
+    public DeckManager Deck;
 
     private void Start()
     {
         Level = GetComponent<LevelHandler>();
+        Deck = GetComponent<DeckManager>();
+
         InitializationSequence?.Invoke();
 
         OnBackToMenu.AddListener(Level.ClearSpawn);
+        OnBackToMenu.AddListener(Deck.ClearDeck);
     }
 
     #region sequence manager
@@ -47,14 +51,19 @@ public class GameManager : Singleton<GameManager>
     private IEnumerator startGameCor()
     {
         // TODO start loading
+
+        yield return Deck.loadCardList();
+        Debug.Log("Deck done");
+
         yield return Level.spawnPlayer();
+        Debug.Log("Player done");
 
         yield return Level.spawnEnemy();
+        Debug.Log("Enemy done");
 
         yield return TurnManager.Instance.RegisterTurn(Level.AllChar);
-        // shuffle deck
+        Debug.Log("Turn done");
 
-        Debug.Log("Spawning done");
         // TODO end loading
 
         GameArena.gameObject.SetActive(true);

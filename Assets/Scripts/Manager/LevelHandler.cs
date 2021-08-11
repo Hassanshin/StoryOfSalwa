@@ -16,10 +16,10 @@ public class LevelHandler : MonoBehaviour
 
     [Header("In Game")]
 
-    [SerializeField]
-    private List<EnemyChar> enemies;
+    //[SerializeField]
+    private List<EnemyChar> enemies = new List<EnemyChar>();
 
-    [SerializeField]
+    //[SerializeField]
     private PlayerChar player;
     public PlayerChar Player { get => player; }
 

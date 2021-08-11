@@ -71,7 +71,7 @@ public class TurnManager : Singleton<TurnManager>
 
     private IEnumerator attackingPhase(BaseChar baseChar)
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.1f);
 
         yield return ui.MoveToReady(baseChar);
 
