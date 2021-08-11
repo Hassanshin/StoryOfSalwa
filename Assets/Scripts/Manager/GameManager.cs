@@ -45,6 +45,7 @@ public class GameManager : Singleton<GameManager>
     {
         AudioManager.Instance.PlaySfx(0);
 
+        Level.OnGameOver?.Invoke(false);
         OnBackToMenu?.Invoke();
     }
 

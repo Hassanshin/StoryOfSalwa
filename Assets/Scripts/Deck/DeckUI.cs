@@ -2,12 +2,16 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 using UnityEngine.UI;
 
 public class DeckUI : MonoBehaviour
 {
     [SerializeField]
     private Image blocker;
+
+    [SerializeField]
+    private TextMeshProUGUI topText;
 
     [SerializeField]
     private Button endButton;
@@ -17,10 +21,16 @@ public class DeckUI : MonoBehaviour
     private List<CardUI> cardUiList = new List<CardUI>();
 
     [SerializeField]
-    private GameObject cardUiPrefab;
+    private RectTransform graveStack;
 
     [SerializeField]
-    private Transform cardUiParent;
+    private RectTransform deckStack;
+
+    //[SerializeField]
+    //private GameObject cardUiPrefab;
+
+    //[SerializeField]
+    //private Transform cardUiParent;
 
     public void Initialize()
     {
@@ -64,5 +74,16 @@ public class DeckUI : MonoBehaviour
     private void endTurnButton()
     {
         GameManager.Instance.Level.Player.EndTurnButton();
+    }
+
+    public void SetTopText(string _text)
+    {
+        topText.text = _text;
+    }
+
+    public void UpdateNumber(int deck, int grave)
+    {
+        deckStack.GetChild(0).GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = $"{deck}";
+        graveStack.GetChild(0).GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = $"{grave}";
     }
 }

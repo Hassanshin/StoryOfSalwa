@@ -23,6 +23,8 @@ public class DeckManager : MonoBehaviour
     [SerializeField]
     private DeckUI ui;
 
+    private Coroutine process = null;
+
     #region CARD BASE MECHANIC
 
     public IEnumerator loadCardList()
@@ -38,14 +40,11 @@ public class DeckManager : MonoBehaviour
         deckCards.AddRange(graveCards);
         graveCards.Clear();
 
-        yield return ShuffleDeck();
-    }
-
-    private IEnumerator ShuffleDeck()
-    {
         List<CardData> randomized = new List<CardData>();
         randomized = deckCards.OrderBy(i => Guid.NewGuid()).ToList();
         deckCards = randomized;
+
+        updateNumber();
 
         yield return null;
     }
@@ -56,7 +55,12 @@ public class DeckManager : MonoBehaviour
         {
             yield return drawCard(i);
         }
+
+        AudioManager.Instance.PlaySfx(1);
+
         ui.StateActive();
+
+        process = null;
     }
 
     private IEnumerator clearHand()
@@ -66,35 +70,53 @@ public class DeckManager : MonoBehaviour
         {
             if (handCards[i] != null)
             {
-                yield return ui.applyUsedCard(i);
                 graveCards.Add(handCards[i]);
+                yield return ui.applyUsedCard(i);
+                Debug.Log($" is null? :{handCards[i] != null}");
+                updateNumber();
             }
         }
-        handCards.Clear();
 
-        yield return null;
+        handCards.Clear();
+        Debug.Log($" handcards cleared");
+
+        process = null;
     }
 
     private IEnumerator drawCard(int index)
     {
         if (deckCards.Count <= 0)
         {
+            ui.SetTopText("Shuffling");
+
+            // animate shuffling
             yield return new WaitForSeconds(1f);
             yield return shuffleDeck();
+
+            ui.SetTopText("Your Turn");
         }
         CardData card = deckCards[0];
 
         handCards.Add(card);
         deckCards.Remove(card);
 
+        updateNumber();
+
         yield return ui.applyHandCard(index, card);
+    }
+
+    private void updateNumber()
+    {
+        ui.UpdateNumber(deckCards.Count, graveCards.Count);
     }
 
     public IEnumerator UsedCard(CardData card)
     {
-        int index = handCards.IndexOf(card);// handCards.FindIndex((a) => card == a);
+        int index = handCards.IndexOf(card);
         handCards[index] = null;
         graveCards.Add(card);
+
+        updateNumber();
 
         yield return ui.applyUsedCard(index);
     }
@@ -112,13 +134,17 @@ public class DeckManager : MonoBehaviour
 
     public void DeckActive(bool _state = true)
     {
+        //if (process != null) { return; }
+
         if (_state)
         {
-            StartCoroutine(generateHandCard());
+            ui.SetTopText("Your Turn");
+            process = StartCoroutine(generateHandCard());
         }
         else
         {
-            StartCoroutine(clearHand());
+            ui.SetTopText("");
+            process = StartCoroutine(clearHand());
         }
     }
 }
