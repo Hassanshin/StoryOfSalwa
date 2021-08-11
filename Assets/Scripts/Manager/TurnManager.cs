@@ -106,7 +106,8 @@ public class TurnManager : Singleton<TurnManager>
 
     public void ResetTurn(bool isWin)
     {
-        StopCoroutine(turnCoroutine);
+        if (turnCoroutine != null)
+            StopCoroutine(turnCoroutine);
 
         characters.Clear();
         turnCount = 0;

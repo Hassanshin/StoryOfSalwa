@@ -9,15 +9,8 @@ public class DeckManager : MonoBehaviour
     [SerializeField]
     private List<CardData> cardList = new List<CardData>();
 
-    [Header("In Game")]
     [SerializeField]
-    private List<CardData> deckCards = new List<CardData>();
-
-    [SerializeField]
-    private List<CardData> handCards = new List<CardData>();
-
-    [SerializeField]
-    private List<CardData> graveCards = new List<CardData>();
+    private gameCards inGameDeck;
 
     [Header("Components")]
     [SerializeField]
@@ -31,18 +24,18 @@ public class DeckManager : MonoBehaviour
     {
         ui.Initialize();
 
-        deckCards.AddRange(cardList);
+        inGameDeck.deck.AddRange(cardList);
         yield return shuffleDeck();
     }
 
     private IEnumerator shuffleDeck()
     {
-        deckCards.AddRange(graveCards);
-        graveCards.Clear();
+        inGameDeck.deck.AddRange(inGameDeck.grave);
+        inGameDeck.grave.Clear();
 
         List<CardData> randomized = new List<CardData>();
-        randomized = deckCards.OrderBy(i => Guid.NewGuid()).ToList();
-        deckCards = randomized;
+        randomized = inGameDeck.deck.OrderBy(i => Guid.NewGuid()).ToList();
+        inGameDeck.deck = randomized;
 
         updateNumber();
 
@@ -66,26 +59,24 @@ public class DeckManager : MonoBehaviour
     private IEnumerator clearHand()
     {
         ui.StateActive(false);
-        for (int i = 0; i < handCards.Count; i++)
+        for (int i = 0; i < inGameDeck.hand.Count; i++)
         {
-            if (handCards[i] != null)
+            if (inGameDeck.hand[i] != null)
             {
-                graveCards.Add(handCards[i]);
+                inGameDeck.grave.Add(inGameDeck.hand[i]);
                 yield return ui.applyUsedCard(i);
-                Debug.Log($" is null? :{handCards[i] != null}");
                 updateNumber();
             }
         }
 
-        handCards.Clear();
-        Debug.Log($" handcards cleared");
+        inGameDeck.hand.Clear();
 
         process = null;
     }
 
     private IEnumerator drawCard(int index)
     {
-        if (deckCards.Count <= 0)
+        if (inGameDeck.deck.Count <= 0)
         {
             ui.SetTopText("Shuffling");
 
@@ -95,10 +86,10 @@ public class DeckManager : MonoBehaviour
 
             ui.SetTopText("Your Turn");
         }
-        CardData card = deckCards[0];
+        CardData card = inGameDeck.deck[0];
 
-        handCards.Add(card);
-        deckCards.Remove(card);
+        inGameDeck.hand.Add(card);
+        inGameDeck.deck.Remove(card);
 
         updateNumber();
 
@@ -107,14 +98,14 @@ public class DeckManager : MonoBehaviour
 
     private void updateNumber()
     {
-        ui.UpdateNumber(deckCards.Count, graveCards.Count);
+        ui.UpdateNumber(inGameDeck.deck.Count, inGameDeck.grave.Count);
     }
 
     public IEnumerator UsedCard(CardData card)
     {
-        int index = handCards.IndexOf(card);
-        handCards[index] = null;
-        graveCards.Add(card);
+        int index = inGameDeck.hand.IndexOf(card);
+        inGameDeck.hand[index] = null;
+        inGameDeck.grave.Add(card);
 
         updateNumber();
 
@@ -125,16 +116,19 @@ public class DeckManager : MonoBehaviour
 
     public void ClearDeck()
     {
+        ui.StateActive(false);
         ui.ClearDeck();
-
-        deckCards.Clear();
-        handCards.Clear();
-        graveCards.Clear();
+        if (process != null)
+        {
+            StopCoroutine(process);
+            process = null;
+        }
+        inGameDeck = new gameCards();
     }
 
     public void DeckActive(bool _state = true)
     {
-        //if (process != null) { return; }
+        if (process != null) { return; }
 
         if (_state)
         {
@@ -147,4 +141,14 @@ public class DeckManager : MonoBehaviour
             process = StartCoroutine(clearHand());
         }
     }
+}
+
+[System.Serializable]
+public class gameCards
+{
+    public List<CardData> deck = new List<CardData>();
+
+    public List<CardData> hand = new List<CardData>();
+
+    public List<CardData> grave = new List<CardData>();
 }

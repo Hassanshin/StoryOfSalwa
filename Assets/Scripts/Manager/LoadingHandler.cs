@@ -15,6 +15,9 @@ public class LoadingHandler : Singleton<LoadingHandler>
     private TextMeshProUGUI loadingText;
 
     [SerializeField]
+    private Image blockerTypeImage;
+
+    [SerializeField]
     private Image loadingBar;
 
     [SerializeField]
@@ -44,5 +47,28 @@ public class LoadingHandler : Singleton<LoadingHandler>
     public void FailLoading(string err)
     {
         loadingText.text = $"{err}";
+    }
+
+    public IEnumerator ShowLoadingEnum()
+    {
+        loadingCanvas.gameObject.SetActive(true);
+        blockerTypeImage.gameObject.SetActive(true);
+        loadingText.transform.parent.gameObject.SetActive(false);
+        blockerTypeImage.color = new Color(0, 0, 0, 0);
+
+        LeanTween.alpha(blockerTypeImage.rectTransform, 1, 0.5f);
+        yield return new WaitForSecondsRealtime(0.5f);
+    }
+
+    public IEnumerator FinishedLoadingEnum()
+    {
+        LeanTween.alpha(blockerTypeImage.rectTransform, 0, 0.5f);
+
+        yield return new WaitForSecondsRealtime(0.5f);
+
+        loadingText.transform.parent.gameObject.SetActive(true);
+
+        loadingCanvas.gameObject.SetActive(false);
+        blockerTypeImage.gameObject.SetActive(false);
     }
 }

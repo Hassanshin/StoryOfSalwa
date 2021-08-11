@@ -5,8 +5,10 @@ using UnityEngine.UI;
 
 public class MainMenuUI : Singleton<MainMenuUI>
 {
-    [SerializeField]
-    private List<Canvas> panel = new List<Canvas>();
+    /// <summary>
+    /// 0 Main, 1 Game, 2 Video
+    /// </summary>
+    public List<Canvas> panel = new List<Canvas>();
 
     public override void Initialization()
     {
@@ -19,8 +21,6 @@ public class MainMenuUI : Singleton<MainMenuUI>
 
     public void PlayGame()
     {
-        panel[0].gameObject.SetActive(false);
-        panel[1].gameObject.SetActive(true);
         GameManager.Instance.StarGame();
     }
 

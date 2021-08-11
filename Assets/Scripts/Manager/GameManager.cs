@@ -38,7 +38,7 @@ public class GameManager : Singleton<GameManager>
     {
         AudioManager.Instance.PlaySfx(0);
 
-        StartCoroutine(startGameCor());
+        StartCoroutine(StartGameNumerator());
     }
 
     public void BackToMain()
@@ -49,28 +49,31 @@ public class GameManager : Singleton<GameManager>
         OnBackToMenu?.Invoke();
     }
 
-    private IEnumerator startGameCor()
+    private IEnumerator StartGameNumerator()
     {
-        // TODO start loading
+        yield return LoadingHandler.Instance.ShowLoadingEnum();
 
         yield return Deck.loadCardList();
-        Debug.Log("Deck done");
+        //Debug.Log("Deck done");
 
         yield return Level.spawnPlayer();
-        Debug.Log("Player done");
+        //Debug.Log("Player done");
 
         yield return Level.spawnEnemy();
-        Debug.Log("Enemy done");
+        //Debug.Log("Enemy done");
 
         yield return TurnManager.Instance.RegisterTurn(Level.AllChar);
-        Debug.Log("Turn done");
+        //Debug.Log("Turn done");
 
-        // TODO end loading
-
+        MainMenuUI.Instance.panel[0].gameObject.SetActive(false);
         GameArena.gameObject.SetActive(true);
 
-        TurnManager.Instance.StartTurn();
+        yield return LoadingHandler.Instance.FinishedLoadingEnum();
 
-        yield return null;
+        // TODO: countdown?
+        yield return new WaitForSeconds(1f);
+
+        MainMenuUI.Instance.panel[1].gameObject.SetActive(true);
+        TurnManager.Instance.StartTurn();
     }
 }
