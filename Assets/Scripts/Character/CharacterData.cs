@@ -10,6 +10,10 @@ public class CharacterData : ScriptableObject
 
     [Range(1, 100)]
     public float speed = 50;
+    public float accuracy = 100;
+    public float evasion = 0;
+
+    [Header("Attack Move")]
     public CardData[] atkCard;
 
     [Header("sprite")]

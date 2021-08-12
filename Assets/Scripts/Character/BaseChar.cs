@@ -14,8 +14,11 @@ public class BaseChar : MonoBehaviour
     public bool IsDie => isDie;
     protected bool isDie;
 
-    protected float speed;
-    public float Speed => speed;
+    public Stats s_Speed;
+
+    public Stats s_Acc;
+
+    public Stats s_Eva;
 
     [Header("Components")]
     [SerializeField]
@@ -24,11 +27,21 @@ public class BaseChar : MonoBehaviour
     [SerializeField]
     protected CharUI ui;
 
+    public CharacterData CharData => data;
+
     [SerializeField]
     protected CharacterData data;
-    public CharacterData CharData { get => data; }
 
     public UnityEvent DoCardMove;
+
+    [Header("Components")]
+    [SerializeField]
+    private AttackEffect effects;
+
+    public IEnumerator BuffActive()
+    {
+        yield return effects.BuffsEffects(this);
+    }
 
     public virtual void SetData(CharacterData _data)
     {
@@ -43,7 +56,10 @@ public class BaseChar : MonoBehaviour
         ui.SetHealth(curHealth / maxHealth);
         isDie = false;
 
-        speed = data.speed;
+        s_Speed.Set(data.speed);
+        s_Acc.Set(data.accuracy);
+        s_Eva.Set(data.evasion);
+
         anim.runtimeAnimatorController = _data.anim;
     }
 
@@ -95,5 +111,22 @@ public class BaseChar : MonoBehaviour
         DoCardMove?.Invoke();
 
         DoCardMove.RemoveAllListeners();
+    }
+}
+
+[System.Serializable]
+public class Stats
+{
+    private float value;
+    public float Value => value;
+
+    public void Set(float a)
+    {
+        value = a;
+    }
+
+    public void Add(float a)
+    {
+        value += a;
     }
 }

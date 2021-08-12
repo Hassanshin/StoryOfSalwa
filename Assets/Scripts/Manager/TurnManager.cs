@@ -27,7 +27,7 @@ public class TurnManager : Singleton<TurnManager>
 
     public IEnumerator RegisterTurn(List<BaseChar> chars)
     {
-        chars.Sort((a, b) => b.Speed.CompareTo(a.Speed));
+        chars.Sort((a, b) => b.s_Speed.Value.CompareTo(a.s_Speed.Value));
         characters.AddRange(chars);
         totalChars = characters.Count;
 
@@ -52,14 +52,10 @@ public class TurnManager : Singleton<TurnManager>
 
             if (!characters[i].IsDie)
             {
-                //Debug.Log($"Turn {turnCount} = {characters[i]} : {characters[i].Speed}");
-
                 yield return attackingPhase(characters[i]);
             }
             else
             {
-                //Debug.Log($"Skipped Turn {turnCount} = {characters[i]} : {characters[i].Speed}");
-
                 nextState = true;
             }
 
@@ -74,6 +70,12 @@ public class TurnManager : Singleton<TurnManager>
         yield return new WaitForSeconds(0.1f);
 
         yield return ui.MoveToReady(baseChar);
+        yield return baseChar.BuffActive();
+
+        if (baseChar.IsDie)
+        {
+            yield return null;
+        }
 
         if (baseChar is EnemyChar)
         {

@@ -16,6 +16,11 @@ MonoBehaviour:
   anim: {fileID: 1440555808762568263}
   ui: {fileID: 5984071575427844307}
   data: {fileID: 0}
+  DoCardMove:
+    m_PersistentCalls:
+      m_Calls: []
+  effects:
+    buffs: []
 --- !u!1001 &4555405321464322747
 PrefabInstance:
   m_ObjectHideFlags: 0

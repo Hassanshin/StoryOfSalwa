@@ -33,7 +33,7 @@ public class TurnManagerUI : MonoBehaviour
 
             turnCharUIs.Add(_spawn);
             _spawn.transform.SetAsFirstSibling();
-            setPos(_spawn, _spawn.data.Speed);
+            setPos(_spawn, _spawn.data.s_Speed.Value);
         }
 
         yield return null;
