@@ -5,9 +5,6 @@ using UnityEngine;
 
 public class CardDataAtk : CardData
 {
-    [Header("Stats")]
-    public float damage = 100;
-
     public CardDataAtk()
     {
         type = CardType.Atk;

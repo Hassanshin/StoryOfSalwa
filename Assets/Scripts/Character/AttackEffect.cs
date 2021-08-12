@@ -9,31 +9,49 @@ public class AttackEffect
     private List<Buff> buffs = new List<Buff>();
     public List<Buff> Buffs => Buffs;
 
-    public void AddEffect(Buff _buff)
+    private BaseChar user;
+
+    public void SetCharcter(BaseChar _char)
     {
-        if (buffs.Contains(_buff))
+        user = _char;
+    }
+
+    public IEnumerator AddEffect(Buff buff)
+    {
+        // animate buff
+
+        if (buffs.Contains(buff))
         {
             Debug.Log("Double effects should replace");
         }
 
-        buffs.Add(_buff);
+        buffs.Add(buff);
+
+        yield return buff.DoEffect(user);
         // set UI
     }
 
-    public IEnumerator BuffsEffects(BaseChar _char)
+    public IEnumerator TurnPassed()
     {
-        for (int i = 0; i < buffs.Count; i++)
+        List<Buff> removedBuff = new List<Buff>();
+        foreach (Buff a in buffs)
         {
-            yield return buffs[i].DoEffect(_char);
-            if (buffs[i].lives <= 0)
+            a.mLives--;
+
+            if (a.mLives <= 0)
             {
-                // animate buff Set or Hide
+                // animate buff
                 yield return new WaitForSeconds(0.1f);
-                buffs[i] = null;
+                yield return a.ResetEffect(user);
+                removedBuff.Add(a);
+            }
+            else
+            {
+                yield return a.DoEffect(user);
             }
         }
 
-        buffs.RemoveAll((a) => a == null);
+        buffs.RemoveAll(l => removedBuff.Contains(l));
     }
 }
 
@@ -43,15 +61,14 @@ public class AttackEffect
 [System.Serializable]
 public class Buff
 {
-    public string effectName;
-    public int lives = 1;
+    public string mName;
+    public int mLives = 1;
 
     [Range(-100, 100)]
-    public float amount = 20f;
+    public float mAmount = 20f;
 
     public virtual IEnumerator DoEffect(BaseChar _char)
     {
-        lives--;
         yield return null;
     }
 
@@ -59,19 +76,34 @@ public class Buff
     {
         yield return null;
     }
+
+    public Buff(string name, int lives, float amount)
+    {
+        mName = name;
+        mLives = lives;
+        mAmount = amount;
+    }
 }
 
 public class SpeedModif : Buff
 {
+    public SpeedModif(string name, int lives, float amount)
+        : base(name, lives, amount)
+    {
+        mName = name;
+        mLives = lives;
+        mAmount = amount;
+    }
+
     public override IEnumerator DoEffect(BaseChar _char)
     {
-        _char.s_Speed.Add(amount);
+        _char.s_Speed.Add(mAmount);
         yield return base.DoEffect(_char);
     }
 
     public override IEnumerator ResetEffect(BaseChar _char)
     {
-        _char.s_Speed.Add(-amount);
+        _char.s_Speed.Add(-mAmount);
         return base.ResetEffect(_char);
     }
 }

@@ -5,10 +5,6 @@ using UnityEngine;
 
 public class CardDataSup : CardData
 {
-    [Header("Stats")]
-    public float healAmount = 100;
-    public float speedAmount = 5;
-
     public CardDataSup()
     {
         type = CardType.Sup;

@@ -40,7 +40,12 @@ public class BaseChar : MonoBehaviour
 
     public IEnumerator BuffActive()
     {
-        yield return effects.BuffsEffects(this);
+        yield return effects.TurnPassed();
+    }
+
+    internal void AddBuff(Buff buff)
+    {
+        StartCoroutine(effects.AddEffect(buff));
     }
 
     public virtual void SetData(CharacterData _data)
@@ -49,6 +54,7 @@ public class BaseChar : MonoBehaviour
         //anim = transform.GetChild(0).GetChild(0).GetComponent<Animator>();
 
         data = _data;
+        effects.SetCharcter(this);
 
         maxHealth = data.maxHealth;
         curHealth = maxHealth;
