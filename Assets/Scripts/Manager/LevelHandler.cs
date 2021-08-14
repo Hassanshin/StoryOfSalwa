@@ -11,6 +11,7 @@ public class LevelHandler : MonoBehaviour
     private LevelData data;
 
     private bool isGameOver;
+    public bool IsGameOver => isGameOver;
 
     public UnityEvent<bool> OnGameOver;
 

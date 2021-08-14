@@ -22,21 +22,25 @@ public class TurnManagerUI : MonoBehaviour
 
     private TurnCharUI curReady;
 
-    public IEnumerator generateCharTurn(int totalChars)
+    public IEnumerator generateCharTurn(List<BaseChar> baseChar)
     {
         sliderHeight = slider.rect.height;
 
-        for (int i = 0; i < totalChars; i++)
+        for (int i = 0; i < baseChar.Count; i++)
         {
             TurnCharUI _spawn = Instantiate(charTurnPrefab, parentCharTurn).GetComponent<TurnCharUI>();
-            _spawn.data = TurnManager.Instance.Characters[i];
+            _spawn.Data = baseChar[i];
 
             turnCharUIs.Add(_spawn);
             _spawn.transform.SetAsFirstSibling();
-            setPos(_spawn, _spawn.data.s_Speed.Value);
+            setPos(_spawn, _spawn.Data.s_Speed.CurValue);
         }
 
         yield return null;
+    }
+
+    public void RearrangeUi()
+    {
     }
 
     public void resetUiTurn()
@@ -52,9 +56,16 @@ public class TurnManagerUI : MonoBehaviour
     {
         ui.PosPercent = Mathf.Round(movePercentage * 100f) / 100f;
 
-        float targetY = movePercentage * sliderHeight / 100;
+        float targetY = movePercentage * -sliderHeight / 100;
 
-        ui.rect.anchoredPosition = new Vector3(0, -targetY, 0);
+        ui.rect.anchoredPosition = Vector3.zero;
+
+        LeanTween.moveY(ui.rect, targetY, 1f).setEase(LeanTweenType.easeOutQuint);
+    }
+
+    public void MovePosEffect(BaseChar ui, float amount)
+    {
+        movePos(FindCharUi(ui), amount);
     }
 
     private void movePos(TurnCharUI ui, float amount)
@@ -70,7 +81,7 @@ public class TurnManagerUI : MonoBehaviour
     public IEnumerator MoveToReady(BaseChar charReady)
     {
         curReady = FindCharUi(charReady);
-        curReady.TurnPlayed = TurnManager.Instance.TurnCount;
+        curReady.Data.TurnPlayed = TurnManager.Instance.TurnCount;
 
         float delta = 100 - curReady.PosPercent;
 
@@ -85,7 +96,6 @@ public class TurnManagerUI : MonoBehaviour
     {
         if (curReady != null)
         {
-            // not working using this method
             setPos(curReady, 0);
         }
         curReady = null;
@@ -93,6 +103,6 @@ public class TurnManagerUI : MonoBehaviour
 
     public TurnCharUI FindCharUi(BaseChar character)
     {
-        return turnCharUIs.Find(a => a.data == character);
+        return turnCharUIs.Find(a => a.Data == character);
     }
 }

@@ -10,13 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e9dcb7f696a50b4a847c6a6c377084d, type: 3}
-  m_Name: Player
+  m_Name: Orange Slow
   m_EditorClassIdentifier: 
   maxHealth: 1000
-  speed: 80
+  speed: 30
   accuracy: 100
   evasion: 0
   atkCard:
   - {fileID: 11400000, guid: c146abcda185d5f4e82baf6fdb10e229, type: 2}
-  icon: {fileID: 21300000, guid: ba4f149f765834c48ac4c3f7ad1b42be, type: 3}
-  anim: {fileID: 9100000, guid: 2e45b3932089a9d48b77ae3041d30d51, type: 2}
+  icon: {fileID: -4302407081911426973, guid: 82f5d269d6687c54387fed3f657ab320, type: 3}
+  anim: {fileID: 9100000, guid: 88904b068ab15e64a9e6f41ebbbf0662, type: 2}
+  Tint: {r: 1, g: 0.4392157, b: 0.4392157, a: 1}

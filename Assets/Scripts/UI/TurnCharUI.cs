@@ -6,23 +6,23 @@ using UnityEngine.UI;
 
 public class TurnCharUI : MonoBehaviour
 {
-    private BaseChar curChar;
+    private BaseChar data;
 
-    public BaseChar data
+    public BaseChar Data
     {
         get
         {
-            return curChar;
+            return data;
         }
         set
         {
-            curChar = value;
-            charName.text = curChar.name;
-            icon.sprite = curChar.CharData.icon;
+            data = value;
+            gameObject.name = data.name;
+            icon.sprite = data.CharData.icon;
+            icon.color = data.CharData.Tint;
         }
     }
 
-    public int TurnPlayed = 0;
     public float PosPercent = 0;
 
     [Header("UI")]

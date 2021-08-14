@@ -24,12 +24,12 @@ public class CardData : ScriptableObject
     {
         if (speedAmount > 0)
         {
-            Buff _buff = new SpeedModif("Boost", buffDuration, speedAmount);
+            Buff _buff = new Buff("Boost", BuffType.speed, buffDuration, speedAmount);
             target.AddBuff(_buff);
         }
         else if (speedAmount < 0)
         {
-            Buff _buff = new SpeedModif("Slow", buffDuration, speedAmount);
+            Buff _buff = new Buff("Slow", BuffType.speed, buffDuration, speedAmount);
             target.AddBuff(_buff);
         }
         //_buff.mAmount = speedAmount;

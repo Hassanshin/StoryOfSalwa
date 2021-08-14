@@ -8,6 +8,7 @@ public class AttackEffect
     [SerializeField]
     private List<Buff> buffs = new List<Buff>();
     public List<Buff> Buffs => Buffs;
+    private List<Buff> removedBuff = new List<Buff>();
 
     private BaseChar user;
 
@@ -30,10 +31,8 @@ public class AttackEffect
         else
         {
             buffs.Add(buff);
+            yield return buff.StartEffect(user);
         }
-
-        yield return buff.DoEffect(user);
-        // set UI
     }
 
     private bool isDoubleBuff(Buff buff)
@@ -48,27 +47,33 @@ public class AttackEffect
         return false;
     }
 
-    public IEnumerator TurnPassed()
+    public IEnumerator PreTurnEffect()
     {
-        List<Buff> removedBuff = new List<Buff>();
         foreach (Buff a in buffs)
         {
             a.mLives--;
 
+            yield return new WaitForSeconds(0.1f);
+            yield return a.PreTurnEffect(user);
+        }
+    }
+
+    public IEnumerator PostTurnEffect()
+    {
+        foreach (Buff a in buffs)
+        {
+            yield return new WaitForSeconds(0.1f);
+            yield return a.PostTurnEffect(user);
+
             if (a.mLives <= 0)
             {
-                // animate buff
-                yield return new WaitForSeconds(0.1f);
-                yield return a.ResetEffect(user);
+                yield return a.FinishEffect(user);
                 removedBuff.Add(a);
-            }
-            else
-            {
-                yield return a.DoEffect(user);
             }
         }
 
         buffs.RemoveAll(l => removedBuff.Contains(l));
+        removedBuff.Clear();
     }
 }
 
@@ -80,47 +85,64 @@ public class Buff
 {
     public string mName;
     public int mLives = 1;
+    public BuffType mType;
 
     [Range(-100, 100)]
     public float mAmount = 20f;
 
-    public virtual IEnumerator DoEffect(BaseChar _char)
-    {
-        yield return null;
-    }
-
-    public virtual IEnumerator ResetEffect(BaseChar _char)
-    {
-        yield return null;
-    }
-
-    public Buff(string name, int lives, float amount)
+    public Buff(string name, BuffType type, int lives, float amount)
     {
         mName = name;
-        mLives = lives;
-        mAmount = amount;
-    }
-}
-
-public class SpeedModif : Buff
-{
-    public SpeedModif(string name, int lives, float amount)
-        : base(name, lives, amount)
-    {
-        mName = name;
+        mType = type;
         mLives = lives;
         mAmount = amount;
     }
 
-    public override IEnumerator DoEffect(BaseChar _char)
+    public IEnumerator StartEffect(BaseChar _char)
     {
-        _char.s_Speed.Add(mAmount);
-        yield return base.DoEffect(_char);
+        switch (mType)
+        {
+            case BuffType.speed:
+                _char.s_Speed.Add(mAmount);
+                yield return TurnManager.Instance.SpeedEffectBuff(_char, mAmount);
+                break;
+        }
+        yield return null;
     }
 
-    public override IEnumerator ResetEffect(BaseChar _char)
+    public IEnumerator PreTurnEffect(BaseChar _char)
     {
-        _char.s_Speed.Add(-mAmount);
-        return base.ResetEffect(_char);
+        switch (mType)
+        {
+            case BuffType.speed:
+
+                break;
+        }
+        yield return null;
+    }
+
+    public IEnumerator PostTurnEffect(BaseChar _char)
+    {
+        switch (mType)
+        {
+            case BuffType.speed:
+
+                break;
+        }
+        yield return null;
+    }
+
+    public IEnumerator FinishEffect(BaseChar _char)
+    {
+        switch (mType)
+        {
+            case BuffType.speed:
+                _char.s_Speed.Add(-mAmount);
+                yield return TurnManager.Instance.SpeedEffectBuff(_char, -mAmount);
+                break;
+        }
+        yield return null;
     }
 }
+
+public enum BuffType { speed, dps, eva, acc, clear, stun }

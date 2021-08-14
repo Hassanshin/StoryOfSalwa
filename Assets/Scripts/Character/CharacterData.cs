@@ -19,4 +19,5 @@ public class CharacterData : ScriptableObject
     [Header("sprite")]
     public Sprite icon;
     public RuntimeAnimatorController anim;
+    public Color Tint = Color.white;
 }

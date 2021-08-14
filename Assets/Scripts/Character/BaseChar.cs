@@ -20,6 +20,8 @@ public class BaseChar : MonoBehaviour
 
     public Stats s_Eva;
 
+    public int TurnPlayed;
+
     [Header("Components")]
     [SerializeField]
     protected Animator anim;
@@ -38,9 +40,14 @@ public class BaseChar : MonoBehaviour
     [SerializeField]
     private AttackEffect effects;
 
-    public IEnumerator BuffActive()
+    public IEnumerator PreTurnBuff()
     {
-        yield return effects.TurnPassed();
+        yield return effects.PreTurnEffect();
+    }
+
+    public IEnumerator PostTurnBuff()
+    {
+        yield return effects.PostTurnEffect();
     }
 
     internal void AddBuff(Buff buff)
@@ -50,10 +57,8 @@ public class BaseChar : MonoBehaviour
 
     public virtual void SetData(CharacterData _data)
     {
-        //ui = GetComponent<CharUI>();
-        //anim = transform.GetChild(0).GetChild(0).GetComponent<Animator>();
-
         data = _data;
+        gameObject.name = data.name;
         effects.SetCharcter(this);
 
         maxHealth = data.maxHealth;
@@ -66,7 +71,8 @@ public class BaseChar : MonoBehaviour
         s_Acc.Set(data.accuracy, true);
         s_Eva.Set(data.evasion, true);
 
-        anim.runtimeAnimatorController = _data.anim;
+        anim.runtimeAnimatorController = data.anim;
+        anim.GetComponent<SpriteRenderer>().color = data.Tint;
     }
 
     public virtual void DecreaseHealth(float _amount)
@@ -125,9 +131,10 @@ public class Stats
 {
     [SerializeField]
     private float value;
-    public float Value => value;
+    public float CurValue => value;
 
     private float defaultValue;
+    public float DefaultValue => defaultValue;
     public float DeltaValue => value - defaultValue;
 
     public void Set(float a, bool isDefault = false)

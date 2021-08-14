@@ -11,13 +11,18 @@ public class TurnManager : Singleton<TurnManager>
     public int TurnCount => turnCount;
 
     [SerializeField]
-    private List<BaseChar> characters = new List<BaseChar>();
-    public List<BaseChar> Characters { get => characters; }
+    private List<BaseChar> charas = new List<BaseChar>();
+
+    [SerializeField]
+    private List<BaseChar> curCharas = new List<BaseChar>();
+
+    private BaseChar curReadyChar;
 
     private int totalChars = 0;
     private bool nextState = true;
 
     private Coroutine turnCoroutine = null;
+    private Coroutine postTurnCoroutine = null;
 
     public TurnManagerUI ui;
 
@@ -27,18 +32,19 @@ public class TurnManager : Singleton<TurnManager>
         ui = GetComponent<TurnManagerUI>();
     }
 
-    public IEnumerator RegisterTurn(List<BaseChar> chars)
+    public IEnumerator RegisterTurn(List<BaseChar> _charas)
     {
-        chars.Sort((a, b) => b.s_Speed.Value.CompareTo(a.s_Speed.Value));
-        characters.AddRange(chars);
-        totalChars = characters.Count;
+        charas.AddRange(_charas);
+        charas.Sort((a, b) => b.s_Speed.CurValue.CompareTo(a.s_Speed.CurValue));
+
+        curCharas.AddRange(charas);
+
+        totalChars = charas.Count;
 
         // instantiate the UI from total Chars
-        yield return ui.generateCharTurn(totalChars);
+        yield return ui.generateCharTurn(charas);
 
-        // set them lerping from its speed along the max slider length
-
-        yield return null;
+        // TODO: set them lerping from its speed along the max slider length
     }
 
     public void StartTurn()
@@ -48,13 +54,16 @@ public class TurnManager : Singleton<TurnManager>
 
     private IEnumerator StartTurnEnum()
     {
+        #region old
+
+        /*
         for (int i = 0; i < totalChars; i++)
         {
             nextState = false;
 
-            if (!characters[i].IsDie)
+            if (!curCharas[i].IsDie)
             {
-                yield return attackingPhase(characters[i]);
+                yield return attackingPhase(curCharas[i]);
             }
             else
             {
@@ -63,8 +72,38 @@ public class TurnManager : Singleton<TurnManager>
 
             yield return new WaitUntil(() => nextState);
         }
-        yield return null;
+        */
+
+        #endregion old
+
+        while (curCharas.Count > 0)
+        {
+            nextState = false;
+
+            // looping all to find the first attaker
+            yield return findAttacker();
+
+            yield return new WaitUntil(() => nextState);
+        }
+
         endTurn();
+    }
+
+    private IEnumerator findAttacker()
+    {
+        for (int i = 0; i < totalChars; i++)
+        {
+            if (curCharas[i].IsDie)
+            {
+                //nextState = true;
+            }
+            else
+            {
+                yield return attackingPhase(curCharas[i]);
+
+                break;
+            }
+        }
     }
 
     private IEnumerator attackingPhase(BaseChar baseChar)
@@ -72,12 +111,17 @@ public class TurnManager : Singleton<TurnManager>
         yield return new WaitForSeconds(0.1f);
 
         yield return ui.MoveToReady(baseChar);
-        yield return baseChar.BuffActive();
+        yield return baseChar.PreTurnBuff();
 
+        curCharas.Remove(baseChar);
+
+        // check die from buff
         if (baseChar.IsDie)
         {
             yield break;
         }
+
+        curReadyChar = baseChar;
 
         if (baseChar is EnemyChar)
         {
@@ -93,15 +137,40 @@ public class TurnManager : Singleton<TurnManager>
         }
     }
 
+    public IEnumerator SpeedEffectBuff(BaseChar baseChar, float amount)
+    {
+        ui.MovePosEffect(baseChar, amount);
+
+        curCharas.Sort((a, b) => b.s_Speed.CurValue.CompareTo(a.s_Speed.CurValue));
+
+        ui.RearrangeUi();
+
+        yield return null;
+    }
+
     private void endTurn()
     {
         turnCount++;
+
+        restartTurn();
+    }
+
+    private void restartTurn()
+    {
+        charas.Sort((a, b) => b.s_Speed.CurValue.CompareTo(a.s_Speed.CurValue));
+        curCharas.AddRange(charas);
+
+        ui.RearrangeUi();
+
         turnCoroutine = StartCoroutine(StartTurnEnum());
     }
 
     [ContextMenu("Next")]
     public void NextTurn()
     {
+        if (GameManager.Instance.Level.IsGameOver) { return; }
+        postTurnCoroutine = StartCoroutine(curReadyChar.PostTurnBuff());
+        curReadyChar = null;
         nextState = true;
 
         ui.MoveToTop();
@@ -109,17 +178,14 @@ public class TurnManager : Singleton<TurnManager>
         // TODO: CHECK SPEED
     }
 
-    private void SortSpeed()
-    {
-        characters.Sort((a, b) => b.s_Speed.Value.CompareTo(a.s_Speed.Value));
-    }
-
     public void ResetTurn(bool isWin)
     {
         if (turnCoroutine != null)
             StopCoroutine(turnCoroutine);
 
-        characters.Clear();
+        charas.Clear();
+        curCharas.Clear();
+
         turnCount = 0;
 
         ui.resetUiTurn();
@@ -127,6 +193,6 @@ public class TurnManager : Singleton<TurnManager>
 
     public void RemoveTurn(BaseChar removed)
     {
-        characters.Remove(removed);
+        curCharas.Remove(removed);
     }
 }
