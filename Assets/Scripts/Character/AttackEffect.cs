@@ -111,6 +111,7 @@ public class Buff
         mAmount = amount;
     }
 
+    // tes
     public IEnumerator StartEffect(BaseChar user)
     {
         switch (mType)
