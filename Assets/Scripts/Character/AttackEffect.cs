@@ -62,13 +62,21 @@ public class AttackEffect
     {
         foreach (Buff a in buffs)
         {
-            yield return new WaitForSeconds(0.1f);
-            yield return a.PostTurnEffect(user);
+            if (!a.mDonePostStartEffect)
+            {
+                yield return new WaitForSeconds(0.1f);
+                yield return a.PostStartEffect(user);
+            }
 
             if (a.mLives <= 0)
             {
+                yield return new WaitForSeconds(0.1f);
                 yield return a.FinishEffect(user);
                 removedBuff.Add(a);
+            }
+            else
+            {
+                yield return a.PostTurnEffect(user);
             }
         }
 
@@ -90,6 +98,8 @@ public class Buff
     [Range(-100, 100)]
     public float mAmount = 20f;
 
+    public bool mDonePostStartEffect;
+
     public Buff(string name, BuffType type, int lives, float amount)
     {
         mName = name;
@@ -98,19 +108,36 @@ public class Buff
         mAmount = amount;
     }
 
-    public IEnumerator StartEffect(BaseChar _char)
+    public IEnumerator StartEffect(BaseChar user)
     {
         switch (mType)
         {
             case BuffType.speed:
-                _char.s_Speed.Add(mAmount);
-                yield return TurnManager.Instance.SpeedEffectBuff(_char, mAmount);
+                user.s_Speed.Add(mAmount);
+
+                if (!TurnManager.Instance.isCurrentPlaying(user))
+                    yield return TurnManager.Instance.SpeedEffectBuff(user, mAmount);
                 break;
         }
         yield return null;
     }
 
-    public IEnumerator PreTurnEffect(BaseChar _char)
+    public IEnumerator PostStartEffect(BaseChar user)
+    {
+        switch (mType)
+        {
+            case BuffType.speed:
+                if (TurnManager.Instance.isCurrentPlaying(user))
+                {
+                    yield return TurnManager.Instance.SpeedEffectBuff(user, mAmount);
+                    mDonePostStartEffect = true;
+                }
+                break;
+        }
+        yield return null;
+    }
+
+    public IEnumerator PreTurnEffect(BaseChar user)
     {
         switch (mType)
         {
@@ -121,7 +148,7 @@ public class Buff
         yield return null;
     }
 
-    public IEnumerator PostTurnEffect(BaseChar _char)
+    public IEnumerator PostTurnEffect(BaseChar user)
     {
         switch (mType)
         {
@@ -132,13 +159,13 @@ public class Buff
         yield return null;
     }
 
-    public IEnumerator FinishEffect(BaseChar _char)
+    public IEnumerator FinishEffect(BaseChar user)
     {
         switch (mType)
         {
             case BuffType.speed:
-                _char.s_Speed.Add(-mAmount);
-                yield return TurnManager.Instance.SpeedEffectBuff(_char, -mAmount);
+                user.s_Speed.Add(-mAmount);
+                yield return TurnManager.Instance.SpeedEffectBuff(user, -mAmount);
                 break;
         }
         yield return null;

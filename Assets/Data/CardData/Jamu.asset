@@ -20,4 +20,4 @@ MonoBehaviour:
   speedAmount: 20
   accuracyAmount: 0
   evasionAmount: 0
-  buffDuration: 1
+  buffDuration: 2

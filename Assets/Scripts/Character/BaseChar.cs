@@ -20,8 +20,6 @@ public class BaseChar : MonoBehaviour
 
     public Stats s_Eva;
 
-    public int TurnPlayed;
-
     [Header("Components")]
     [SerializeField]
     protected Animator anim;
@@ -97,7 +95,7 @@ public class BaseChar : MonoBehaviour
 
         AudioManager.Instance.PlaySfx(4);
 
-        TurnManager.Instance.ui.FindCharUi(this).gameObject.SetActive(false);
+        TurnManager.Instance.FindCharUi(this).gameObject.SetActive(false);
         //TurnManager.Instance.RemoveTurn(this);
     }
 

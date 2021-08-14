@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: Pink
   m_EditorClassIdentifier: 
   maxHealth: 1000
-  speed: 65
+  speed: 60
   accuracy: 100
   evasion: 0
   atkCard:
   - {fileID: 11400000, guid: c146abcda185d5f4e82baf6fdb10e229, type: 2}
   icon: {fileID: 8232726462422450076, guid: 82f5d269d6687c54387fed3f657ab320, type: 3}
   anim: {fileID: 9100000, guid: 64c48a3b4ea1b4943bb73b558f3942cb, type: 2}
+  Tint: {r: 1, g: 1, b: 1, a: 1}

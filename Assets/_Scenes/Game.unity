@@ -5371,7 +5371,10 @@ MonoBehaviour:
   turnCount: 0
   charas: []
   curCharas: []
-  ui: {fileID: 0}
+  turnCharUIs: []
+  charTurnPrefab: {fileID: 377400807267952324, guid: 3cedb17c9f66b7d4584cc1823d8c3831, type: 3}
+  parentCharTurn: {fileID: 1515333546}
+  slider: {fileID: 1252646946}
 --- !u!114 &1486138981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5384,10 +5387,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d92f751e1f4f439428bfbc857d0ab71c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turnCharUIs: []
-  charTurnPrefab: {fileID: 377400807267952324, guid: 3cedb17c9f66b7d4584cc1823d8c3831, type: 3}
-  parentCharTurn: {fileID: 1515333546}
-  slider: {fileID: 1252646946}
 --- !u!1 &1512548611
 GameObject:
   m_ObjectHideFlags: 0

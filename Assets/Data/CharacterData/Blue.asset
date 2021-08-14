@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Blue
   m_EditorClassIdentifier: 
   maxHealth: 1000
-  speed: 60
+  speed: 70
   accuracy: 100
   evasion: 0
   atkCard:
