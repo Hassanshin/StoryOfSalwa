@@ -62,9 +62,9 @@ public class BaseChar : MonoBehaviour
         ui.SetHealth(curHealth / maxHealth);
         isDie = false;
 
-        s_Speed.Set(data.speed);
-        s_Acc.Set(data.accuracy);
-        s_Eva.Set(data.evasion);
+        s_Speed.Set(data.speed, true);
+        s_Acc.Set(data.accuracy, true);
+        s_Eva.Set(data.evasion, true);
 
         anim.runtimeAnimatorController = _data.anim;
     }
@@ -123,16 +123,29 @@ public class BaseChar : MonoBehaviour
 [System.Serializable]
 public class Stats
 {
+    [SerializeField]
     private float value;
     public float Value => value;
 
-    public void Set(float a)
+    private float defaultValue;
+    public float DeltaValue => value - defaultValue;
+
+    public void Set(float a, bool isDefault = false)
     {
+        if (isDefault)
+        {
+            defaultValue = a;
+        }
         value = a;
     }
 
     public void Add(float a)
     {
         value += a;
+    }
+
+    public void Reset()
+    {
+        value = defaultValue;
     }
 }

@@ -50,55 +50,44 @@ public class TurnManagerUI : MonoBehaviour
 
     private void setPos(TurnCharUI ui, float movePercentage)
     {
+        ui.PosPercent = Mathf.Round(movePercentage * 100f) / 100f;
+
         float targetY = movePercentage * sliderHeight / 100;
 
         ui.rect.anchoredPosition = new Vector3(0, -targetY, 0);
     }
 
-    private float getDelta(TurnCharUI ui, float movePercentage)
-    {
-        float targetY = movePercentage * sliderHeight / 100;
-        float delta = Mathf.Abs(ui.curYPos) - targetY;
-
-        return Mathf.Abs(delta);
-    }
-
     private void movePos(TurnCharUI ui, float amount)
     {
-        float targetY = (ui.curYPos - amount + 1) % -sliderHeight;
+        ui.PosPercent += amount;
 
-        // start from 0 if higher than sliderLength
-        if (ui.curYPos - amount + 1 < -sliderHeight)
-        {
-            ui.rect.anchoredPosition = Vector3.zero;
-        }
+        float targetY = ui.PosPercent * -sliderHeight / 100;
+        targetY = Mathf.Clamp(targetY, -sliderHeight, 0);
+
         LeanTween.moveY(ui.rect, targetY, 1f).setEase(LeanTweenType.easeOutQuint);
     }
 
     public IEnumerator MoveToReady(BaseChar charReady)
     {
-        TurnCharUI _curReady = FindCharUi(charReady);
-        float delta = getDelta(_curReady, 100);
-        curReady = _curReady;
-        yield return moveAll(delta);
+        curReady = FindCharUi(charReady);
+        curReady.TurnPlayed = TurnManager.Instance.TurnCount;
 
-        yield return null;
-    }
+        float delta = 100 - curReady.PosPercent;
 
-    private IEnumerator moveAll(float delta)
-    {
         foreach (TurnCharUI item in turnCharUIs)
         {
             movePos(item, delta);
         }
         yield return new WaitForSeconds(1f);
-        yield return null;
     }
 
     public void MoveToTop()
     {
         if (curReady != null)
+        {
+            // not working using this method
             setPos(curReady, 0);
+        }
         curReady = null;
     }
 

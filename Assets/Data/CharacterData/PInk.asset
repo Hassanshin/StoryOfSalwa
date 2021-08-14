@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: PInk
   m_EditorClassIdentifier: 
   maxHealth: 1000
-  speed: 75
+  speed: 75.56
+  accuracy: 100
+  evasion: 0
   atkCard:
   - {fileID: 11400000, guid: c146abcda185d5f4e82baf6fdb10e229, type: 2}
   icon: {fileID: 8232726462422450076, guid: 82f5d269d6687c54387fed3f657ab320, type: 3}

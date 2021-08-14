@@ -20,15 +20,32 @@ public class AttackEffect
     {
         // animate buff
 
-        if (buffs.Contains(buff))
+        if (isDoubleBuff(buff))
         {
-            Debug.Log("Double effects should replace");
-        }
+            //Debug.Log("Double effects should replace");
+            Buff doubledBuff = buffs.Find((a) => a.mName == buff.mName);
 
-        buffs.Add(buff);
+            doubledBuff.mLives = buff.mLives;
+        }
+        else
+        {
+            buffs.Add(buff);
+        }
 
         yield return buff.DoEffect(user);
         // set UI
+    }
+
+    private bool isDoubleBuff(Buff buff)
+    {
+        foreach (Buff item in buffs)
+        {
+            if (item.mName == buff.mName)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     public IEnumerator TurnPassed()

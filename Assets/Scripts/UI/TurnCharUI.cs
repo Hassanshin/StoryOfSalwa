@@ -22,6 +22,10 @@ public class TurnCharUI : MonoBehaviour
         }
     }
 
+    public int TurnPlayed = 0;
+    public float PosPercent = 0;
+
+    [Header("UI")]
     [SerializeField]
     private TextMeshProUGUI charName;
     public TextMeshProUGUI CharName { get => charName; }

@@ -8,6 +8,8 @@ public class TurnManager : Singleton<TurnManager>
     [SerializeField]
     private int turnCount = 0;
 
+    public int TurnCount => turnCount;
+
     [SerializeField]
     private List<BaseChar> characters = new List<BaseChar>();
     public List<BaseChar> Characters { get => characters; }
@@ -74,7 +76,7 @@ public class TurnManager : Singleton<TurnManager>
 
         if (baseChar.IsDie)
         {
-            yield return null;
+            yield break;
         }
 
         if (baseChar is EnemyChar)
@@ -89,7 +91,6 @@ public class TurnManager : Singleton<TurnManager>
 
             player.AttackPhase();
         }
-        yield return null;
     }
 
     private void endTurn()
@@ -104,6 +105,13 @@ public class TurnManager : Singleton<TurnManager>
         nextState = true;
 
         ui.MoveToTop();
+        //SortSpeed();
+        // TODO: CHECK SPEED
+    }
+
+    private void SortSpeed()
+    {
+        characters.Sort((a, b) => b.s_Speed.Value.CompareTo(a.s_Speed.Value));
     }
 
     public void ResetTurn(bool isWin)
