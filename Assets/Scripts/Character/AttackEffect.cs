@@ -31,7 +31,10 @@ public class AttackEffect
         else
         {
             buffs.Add(buff);
-            yield return buff.StartEffect(user);
+            if (!TurnManager.Instance.isCurrentPlaying(user))
+            {
+                yield return buff.StartEffect(user);
+            }
         }
     }
 
@@ -62,10 +65,10 @@ public class AttackEffect
     {
         foreach (Buff a in buffs)
         {
-            if (!a.mDonePostStartEffect)
+            if (!a.mStartEffect)
             {
                 yield return new WaitForSeconds(0.1f);
-                yield return a.PostStartEffect(user);
+                yield return a.StartEffect(user);
             }
 
             if (a.mLives <= 0)
@@ -98,7 +101,7 @@ public class Buff
     [Range(-100, 100)]
     public float mAmount = 20f;
 
-    public bool mDonePostStartEffect;
+    public bool mStartEffect;
 
     public Buff(string name, BuffType type, int lives, float amount)
     {
@@ -114,24 +117,11 @@ public class Buff
         {
             case BuffType.speed:
                 user.s_Speed.Add(mAmount);
+                mStartEffect = true;
 
-                if (!TurnManager.Instance.isCurrentPlaying(user))
-                    yield return TurnManager.Instance.SpeedEffectBuff(user, mAmount);
-                break;
-        }
-        yield return null;
-    }
+                yield return TurnManager.Instance.SpeedEffectBuff(user, mAmount);
+                Debug.Log("Start effect");
 
-    public IEnumerator PostStartEffect(BaseChar user)
-    {
-        switch (mType)
-        {
-            case BuffType.speed:
-                if (TurnManager.Instance.isCurrentPlaying(user))
-                {
-                    yield return TurnManager.Instance.SpeedEffectBuff(user, mAmount);
-                    mDonePostStartEffect = true;
-                }
                 break;
         }
         yield return null;
@@ -166,6 +156,8 @@ public class Buff
             case BuffType.speed:
                 user.s_Speed.Add(-mAmount);
                 yield return TurnManager.Instance.SpeedEffectBuff(user, -mAmount);
+                Debug.Log("Finish effect");
+
                 break;
         }
         yield return null;

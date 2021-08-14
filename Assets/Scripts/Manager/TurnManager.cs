@@ -68,7 +68,6 @@ public class TurnManager : Singleton<TurnManager>
 
         // looping all to find the first attaker
         BaseChar baseChar = findAttacker();
-        Debug.Log($"{baseChar} isDie{baseChar.IsDie}");
         if (baseChar.IsDie)
         {
             nextState = true;
@@ -78,10 +77,7 @@ public class TurnManager : Singleton<TurnManager>
             yield return attackingPhase(baseChar);
         }
 
-        Debug.Log($"{baseChar} done attacking");
-
         yield return new WaitUntil(() => nextState);
-        Debug.Log($"{baseChar} next");
 
         endTurn();
     }
@@ -166,6 +162,8 @@ public class TurnManager : Singleton<TurnManager>
         if (turnCoroutine != null)
             StopCoroutine(turnCoroutine);
 
+        if (postTurnCoroutine != null)
+            StopCoroutine(postTurnCoroutine);
         resetUiTurn();
     }
 
