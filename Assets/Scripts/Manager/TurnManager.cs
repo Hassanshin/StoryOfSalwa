@@ -69,7 +69,7 @@ public class TurnManager : Singleton<TurnManager>
         // looping all to find the first attaker
         BaseChar baseChar = findAttacker();
 
-        yield return attackingPhase(baseChar);
+        yield return hisTurn(baseChar);
 
         yield return new WaitUntil(() => nextState);
 
@@ -91,7 +91,7 @@ public class TurnManager : Singleton<TurnManager>
         return turnCharUIs[index].Data;
     }
 
-    private IEnumerator attackingPhase(BaseChar baseChar)
+    private IEnumerator hisTurn(BaseChar baseChar)
     {
         yield return new WaitForSeconds(0.1f);
 
@@ -105,18 +105,7 @@ public class TurnManager : Singleton<TurnManager>
             yield break;
         }
 
-        if (baseChar is EnemyChar)
-        {
-            EnemyChar enemy = baseChar as EnemyChar;
-
-            enemy.Attack();
-        }
-        else if (baseChar is PlayerChar)
-        {
-            PlayerChar player = baseChar as PlayerChar;
-
-            player.AttackPhase();
-        }
+        baseChar.TurnPhase();
     }
 
     public IEnumerator SpeedEffectBuff(BaseChar baseChar, float amount)

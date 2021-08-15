@@ -17,9 +17,9 @@ MonoBehaviour:
   buffData:
     stun: 0
     cure: 0
-    speedAmount: -20
-    accuracyAmount: -90
-    evasionAmount: -90
+    speedAmount: 0
+    accuracyAmount: 0
+    evasionAmount: 0
     damagePerSecondAmount: -50
-    buffDuration: 5
+    buffDuration: 2
   healAmount: 0

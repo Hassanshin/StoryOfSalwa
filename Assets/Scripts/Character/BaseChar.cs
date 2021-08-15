@@ -115,6 +115,10 @@ public class BaseChar : MonoBehaviour
         //TurnManager.Instance.RemoveTurn(this);
     }
 
+    public virtual void TurnPhase()
+    {
+    }
+
     public virtual void Attacking(BaseChar target, CardData cardData)
     {
         bool willHit = calculateHitAccuracy(target);
