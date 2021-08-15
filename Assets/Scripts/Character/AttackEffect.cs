@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,7 +8,7 @@ public class AttackEffect
 {
     [SerializeField]
     private List<Buff> buffs = new List<Buff>();
-    public List<Buff> Buffs => Buffs;
+
     private List<Buff> removedBuff = new List<Buff>();
 
     private BaseChar user;
@@ -23,18 +24,16 @@ public class AttackEffect
 
         if (isDoubleBuff(buff))
         {
-            //Debug.Log("Double effects should replace");
             Buff doubledBuff = buffs.Find((a) => a.mName == buff.mName);
 
+            // only extend the lives
             doubledBuff.mLives = buff.mLives;
         }
         else
         {
             buffs.Add(buff);
-            if (!TurnManager.Instance.isCurrentPlaying(user))
-            {
-                yield return buff.StartEffect(user);
-            }
+
+            yield return buff.StartEffect(user);
         }
     }
 
@@ -77,9 +76,20 @@ public class AttackEffect
                 yield return a.FinishEffect(user);
                 removedBuff.Add(a);
             }
-            else
+        }
+
+        buffs.RemoveAll(l => removedBuff.Contains(l));
+        removedBuff.Clear();
+    }
+
+    public void Dispel()
+    {
+        foreach (Buff a in buffs)
+        {
+            if (a.mIsNegative)
             {
-                yield return a.PostTurnEffect(user);
+                a.FinishEffect(user);
+                removedBuff.Add(a);
             }
         }
 
@@ -88,62 +98,80 @@ public class AttackEffect
     }
 }
 
-// Buff list, speedModif, Dps, EvasionModif, AccModif, clearBuff, Stun
-// HOOKUP THESE WITH TURN MANAGER AND PLAYER
-
 [System.Serializable]
 public class Buff
 {
+    #region DECLARATION
+
     public string mName;
     public int mLives = 1;
     public BuffType mType;
+    public bool mIsNegative;
 
     [Range(-100, 100)]
     public float mAmount = 20f;
 
     public bool mStartEffect;
 
-    public Buff(string name, BuffType type, int lives, float amount)
+    public Buff(string name, BuffType type, int lives = 1, float amount = 0)
     {
         mName = name;
         mType = type;
         mLives = lives;
         mAmount = amount;
+
+        if (mType == BuffType.dispel || mType == BuffType.stun)
+        {
+            mIsNegative = true;
+        }
+        else
+        {
+            mIsNegative = amount < 0;
+        }
     }
 
-    // tes
+    #endregion DECLARATION
+
     public IEnumerator StartEffect(BaseChar user)
     {
         switch (mType)
         {
             case BuffType.speed:
-                user.s_Speed.Add(mAmount);
-                mStartEffect = true;
+                if (!TurnManager.Instance.isCurrentPlaying(user))
+                {
+                    user.s_Speed.Add(mAmount);
 
-                yield return TurnManager.Instance.SpeedEffectBuff(user, mAmount);
-                Debug.Log("Start effect");
+                    yield return TurnManager.Instance.SpeedEffectBuff(user, mAmount);
+                }
+                break;
+
+            case BuffType.eva:
+                user.s_Eva.Add(mAmount);
+                break;
+
+            case BuffType.acc:
+                user.s_Acc.Add(mAmount);
+                break;
+
+            case BuffType.dispel:
+                user.DispelEffect();
+                break;
+
+            case BuffType.stun:
+                user.SetStun();
 
                 break;
         }
-        yield return null;
+        mStartEffect = true;
+        //Debug.Log("Start effect");
     }
 
     public IEnumerator PreTurnEffect(BaseChar user)
     {
         switch (mType)
         {
-            case BuffType.speed:
-
-                break;
-        }
-        yield return null;
-    }
-
-    public IEnumerator PostTurnEffect(BaseChar user)
-    {
-        switch (mType)
-        {
-            case BuffType.speed:
+            case BuffType.dps:
+                user.IncreaseHealth(mAmount);
 
                 break;
         }
@@ -157,12 +185,50 @@ public class Buff
             case BuffType.speed:
                 user.s_Speed.Add(-mAmount);
                 yield return TurnManager.Instance.SpeedEffectBuff(user, -mAmount);
-                Debug.Log("Finish effect");
+
+                break;
+
+            case BuffType.eva:
+                user.s_Eva.Add(-mAmount);
+                break;
+
+            case BuffType.acc:
+                user.s_Acc.Add(-mAmount);
+                break;
+
+            case BuffType.stun:
+                user.SetStun(false);
 
                 break;
         }
-        yield return null;
+        //Debug.Log("Finish effect");
     }
 }
 
-public enum BuffType { speed, dps, eva, acc, clear, stun }
+/*
+        switch (mType)
+        {
+            case BuffType.speed:
+                break;
+
+            case BuffType.dps:
+                break;
+
+            case BuffType.eva:
+                break;
+
+            case BuffType.acc:
+                break;
+
+            case BuffType.clear:
+                break;
+
+            case BuffType.stun:
+                break;
+
+            default:
+                break;
+        }
+        */
+
+public enum BuffType { speed, dps, eva, acc, dispel, stun }

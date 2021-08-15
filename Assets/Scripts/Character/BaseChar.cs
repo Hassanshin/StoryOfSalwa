@@ -7,18 +7,20 @@ using UnityEngine.Events;
 [RequireComponent(typeof(CharUI))]
 public class BaseChar : MonoBehaviour
 {
-    [SerializeField]
-    protected float curHealth = 1000;
-
-    protected float maxHealth = 1000;
     public bool IsDie => isDie;
+
     protected bool isDie;
+
+    public Stats s_Health;
 
     public Stats s_Speed;
 
     public Stats s_Acc;
 
     public Stats s_Eva;
+
+    public bool IsStunned => isStunned;
+    protected bool isStunned;
 
     [Header("Components")]
     [SerializeField]
@@ -38,6 +40,8 @@ public class BaseChar : MonoBehaviour
     [SerializeField]
     private AttackEffect effects;
 
+    #region Buff
+
     public IEnumerator PreTurnBuff()
     {
         yield return effects.PreTurnEffect();
@@ -48,10 +52,22 @@ public class BaseChar : MonoBehaviour
         yield return effects.PostTurnEffect();
     }
 
-    internal void AddBuff(Buff buff)
+    public void AddBuff(Buff buff)
     {
         StartCoroutine(effects.AddEffect(buff));
     }
+
+    public void SetStun(bool state = true)
+    {
+        isStunned = state;
+    }
+
+    public void DispelEffect()
+    {
+        effects.Dispel();
+    }
+
+    #endregion Buff
 
     public virtual void SetData(CharacterData _data)
     {
@@ -59,10 +75,9 @@ public class BaseChar : MonoBehaviour
         gameObject.name = data.name;
         effects.SetCharcter(this);
 
-        maxHealth = data.maxHealth;
-        curHealth = maxHealth;
+        s_Health.Set(data.maxHealth, true);
 
-        ui.SetHealth(curHealth / maxHealth);
+        ui.SetHealth(s_Health.CurValue / s_Health.DefaultValue);
         isDie = false;
 
         s_Speed.Set(data.speed, true);
@@ -73,16 +88,16 @@ public class BaseChar : MonoBehaviour
         anim.GetComponent<SpriteRenderer>().color = data.Tint;
     }
 
-    public virtual void DecreaseHealth(float _amount)
+    public virtual void IncreaseHealth(float _amount)
     {
         if (isDie) { return; }
-        curHealth -= _amount;
-        curHealth = Mathf.Clamp(curHealth, 0, maxHealth);
+        s_Health.Add(_amount);
+        s_Health.Set(Mathf.Clamp(s_Health.CurValue, 0, s_Health.DefaultValue));
 
-        ui.SetHealth(curHealth / maxHealth);
-        ui.SetFloatingText(-_amount);
+        ui.SetHealth(s_Health.CurValue / s_Health.DefaultValue);
+        ui.SetFloatingText(_amount);
 
-        if (curHealth <= 0)
+        if (s_Health.CurValue <= 0)
         {
             Die();
         }

@@ -10,14 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9315ef1f73418bc4da175e89b0c904b9, type: 3}
-  m_Name: Jamu
+  m_Name: Brotowali
   m_EditorClassIdentifier: 
   type: 2
-  sprite: {fileID: 1272625545277882964, guid: 5f2cb5eb0cb53854e89b725dd03de867, type: 3}
-  damage: 100
-  totalAtk: 1
-  healAmount: 500
-  speedAmount: 20
+  sprite: {fileID: 1216849358509855973, guid: 5f2cb5eb0cb53854e89b725dd03de867, type: 3}
+  healAmount: 100
+  stun: 0
+  cure: 1
+  speedAmount: 0
   accuracyAmount: 0
   evasionAmount: 0
-  buffDuration: 2
+  damagePerSecondAmount: 0
+  buffDuration: 1

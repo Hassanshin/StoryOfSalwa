@@ -16,6 +16,6 @@ public class CardDataSup : CardData
 
         AudioManager.Instance.PlaySfx(2);
 
-        target.DecreaseHealth(-healAmount);
+        target.IncreaseHealth(healAmount);
     }
 }

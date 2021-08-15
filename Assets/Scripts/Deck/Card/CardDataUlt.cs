@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 public class CardDataUlt : CardDataAtk
 {
-    [Header("Video")]
+    [Header("Video", order = 0)]
     public string clipName = "ult1";
 
     public CardDataUlt()
