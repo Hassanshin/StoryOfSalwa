@@ -104,13 +104,12 @@ public class Buff
     #region DECLARATION
 
     public string mName;
+    public float mAmount = 20f;
+
+    [Header("Stats")]
     public int mLives = 1;
     public BuffType mType;
     public bool mIsNegative;
-
-    [Range(-100, 100)]
-    public float mAmount = 20f;
-
     public bool mStartEffect;
 
     public Buff(string name, BuffType type, int lives = 1, float amount = 0)

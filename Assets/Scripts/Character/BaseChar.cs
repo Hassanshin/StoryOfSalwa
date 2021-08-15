@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(CharUI))]
 public class BaseChar : MonoBehaviour
@@ -90,7 +91,7 @@ public class BaseChar : MonoBehaviour
 
     public virtual void IncreaseHealth(float _amount)
     {
-        if (isDie) { return; }
+        if (isDie || _amount == 0) { return; }
         s_Health.Add(_amount);
         s_Health.Set(Mathf.Clamp(s_Health.CurValue, 0, s_Health.DefaultValue));
 
@@ -116,21 +117,40 @@ public class BaseChar : MonoBehaviour
 
     public virtual void Attacking(BaseChar target, CardData cardData)
     {
+        bool willHit = calculateHitAccuracy(target);
         if (cardData.type == CardType.Ult)
         {
-            cardData.Action(target);
+            doAttack(target, cardData, willHit);
         }
         else
         {
             anim.Play("atk");
             DoCardMove.AddListener(() =>
             {
-                cardData.Action(target);
+                doAttack(target, cardData, willHit);
             });
         }
     }
 
-    // called on idle start
+    private void doAttack(BaseChar target, CardData cardData, bool willHit)
+    {
+        if (!willHit)
+        {
+            ui.SetFloatingText("Miss");
+            target.ui.SetFloatingText("Evade");
+            return;
+        }
+        cardData.Action(target);
+    }
+
+    private bool calculateHitAccuracy(BaseChar target)
+    {
+        float chance = s_Acc.CurValue * (100 - target.s_Eva.CurValue) / 100;
+        bool isHit = Random.Range(0f, 100f) <= chance;
+        return isHit;
+    }
+
+    // called on empty start animation
     public virtual void FinishedAnimating()
     {
         DoCardMove?.Invoke();

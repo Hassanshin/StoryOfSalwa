@@ -10,10 +10,10 @@ public class BuffCardData
 
     [Header("Buff Stats", order = 2)]
     [Range(-30, 30)] public float speedAmount = 0;
-    [Range(-30, 30)] public float accuracyAmount = 0;
-    [Range(-30, 30)] public float evasionAmount = 0;
+    public float accuracyAmount = 0;
+    public float evasionAmount = 0;
     public float damagePerSecondAmount = 0;
 
     [Header("Buff Duration", order = 2)]
-    public int buffDuration = 1;
+    [Range(1, 5)] public int buffDuration = 1;
 }
