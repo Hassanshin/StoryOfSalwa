@@ -14,11 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 2
   sprite: {fileID: -6802124631727338565, guid: 5f2cb5eb0cb53854e89b725dd03de867, type: 3}
+  buffData:
+    stun: 0
+    cure: 0
+    speedAmount: 20
+    accuracyAmount: 20
+    evasionAmount: 20
+    damagePerSecondAmount: 0
+    buffDuration: 5
   healAmount: 500
-  stun: 0
-  cure: 0
-  speedAmount: 20
-  accuracyAmount: 20
-  evasionAmount: 20
-  damagePerSecondAmount: 10
-  buffDuration: 2

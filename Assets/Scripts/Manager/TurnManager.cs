@@ -68,14 +68,8 @@ public class TurnManager : Singleton<TurnManager>
 
         // looping all to find the first attaker
         BaseChar baseChar = findAttacker();
-        if (baseChar.IsDie)
-        {
-            nextState = true;
-        }
-        else
-        {
-            yield return attackingPhase(baseChar);
-        }
+
+        yield return attackingPhase(baseChar);
 
         yield return new WaitUntil(() => nextState);
 
@@ -87,7 +81,8 @@ public class TurnManager : Singleton<TurnManager>
         int index = 0;
         for (int i = 0; i < totalChars; i++)
         {
-            if (turnCharUIs[index].PosPercent < turnCharUIs[i].PosPercent && !turnCharUIs[i].Data.IsDie)
+            if (turnCharUIs[index].PosPercent < turnCharUIs[i].PosPercent
+                && !turnCharUIs[i].Data.IsDie)
             {
                 index = i;
             }
@@ -103,9 +98,10 @@ public class TurnManager : Singleton<TurnManager>
         yield return MoveToReady(baseChar);
         yield return baseChar.PreTurnBuff();
 
-        // check die from buff
-        if (baseChar.IsDie)
+        if (baseChar.IsDie || baseChar.IsStunned)
         {
+            //Debug.Log("is Stunned");
+            NextTurn();
             yield break;
         }
 
@@ -164,19 +160,15 @@ public class TurnManager : Singleton<TurnManager>
 
         if (postTurnCoroutine != null)
             StopCoroutine(postTurnCoroutine);
-        resetUiTurn();
-    }
 
-    #region UI
-
-    public void resetUiTurn()
-    {
         foreach (TurnCharUI item in turnCharUIs)
         {
             Destroy(item.gameObject);
         }
         turnCharUIs.Clear();
     }
+
+    #region UI
 
     private void resetPos(TurnCharUI ui, float movePercentage)
     {
