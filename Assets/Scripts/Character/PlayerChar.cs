@@ -12,8 +12,9 @@ public class PlayerChar : BaseChar
         StartCoroutine(GameManager.Instance.Deck.UsedCard(cardData));
     }
 
-    public void AttackPhase()
+    public override void TurnPhase()
     {
+        base.TurnPhase();
         GameManager.Instance.Deck.DeckActive();
     }
 

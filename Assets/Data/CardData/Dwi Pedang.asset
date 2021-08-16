@@ -14,4 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   sprite: {fileID: 4327745837452563964, guid: 5f2cb5eb0cb53854e89b725dd03de867, type: 3}
-  damage: 700
+  buffData:
+    stun: 0
+    cure: 0
+    speedAmount: 0
+    accuracyAmount: 0
+    evasionAmount: 0
+    damagePerSecondAmount: 0
+    buffDuration: 1
+  damage: 200
+  totalAtk: 1

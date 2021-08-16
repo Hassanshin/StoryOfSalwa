@@ -12,7 +12,7 @@ public class CharUI : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI floatingText;
 
-    private LTDescr descr = null;
+    private int floatingId = 0;
     private Vector3 defaultPos;
 
     public void SetHealth(float amount)
@@ -22,23 +22,32 @@ public class CharUI : MonoBehaviour
         defaultPos = floatingText.rectTransform.anchoredPosition;
     }
 
-    public void SetFloatingText(float num)
+    private void animatefloatingText(string text)
     {
-        if (descr != null && LeanTween.isTweening(descr.id))
+        if (LeanTween.isTweening(floatingId))
         {
-            LeanTween.cancel(descr.id);
+            LeanTween.cancel(floatingId);
         }
 
-        floatingText.rectTransform.anchoredPosition = new Vector3(defaultPos.x, defaultPos.y - 0.5f, defaultPos.z);
+        floatingText.text = $"{text}";
 
-        floatingText.text = num < 0 ? $"{num}" : $"+{num}";
-        descr = LeanTween.moveY
-            (floatingText.rectTransform, defaultPos.y, 2f)
+        floatingText.rectTransform.anchoredPosition = new Vector3(defaultPos.x, defaultPos.y - 0.5f, defaultPos.z);
+        floatingId = LeanTween.moveY
+            (floatingText.rectTransform, defaultPos.y, 2f).setEaseOutQuint()
             .setOnComplete(() =>
             {
-                floatingText.text = "";
+                floatingText.text = $"";
                 //floatingText.rectTransform.anchoredPosition = defaultPos;
-            })
-            .setEaseOutQuint();
+            }).id;
+    }
+
+    public void SetFloatingText(float num)
+    {
+        animatefloatingText(num < 0 ? $"{num}" : $"+{num}");
+    }
+
+    public void SetFloatingText(string text)
+    {
+        animatefloatingText($"{text}");
     }
 }

@@ -11,6 +11,7 @@ public class LevelHandler : MonoBehaviour
     private LevelData data;
 
     private bool isGameOver;
+    public bool IsGameOver => isGameOver;
 
     public UnityEvent<bool> OnGameOver;
 
@@ -27,9 +28,10 @@ public class LevelHandler : MonoBehaviour
     {
         get
         {
-            List<BaseChar> all = new List<BaseChar>();
-
-            all.Add(player);
+            List<BaseChar> all = new List<BaseChar>
+            {
+                player
+            };
             all.AddRange(enemies);
 
             return all;

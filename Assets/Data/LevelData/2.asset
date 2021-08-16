@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: df0e18806dc53744ba0e30174fabffbb, type: 3}
-  m_Name: 01
+  m_Name: 2
   m_EditorClassIdentifier: 
   totalEnemy: 3
   enemies:
   - {fileID: 11400000, guid: ae95bcbfad51f9242bdf2be8d3456f74, type: 2}
   - {fileID: 11400000, guid: 2e4d99cfb0737604594a7a5efb5baf9f, type: 2}
-  - {fileID: 11400000, guid: 2e4d99cfb0737604594a7a5efb5baf9f, type: 2}
+  - {fileID: 11400000, guid: ce98bceeb85b3a544b3b73cfac162ff1, type: 2}
+  - {fileID: 11400000, guid: 5c36aec496733d943b2bb1dbfc9f87a1, type: 2}
   player: {fileID: 11400000, guid: 97f9b25184b1c5e4285d0e32e21f23af, type: 2}

@@ -13,6 +13,14 @@ MonoBehaviour:
   m_Name: Pedang
   m_EditorClassIdentifier: 
   type: 0
-  cardName: Pedang
   sprite: {fileID: 1676308008278888504, guid: 5f2cb5eb0cb53854e89b725dd03de867, type: 3}
-  damage: 100
+  buffData:
+    stun: 0
+    cure: 0
+    speedAmount: 0
+    accuracyAmount: 0
+    evasionAmount: 0
+    damagePerSecondAmount: 0
+    buffDuration: 1
+  damage: 10
+  totalAtk: 1

@@ -5,9 +5,8 @@ using UnityEngine;
 
 public class CardDataSup : CardData
 {
-    [Header("Stats")]
-    public float healAmount = 100;
-    public float speedAmount = 5;
+    [Header("Sup Stats")]
+    public float healAmount = 0;
 
     public CardDataSup()
     {
@@ -20,6 +19,6 @@ public class CardDataSup : CardData
 
         AudioManager.Instance.PlaySfx(2);
 
-        target.DecreaseHealth(-healAmount);
+        target.IncreaseHealth(healAmount);
     }
 }
