@@ -6,8 +6,13 @@ using UnityEngine;
 public class CardData : ScriptableObject
 {
     public CardType type;
+    public ElementType elemType;
 
+    [Header("Card Components")]
     public Sprite sprite = null;
+
+    [TextArea(3, 6)]
+    public string penjelasan = $"Penjelasan ";
 
     [Header("BUFF DATA POP")]
     public BuffCardData buffData;
@@ -94,3 +99,5 @@ public class CardData : ScriptableObject
 }
 
 public enum CardType { Atk, Ult, Sup }
+
+public enum ElementType { Fire, Watr, Wind }

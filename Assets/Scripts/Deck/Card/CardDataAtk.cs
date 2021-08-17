@@ -18,6 +18,29 @@ public class CardDataAtk : CardData
     {
         base.Action(target);
         AudioManager.Instance.PlaySfx(3);
-        target.IncreaseHealth(-damage);
+
+        float mult = effectiveness(elemType, target.ElemType);
+
+        target.IncreaseHealth(-(damage * mult));
+    }
+
+    private float effectiveness(ElementType user, ElementType target)
+    {
+        if (
+            (user == ElementType.Fire && target == ElementType.Wind) ||
+            (user == ElementType.Wind && target == ElementType.Watr) ||
+            (user == ElementType.Watr && target == ElementType.Fire))
+        {
+            return 1.5f;
+        }
+        else if (
+            (user == ElementType.Wind && target == ElementType.Fire) ||
+            (user == ElementType.Watr && target == ElementType.Wind) ||
+            (user == ElementType.Fire && target == ElementType.Watr))
+        {
+            return 0.5f;
+        }
+
+        return 1f;
     }
 }

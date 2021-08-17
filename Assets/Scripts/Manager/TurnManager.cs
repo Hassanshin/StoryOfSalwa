@@ -130,6 +130,7 @@ public class TurnManager : Singleton<TurnManager>
     private IEnumerator PostTurn()
     {
         resetPos(curReady, 0);
+
         yield return curReady.Data.PostTurnBuff();
         curReady = null;
 

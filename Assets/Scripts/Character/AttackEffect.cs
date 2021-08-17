@@ -67,7 +67,7 @@ public class AttackEffect
             if (!a.mStartEffect)
             {
                 yield return new WaitForSeconds(0.1f);
-                yield return a.StartEffect(user);
+                yield return a.PosStartEffect(user);
             }
 
             if (a.mLives <= 0)
@@ -141,28 +141,49 @@ public class Buff
                     user.s_Speed.Add(mAmount);
 
                     yield return TurnManager.Instance.SpeedEffectBuff(user, mAmount);
+                    mStartEffect = true;
                 }
                 break;
 
             case BuffType.eva:
                 user.s_Eva.Add(mAmount);
+                mStartEffect = true;
+
                 break;
 
             case BuffType.acc:
                 user.s_Acc.Add(mAmount);
+                mStartEffect = true;
+
                 break;
 
             case BuffType.dispel:
                 user.DispelEffect();
+                mStartEffect = true;
                 break;
 
             case BuffType.stun:
                 user.SetStun();
+                mStartEffect = true;
 
                 break;
         }
-        mStartEffect = true;
         //Debug.Log("Start effect");
+    }
+
+    public IEnumerator PosStartEffect(BaseChar user)
+    {
+        switch (mType)
+        {
+            case BuffType.speed:
+
+                user.s_Speed.Add(mAmount);
+
+                yield return TurnManager.Instance.SpeedEffectBuff(user, mAmount);
+                mStartEffect = true;
+
+                break;
+        }
     }
 
     public IEnumerator PreTurnEffect(BaseChar user)
