@@ -7,6 +7,7 @@ public class CharacterData : ScriptableObject
 {
     [Header("stats")]
     public float maxHealth = 1000;
+    public ElementType elemType;
 
     [Range(1, 100)]
     public float speed = 50;

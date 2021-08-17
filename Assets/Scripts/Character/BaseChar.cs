@@ -8,6 +8,9 @@ using Random = UnityEngine.Random;
 [RequireComponent(typeof(CharUI))]
 public class BaseChar : MonoBehaviour
 {
+    [SerializeField]
+    protected ElementType elemType;
+    public ElementType ElemType => elemType;
     public bool IsDie => isDie;
 
     protected bool isDie;
@@ -73,8 +76,11 @@ public class BaseChar : MonoBehaviour
     public virtual void SetData(CharacterData _data)
     {
         data = _data;
+
         gameObject.name = data.name;
         effects.SetCharcter(this);
+
+        elemType = data.elemType;
 
         s_Health.Set(data.maxHealth, true);
 
@@ -121,22 +127,23 @@ public class BaseChar : MonoBehaviour
 
     public virtual void Attacking(BaseChar target, CardData cardData)
     {
-        bool willHit = calculateHitAccuracy(target);
+        bool willHit = target == this ? true : calculateHitAccuracy(target);
+
         if (cardData.type == CardType.Ult)
         {
-            doAttack(target, cardData, willHit);
+            hit(target, cardData, willHit);
         }
         else
         {
             anim.Play("atk");
             DoCardMove.AddListener(() =>
             {
-                doAttack(target, cardData, willHit);
+                hit(target, cardData, willHit);
             });
         }
     }
 
-    private void doAttack(BaseChar target, CardData cardData, bool willHit)
+    private void hit(BaseChar target, CardData cardData, bool willHit)
     {
         if (!willHit)
         {
@@ -144,6 +151,7 @@ public class BaseChar : MonoBehaviour
             target.ui.SetFloatingText("Evade");
             return;
         }
+
         cardData.Action(target);
     }
 
