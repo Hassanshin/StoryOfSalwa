@@ -20,15 +20,36 @@ public class CardUI : DragAndDrop
     [SerializeField]
     private TextMeshProUGUI damage;
 
+    [SerializeField]
+    private Button cardBtn;
+
     public void SetCardData(CardData _data)
     {
         data = _data;
+
+        cardBtn.onClick.RemoveAllListeners();
 
         icon.color = Color.white;
         border.color = Color.white;
 
         cardName.text = data.name;
         icon.sprite = data.sprite;
+
+        if (data is CardDataAtk)
+        {
+            CardDataAtk atkData = (CardDataAtk)data;
+            damage.text = $"{ atkData.damage}";
+        }
+        else
+        {
+            CardDataSup atkData = (CardDataSup)data;
+            damage.text = $"{ atkData.healAmount}";
+        }
+
+        cardBtn.onClick.AddListener(() =>
+        {
+            GameUI.Instance.cardDetail.ViewData = data;
+        });
     }
 
     public void SetBlank()

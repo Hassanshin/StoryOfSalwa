@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: Pedang
   m_EditorClassIdentifier: 
   type: 0
+  elemType: 0
   sprite: {fileID: 1676308008278888504, guid: 5f2cb5eb0cb53854e89b725dd03de867, type: 3}
+  penjelasan: "Pedang biasa aja tapi mantab\t"
   buffData:
     stun: 0
     cure: 0

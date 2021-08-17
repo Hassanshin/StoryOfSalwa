@@ -10,10 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 83c37c62c0f16f64faff27384c1622c0, type: 3}
-  m_Name: Arjuna
+  m_Name: Breaker
   m_EditorClassIdentifier: 
   type: 1
+  elemType: 2
   sprite: {fileID: -936124954036847002, guid: 5f2cb5eb0cb53854e89b725dd03de867, type: 3}
+  penjelasan: Shiled pecah keren ENGLAN ENGELAND ENGLANDO ENGLANDOR ENGALANDORA
   buffData:
     stun: 0
     cure: 0
@@ -22,6 +24,6 @@ MonoBehaviour:
     evasionAmount: 0
     damagePerSecondAmount: 0
     buffDuration: 1
-  damage: 500
+  damage: 900
   totalAtk: 1
   clipName: testVideo10sec

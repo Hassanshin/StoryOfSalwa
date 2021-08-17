@@ -13,12 +13,15 @@ MonoBehaviour:
   m_Name: Brotowali
   m_EditorClassIdentifier: 
   type: 2
+  elemType: 0
   sprite: {fileID: 1216849358509855973, guid: 5f2cb5eb0cb53854e89b725dd03de867, type: 3}
+  penjelasan: Jamu Brotowali menyembuhkan segala cara
+  buffData:
+    stun: 0
+    cure: 0
+    speedAmount: 0
+    accuracyAmount: 0
+    evasionAmount: 0
+    damagePerSecondAmount: 0
+    buffDuration: 1
   healAmount: 100
-  stun: 0
-  cure: 1
-  speedAmount: 0
-  accuracyAmount: 0
-  evasionAmount: 0
-  damagePerSecondAmount: 0
-  buffDuration: 1

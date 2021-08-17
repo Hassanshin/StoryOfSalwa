@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: Lesus
   m_EditorClassIdentifier: 
   type: 0
+  elemType: 2
   sprite: {fileID: 3403258472632580065, guid: 5f2cb5eb0cb53854e89b725dd03de867, type: 3}
+  penjelasan: Pentil muter muter keren
   buffData:
     stun: 0
     cure: 0
