@@ -21,11 +21,15 @@ public class DeckUI : MonoBehaviour
     private List<CardUI> cardUiList = new List<CardUI>();
 
     [SerializeField]
+    private List<Toggle> cardPadlocks = new List<Toggle>();
+
+    [SerializeField]
     private RectTransform graveStack;
 
     [SerializeField]
     private RectTransform deckStack;
 
+    private Toggle togle;
     //[SerializeField]
     //private GameObject cardUiPrefab;
 
@@ -35,6 +39,15 @@ public class DeckUI : MonoBehaviour
     public void Initialize()
     {
         endButton.onClick.AddListener(endTurnButton);
+
+        for (int i = 0; i < cardPadlocks.Count; i++)
+        {
+            int copy = i;
+            cardPadlocks[i].onValueChanged.AddListener((bool a) =>
+            {
+                GameManager.Instance.Deck.LockHandCard(copy, a);
+            });
+        }
     }
 
     public IEnumerator applyHandCard(int index, CardData card)
@@ -85,5 +98,23 @@ public class DeckUI : MonoBehaviour
     {
         deckStack.GetChild(0).GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = $"{deck}";
         graveStack.GetChild(0).GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = $"{grave}";
+    }
+
+    public void UpdatePadlock(bool condition, bool[] state)
+    {
+        if (condition)
+        {
+            for (int i = 0; i < cardPadlocks.Count; i++)
+            {
+                cardPadlocks[i].gameObject.SetActive(state[i]);
+            }
+        }
+        else
+        {
+            for (int i = 0; i < cardPadlocks.Count; i++)
+            {
+                cardPadlocks[i].gameObject.SetActive(true);
+            }
+        }
     }
 }

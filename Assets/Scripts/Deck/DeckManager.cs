@@ -25,6 +25,7 @@ public class DeckManager : MonoBehaviour
         ui.Initialize();
 
         inGameDeck.deck.AddRange(cardList);
+
         yield return shuffleDeck();
     }
 
@@ -44,7 +45,7 @@ public class DeckManager : MonoBehaviour
 
     private IEnumerator generateHandCard()
     {
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < inGameDeck.HandSize; i++)
         {
             yield return drawCard(i);
         }
@@ -59,23 +60,25 @@ public class DeckManager : MonoBehaviour
     private IEnumerator clearHand()
     {
         ui.StateActive(false);
-        for (int i = 0; i < inGameDeck.hand.Count; i++)
+        for (int i = 0; i < inGameDeck.HandSize; i++)
         {
-            if (inGameDeck.hand[i] != null)
+            if (inGameDeck.hand[i] != null && !inGameDeck.handLock[i])
             {
                 inGameDeck.grave.Add(inGameDeck.hand[i]);
+                inGameDeck.hand[i] = null;
+
                 yield return ui.applyUsedCard(i);
                 updateNumber();
             }
         }
-
-        inGameDeck.hand.Clear();
 
         process = null;
     }
 
     private IEnumerator drawCard(int index)
     {
+        if (inGameDeck.hand[index] != null) { yield break; }
+
         if (inGameDeck.deck.Count <= 0)
         {
             ui.SetTopText("Shuffling");
@@ -88,7 +91,7 @@ public class DeckManager : MonoBehaviour
         }
         CardData card = inGameDeck.deck[0];
 
-        inGameDeck.hand.Add(card);
+        inGameDeck.AddHandCard(card);
         inGameDeck.deck.Remove(card);
 
         updateNumber();
@@ -103,7 +106,8 @@ public class DeckManager : MonoBehaviour
 
     public IEnumerator UsedCard(CardData card)
     {
-        int index = inGameDeck.hand.IndexOf(card);
+        int index = Array.IndexOf(inGameDeck.hand, card);
+
         inGameDeck.hand[index] = null;
         inGameDeck.grave.Add(card);
 
@@ -113,6 +117,12 @@ public class DeckManager : MonoBehaviour
     }
 
     #endregion CARD BASE MECHANIC
+
+    public void LockHandCard(int index, bool state)
+    {
+        inGameDeck.Lock(index, state);
+        ui.UpdatePadlock(state, inGameDeck.handLock);
+    }
 
     public void ClearDeck()
     {
@@ -148,7 +158,38 @@ public class gameCards
 {
     public List<CardData> deck = new List<CardData>();
 
-    public List<CardData> hand = new List<CardData>();
+    public CardData[] hand = new CardData[5];
+    public bool[] handLock = new bool[5];
+    public int HandSize = 5;
 
     public List<CardData> grave = new List<CardData>();
+
+    private int getLastIndex
+    {
+        get
+        {
+            for (int i = 0; i < HandSize; i++)
+            {
+                if (hand[i] == null)
+                {
+                    return i;
+                }
+            }
+            return -1;
+        }
+    }
+
+    public void AddHandCard(CardData card)
+    {
+        hand[getLastIndex] = card;
+    }
+
+    public void Lock(int index, bool state)
+    {
+        for (int i = 0; i < handLock.Length; i++)
+        {
+            handLock[i] = false;
+        }
+        handLock[index] = state;
+    }
 }
