@@ -53,6 +53,8 @@ public class GameManager : Singleton<GameManager>
     {
         yield return LoadingHandler.Instance.ShowLoadingEnum();
 
+        yield return ObjectPool.Instance.GeneratingPool();
+
         yield return Deck.loadCardList();
         //Debug.Log("Deck done");
 

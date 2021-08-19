@@ -44,7 +44,29 @@ public class BaseChar : MonoBehaviour
     [SerializeField]
     private AttackEffect effects;
 
-    #region Buff
+    public virtual void SetData(CharacterData _data)
+    {
+        data = _data;
+
+        gameObject.name = data.name;
+        effects.SetCharcter(this);
+
+        elemType = data.elemType;
+
+        s_Health.Set(data.maxHealth, true);
+
+        ui.SetHealth(s_Health.CurValue / s_Health.DefaultValue);
+        isDie = false;
+
+        s_Speed.Set(data.speed, true);
+        s_Acc.Set(data.accuracy, true);
+        s_Eva.Set(data.evasion, true);
+
+        anim.runtimeAnimatorController = data.anim;
+        anim.GetComponent<SpriteRenderer>().color = data.Tint;
+    }
+
+    #region BUFF
 
     public IEnumerator PreTurnBuff()
     {
@@ -71,59 +93,9 @@ public class BaseChar : MonoBehaviour
         effects.Dispel();
     }
 
-    #endregion Buff
+    #endregion BUFF
 
-    public virtual void SetData(CharacterData _data)
-    {
-        data = _data;
-
-        gameObject.name = data.name;
-        effects.SetCharcter(this);
-
-        elemType = data.elemType;
-
-        s_Health.Set(data.maxHealth, true);
-
-        ui.SetHealth(s_Health.CurValue / s_Health.DefaultValue);
-        isDie = false;
-
-        s_Speed.Set(data.speed, true);
-        s_Acc.Set(data.accuracy, true);
-        s_Eva.Set(data.evasion, true);
-
-        anim.runtimeAnimatorController = data.anim;
-        anim.GetComponent<SpriteRenderer>().color = data.Tint;
-    }
-
-    public virtual void IncreaseHealth(float _amount)
-    {
-        if (isDie || _amount == 0) { return; }
-        s_Health.Add(_amount);
-        s_Health.Set(Mathf.Clamp(s_Health.CurValue, 0, s_Health.DefaultValue));
-
-        ui.SetHealth(s_Health.CurValue / s_Health.DefaultValue);
-        ui.SetFloatingText(_amount);
-
-        if (s_Health.CurValue <= 0)
-        {
-            Die();
-        }
-    }
-
-    public virtual void Die()
-    {
-        gameObject.SetActive(false);
-        isDie = true;
-
-        AudioManager.Instance.PlaySfx(4);
-
-        TurnManager.Instance.FindCharUi(this).gameObject.SetActive(false);
-        //TurnManager.Instance.RemoveTurn(this);
-    }
-
-    public virtual void TurnPhase()
-    {
-    }
+    #region ATTACKING
 
     public virtual void Attacking(BaseChar target, CardData cardData)
     {
@@ -163,11 +135,53 @@ public class BaseChar : MonoBehaviour
     }
 
     // called on empty start animation
+    // RANGED ATTACK TOO
     public virtual void FinishedAnimating()
     {
         DoCardMove?.Invoke();
 
         DoCardMove.RemoveAllListeners();
+    }
+
+    #endregion ATTACKING
+
+    public virtual void TurnPhase()
+    {
+    }
+
+    public virtual void IncreaseHealth(float _amount)
+    {
+        if (isDie || _amount == 0) { return; }
+        s_Health.Add(_amount);
+        s_Health.Set(Mathf.Clamp(s_Health.CurValue, 0, s_Health.DefaultValue));
+
+        ui.SetHealth(s_Health.CurValue / s_Health.DefaultValue);
+        ui.SetFloatingText(_amount);
+
+        if (s_Health.CurValue <= 0)
+        {
+            Die();
+        }
+    }
+
+    public virtual void Die()
+    {
+        gameObject.SetActive(false);
+        isDie = true;
+
+        AudioManager.Instance.PlaySfx(4);
+
+        TurnManager.Instance.FindCharUi(this).gameObject.SetActive(false);
+        //TurnManager.Instance.RemoveTurn(this);
+    }
+
+    public virtual void VfxHurt(string vfxName)
+    {
+        GameObject vfx = ObjectPool.Instance.Spawn(vfxName, this.transform);
+        LeanTween.delayedCall(vfx, 0.5f, () =>
+        {
+            ObjectPool.Instance.BackToPool(vfx);
+        });
     }
 }
 

@@ -17,11 +17,15 @@ public class CardDataAtk : CardData
     public override void Action(BaseChar target)
     {
         base.Action(target);
-        AudioManager.Instance.PlaySfx(3);
 
         float mult = effectiveness(elemType, target.ElemType);
-
         target.IncreaseHealth(-(damage * mult));
+
+        // Effect
+        AudioManager.Instance.PlaySfx(3);
+        target.VfxHurt("VFX_Slash0");
+
+        // TODO: DELETE THE EFFECT
     }
 
     private float effectiveness(ElementType user, ElementType target)

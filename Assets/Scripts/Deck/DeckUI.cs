@@ -66,6 +66,7 @@ public class DeckUI : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
 
         cardUiList[index].SetBlank();
+        //cardPadlocks[index].gameObject.SetActive(false);
 
         yield return null;
     }
