@@ -149,6 +149,34 @@ public class BaseChar : MonoBehaviour
     {
     }
 
+    public virtual void TakeDamage(CardDataAtk atkCard)
+    {
+        StartCoroutine(takeDamageRoutine(atkCard));
+    }
+
+    private IEnumerator takeDamageRoutine(CardDataAtk atkCard)
+    {
+        float mult = 1;// effectiveness(atkCard.elemType, ElemType);
+
+        float splitDamage = atkCard.lastDamageIncrease ? atkCard.totalDamage / (atkCard.totalAtk + 1) : atkCard.totalDamage / atkCard.totalAtk;
+
+        for (int i = 0; i < atkCard.totalAtk; i++)
+        {
+            if (i == atkCard.totalAtk - 1 && atkCard.lastDamageIncrease)
+            {
+                splitDamage *= 2;
+            }
+
+            IncreaseHealth(-(splitDamage * mult));
+
+            // Effect
+            AudioManager.Instance.PlaySfx(3);
+            VfxHurt("VFX_Slash0");
+
+            yield return new WaitForSeconds(0.2f);
+        }
+    }
+
     public virtual void IncreaseHealth(float _amount)
     {
         if (isDie || _amount == 0) { return; }
@@ -182,6 +210,26 @@ public class BaseChar : MonoBehaviour
         {
             ObjectPool.Instance.BackToPool(vfx);
         });
+    }
+
+    private float effectiveness(ElementType user, ElementType target)
+    {
+        if (
+            (user == ElementType.Fire && target == ElementType.Wind) ||
+            (user == ElementType.Wind && target == ElementType.Watr) ||
+            (user == ElementType.Watr && target == ElementType.Fire))
+        {
+            return 1.5f;
+        }
+        else if (
+            (user == ElementType.Wind && target == ElementType.Fire) ||
+            (user == ElementType.Watr && target == ElementType.Wind) ||
+            (user == ElementType.Fire && target == ElementType.Watr))
+        {
+            return 0.5f;
+        }
+
+        return 1f;
     }
 }
 

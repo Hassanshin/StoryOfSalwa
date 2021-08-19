@@ -70,7 +70,7 @@ public class CardDetailHandler : MonoBehaviour
         if (data is CardDataAtk)
         {
             CardDataAtk atkData = (CardDataAtk)data;
-            cardDamage.text = $"{ atkData.damage}";
+            cardDamage.text = $"{ atkData.totalDamage}";
         }
         else
         {

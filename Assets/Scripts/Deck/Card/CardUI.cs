@@ -38,7 +38,7 @@ public class CardUI : DragAndDrop
         if (data is CardDataAtk)
         {
             CardDataAtk atkData = (CardDataAtk)data;
-            damage.text = $"{ atkData.damage}";
+            damage.text = $"{ atkData.totalDamage}";
         }
         else
         {

@@ -24,6 +24,9 @@ public class CharUI : MonoBehaviour
 
     private void animatefloatingText(string text)
     {
+        // TODO: STACKING DAMAGE
+        // TODO: SPLIT EFFECT AND DAMAGE
+
         if (LeanTween.isTweening(floatingId))
         {
             LeanTween.cancel(floatingId);
@@ -43,6 +46,8 @@ public class CharUI : MonoBehaviour
 
     public void SetFloatingText(float num)
     {
+        num = Mathf.Round(num * 100f) / 100f;
+
         animatefloatingText(num < 0 ? $"{num}" : $"+{num}");
     }
 

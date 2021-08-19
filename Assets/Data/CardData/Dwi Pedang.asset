@@ -24,5 +24,6 @@ MonoBehaviour:
     evasionAmount: 0
     damagePerSecondAmount: 0
     buffDuration: 1
-  damage: 200
-  totalAtk: 1
+  totalDamage: 100
+  totalAtk: 2
+  lastDamageIncrease: 0
