@@ -55,7 +55,8 @@ public class BaseChar : MonoBehaviour
 
         s_Health.Set(data.maxHealth, true);
 
-        ui.SetHealth(s_Health.CurValue / s_Health.DefaultValue);
+        ui.Initialize();
+        ui.SetHealthBar(s_Health.CurValue / s_Health.DefaultValue);
         isDie = false;
 
         s_Speed.Set(data.speed, true);
@@ -183,7 +184,7 @@ public class BaseChar : MonoBehaviour
         s_Health.Add(_amount);
         s_Health.Set(Mathf.Clamp(s_Health.CurValue, 0, s_Health.DefaultValue));
 
-        ui.SetHealth(s_Health.CurValue / s_Health.DefaultValue);
+        ui.SetHealthBar(s_Health.CurValue / s_Health.DefaultValue);
         ui.SetFloatingText(_amount);
 
         if (s_Health.CurValue <= 0)
