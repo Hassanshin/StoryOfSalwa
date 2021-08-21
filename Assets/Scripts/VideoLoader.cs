@@ -100,10 +100,21 @@ public class VideoLoader : Singleton<VideoLoader>
             doneAction?.Invoke();
             return;
         }
-        finishedEvent.AddListener(doneAction);
 
-        mPlayer.clip = mBundle.LoadAsset<VideoClip>(videoName);
+        VideoClip loaded = mBundle.LoadAsset<VideoClip>(videoName);
+
+        if (loaded == null)
+        {
+            Debug.Log($"VIDEO LOADER : Cannot find {videoName} in bundle");
+
+            doneAction?.Invoke();
+            return;
+        }
+
+        mPlayer.clip = loaded;
+
         MainMenuUI.Instance.setVideoPanel(true);
+        finishedEvent.AddListener(doneAction);
 
         mPlayer.Play();
     }

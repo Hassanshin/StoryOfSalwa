@@ -65,6 +65,11 @@ public class BaseChar : MonoBehaviour
 
         anim.runtimeAnimatorController = data.anim;
         anim.GetComponent<SpriteRenderer>().color = data.Tint;
+
+        if (data.atk.Count <= 0)
+        {
+            Debug.LogError($"{data.name} doesn't have any attack move");
+        }
     }
 
     #region BUFF
@@ -100,9 +105,6 @@ public class BaseChar : MonoBehaviour
 
     public virtual void Attacking(BaseChar target, CardData cardData)
     {
-        if (target is PlayerChar)
-            Debug.Log($"attacking player {cardData.hasVideo}");
-
         bool willHit = target == this ? true : calculateHitAccuracy(target);
 
         if (cardData.hasVideo)
@@ -122,7 +124,7 @@ public class BaseChar : MonoBehaviour
         }
     }
 
-    private void hit(BaseChar target, CardData cardData, bool willHit)
+    protected virtual void hit(BaseChar target, CardData cardData, bool willHit)
     {
         if (!willHit)
         {

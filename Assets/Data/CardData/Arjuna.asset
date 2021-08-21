@@ -24,10 +24,11 @@ MonoBehaviour:
     evasionAmount: 0
     damagePerSecondAmount: 0
     buffDuration: 1
-  videoClipName: testVideo10sec
+  animationName: atk
   sfxName: sfx1
   vfxHurtName: slash1
+  videoClipName: testVideo10sec
   totalDamage: 1000
   totalAtk: 1
   lastDamageIncrease: 0
-  HitArea: 0
+  HitArea: 2

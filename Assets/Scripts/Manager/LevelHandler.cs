@@ -142,4 +142,30 @@ public class LevelHandler : MonoBehaviour
         Destroy(player.gameObject);
         player = null;
     }
+
+    public List<BaseChar> GetEnemiesInRange(BaseChar target, int range)
+    {
+        List<BaseChar> x = new List<BaseChar>();
+
+        if (range <= 0)
+        {
+            x.Add(target);
+        }
+        else if (range >= 2)
+        {
+            x.AddRange(enemies);
+        }
+        else
+        {
+            int targetIndex = enemies.IndexOf((EnemyChar)target);
+
+            for (int i = targetIndex - 1; i < targetIndex + 2; i++)
+            {
+                if (i < 0 || i >= enemies.Count) { continue; }
+                x.Add(enemies[i]);
+            }
+        }
+
+        return x;
+    }
 }

@@ -18,9 +18,10 @@ public class CardData : ScriptableObject
     public BuffCardData buffData;
 
     [Header("Effect")]
-    public string videoClipName = "";
+    public string animationName = "atk";
     public string sfxName = "sfx1";
     public string vfxHurtName = "slash1";
+    public string videoClipName = "";
 
     public bool hasVideo
     {

@@ -73,7 +73,5 @@ public class EnemyChar : BaseChar
     {
         base.FinishedAnimating();
         TurnManager.Instance.NextTurn();
-
-        Debug.Log("ENEMY FInished animating");
     }
 }
