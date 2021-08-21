@@ -89,15 +89,18 @@ public class VideoLoader : Singleton<VideoLoader>
     {
         if (string.IsNullOrEmpty(videoName))
         {
+            Debug.Log("VIDEO LOADER : string is empty");
             return;
         }
-        finishedEvent.AddListener(doneAction);
 
         if (!mBundle)
         {
-            Debug.Log("BUNDLE FAILED TO LOAD");
+            Debug.Log("VIDEO LOADER : Bundle Failed to load");
+
+            doneAction?.Invoke();
             return;
         }
+        finishedEvent.AddListener(doneAction);
 
         mPlayer.clip = mBundle.LoadAsset<VideoClip>(videoName);
         MainMenuUI.Instance.setVideoPanel(true);

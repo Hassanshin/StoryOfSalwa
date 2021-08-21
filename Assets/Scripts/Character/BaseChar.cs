@@ -100,11 +100,17 @@ public class BaseChar : MonoBehaviour
 
     public virtual void Attacking(BaseChar target, CardData cardData)
     {
+        if (target is PlayerChar)
+            Debug.Log($"attacking player {cardData.hasVideo}");
+
         bool willHit = target == this ? true : calculateHitAccuracy(target);
 
-        if (cardData.type == CardType.Ult)
+        if (cardData.hasVideo)
         {
-            hit(target, cardData, willHit);
+            VideoLoader.Instance.PlayDone(cardData.videoClipName, () =>
+            {
+                hit(target, cardData, willHit);
+            });
         }
         else
         {
@@ -120,7 +126,7 @@ public class BaseChar : MonoBehaviour
     {
         if (!willHit)
         {
-            ui.SetFloatingText("Miss");
+            //ui.SetFloatingText("Miss");
             target.ui.SetFloatingText("Evade");
             return;
         }
@@ -157,7 +163,7 @@ public class BaseChar : MonoBehaviour
 
     private IEnumerator takeDamageRoutine(CardDataAtk atkCard)
     {
-        float mult = 1;// effectiveness(atkCard.elemType, ElemType);
+        float mult = effectiveness(atkCard.elemType, ElemType);
 
         float splitDamage = atkCard.lastDamageIncrease ? atkCard.totalDamage / (atkCard.totalAtk + 1) : atkCard.totalDamage / atkCard.totalAtk;
 

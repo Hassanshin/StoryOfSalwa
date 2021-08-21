@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Player
   m_EditorClassIdentifier: 
   maxHealth: 1000
-  speed: 50
+  elemType: 0
+  speed: 80.3
   accuracy: 100
   evasion: 0
   atk: []

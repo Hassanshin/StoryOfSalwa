@@ -15,7 +15,7 @@ MonoBehaviour:
   type: 2
   elemType: 0
   sprite: {fileID: 1216849358509855973, guid: 5f2cb5eb0cb53854e89b725dd03de867, type: 3}
-  penjelasan: Jamu Brotowali menyembuhkan segala cara
+  penjelasan: Jamu Brotowali menyembuhkan segala efek negatif
   buffData:
     stun: 0
     cure: 0
@@ -24,4 +24,7 @@ MonoBehaviour:
     evasionAmount: 0
     damagePerSecondAmount: 0
     buffDuration: 1
+  videoClipName: 
+  sfxName: sfx1
+  vfxHurtName: slash1
   healAmount: 100

@@ -19,6 +19,6 @@ public class CardDataSup : CardData
 
         AudioManager.Instance.PlaySfx(2);
 
-        target.IncreaseHealth(healAmount);
+        target.IncreaseHealth(healAmount); // set sound, set sfx prefab
     }
 }

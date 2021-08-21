@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class CardData : ScriptableObject
 {
+    [Header("Card Components")]
     public CardType type;
     public ElementType elemType;
 
-    [Header("Card Components")]
     public Sprite sprite = null;
 
     [TextArea(3, 6)]
@@ -16,6 +16,19 @@ public class CardData : ScriptableObject
 
     [Header("BUFF DATA POP")]
     public BuffCardData buffData;
+
+    [Header("Effect")]
+    public string videoClipName = "";
+    public string sfxName = "sfx1";
+    public string vfxHurtName = "slash1";
+
+    public bool hasVideo
+    {
+        get
+        {
+            return !string.IsNullOrEmpty(videoClipName);
+        }
+    }
 
     public virtual void Action(BaseChar target)
     {

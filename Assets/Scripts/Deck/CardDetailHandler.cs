@@ -62,7 +62,7 @@ public class CardDetailHandler : MonoBehaviour
         cardJudul.text = data.name;
         judul.text = data.name;
 
-        borderCard.color = typeColor[(int)data.type];
+        borderCard.color = data.hasVideo ? typeColor[1] : typeColor[(int)data.type];
         element.text = elemText[(int)data.elemType];
 
         penjelasan.text = data.penjelasan;

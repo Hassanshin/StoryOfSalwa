@@ -9,6 +9,7 @@ public class DoneAnimate : StateMachineBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         animator.transform.parent.parent.GetComponent<BaseChar>().FinishedAnimating();
+        Debug.Log($"{animator.transform.parent.parent.gameObject}");
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

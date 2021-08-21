@@ -24,6 +24,10 @@ MonoBehaviour:
     evasionAmount: 0
     damagePerSecondAmount: 0
     buffDuration: 1
-  totalDamage: 100
+  videoClipName: 
+  sfxName: sfx1
+  vfxHurtName: slash1
+  totalDamage: 99
   totalAtk: 5
   lastDamageIncrease: 1
+  HitArea: 1
