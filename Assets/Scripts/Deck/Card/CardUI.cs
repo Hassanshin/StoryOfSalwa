@@ -50,13 +50,17 @@ public class CardUI : DragAndDrop
         cardBtn.onClick.RemoveAllListeners();
         cardBtn.onClick.AddListener(() =>
         {
-            CardDetailHandler.Instance.ViewData = data;
+            if (data != null)
+                CardDetailHandler.Instance.ViewData = data;
         });
     }
 
-    public void SetBlank()
+    public void SetBlank(string blankText = "")
     {
-        cardName.text = "";
+        cardName.text = blankText;
+
+        data = null;
+
         icon.color = new Color(0, 0, 0, 0);
         border.color = new Color(0, 0, 0, 0);
     }
@@ -83,6 +87,7 @@ public class CardUI : DragAndDrop
     {
         base.OnDropAlike(_draggedSlot);
 
-        Inventory.Instance.Swap(this, _draggedSlot.GetComponent<CardUI>());
+        if (_draggedSlot.GetComponent<CardUI>() != null)
+            Inventory.Instance.Swap(this, _draggedSlot.GetComponent<CardUI>());
     }
 }

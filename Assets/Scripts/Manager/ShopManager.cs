@@ -56,6 +56,8 @@ public class ShopManager : Singleton<ShopManager>
             Button buyBtn = cardSellUi[i].transform.GetChild(1).GetComponent<Button>();
 
             buyBtn.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = $"Buy {cardSell[i].price}";
+            cardSellUi[i].transform.GetChild(1).GetComponent<Button>().interactable = true;
+
             int copy = i;
 
             buyBtn.onClick.RemoveAllListeners();
@@ -68,15 +70,25 @@ public class ShopManager : Singleton<ShopManager>
 
     private void buyBtnAction(int i)
     {
-        buy(cardSell[i]);
+        if (cardSellUi[i].Data != null)
+        {
+            buy(i);
+        }
     }
 
-    private bool buy(CardSell _card)
+    private bool buy(int i)
     {
+        CardSell _card = cardSell[i];
+
         if (gold.CurValue >= _card.price)
         {
             Inventory.Instance.AddNewCard(_card.card);
             gold.Add(-_card.price);
+
+            cardSellUi[i].SetBlank("Sold");
+            cardSellUi[i].transform.GetChild(1).GetComponent<Button>().transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = $"Sold";
+            cardSellUi[i].transform.GetChild(1).GetComponent<Button>().interactable = false;
+
             return true;
         }
         else
