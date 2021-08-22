@@ -5,9 +5,6 @@ using UnityEngine.UI;
 
 public class MainMenuUI : Singleton<MainMenuUI>
 {
-    /// <summary>
-    /// 0 Main, 1 Game, 2 Video
-    /// </summary>
     public List<Canvas> panel = new List<Canvas>();
 
     public override void Initialization()
@@ -29,5 +26,17 @@ public class MainMenuUI : Singleton<MainMenuUI>
         panel[0].gameObject.SetActive(true);
         panel[1].gameObject.SetActive(false);
         GameManager.Instance.BackToMain();
+    }
+
+    /// <summary>
+    ///
+    /// </summary>
+    /// <param name="index">0 Main, 1 Game, 2 Video, 3 Shop</param>
+    public void DisplayOnly(int index)
+    {
+        for (int i = 0; i < panel.Count; i++)
+        {
+            panel[i].gameObject.SetActive(i == index);
+        }
     }
 }

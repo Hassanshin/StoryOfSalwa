@@ -8,67 +8,15 @@ public class PlayerData
 {
     public string PlayerName;
 
-    public string timeSinceLastOpened;
-    public string loginDaily;
-    public string loginWeekly;
+    public float goldAmount = 0;
 
-    public DateTime TimeSinceLastOpened
-    {
-        get
-        {
-            if (string.IsNullOrEmpty(timeSinceLastOpened))
-            {
-                return DateTime.MinValue;
-            }
-            else
-            {
-                return DateTime.Parse(timeSinceLastOpened);
-            }
-        }
-    }
+    public CardSave cardSave = new CardSave();
+}
 
-    public DateTime LoginDaily
-    {
-        get
-        {
-            if (string.IsNullOrEmpty(loginDaily))
-            {
-                return DateTime.MinValue;
-            }
-            else
-            {
-                return DateTime.Parse(loginDaily);
-            }
-        }
-    }
-
-    public DateTime LoginWeekly
-    {
-        get
-        {
-            if (string.IsNullOrEmpty(loginWeekly))
-            {
-                return DateTime.MinValue;
-            }
-            else
-            {
-                return DateTime.Parse(loginWeekly);
-            }
-        }
-    }
-
-    public void SetTimeSinceLastOpened(DateTime _date)
-    {
-        timeSinceLastOpened = _date.ToString();
-    }
-
-    public void SetTimeDaily(DateTime _date)
-    {
-        loginDaily = _date.ToString();
-    }
-
-    public void SetTimeWeekly(DateTime _date)
-    {
-        loginWeekly = _date.ToString();
-    }
+[System.Serializable]
+public class CardSave
+{
+    public List<string> BagCards = new List<string>();
+    public List<string> DeckCards = new List<string>();
+    public List<string> TrunkCards = new List<string>();
 }

@@ -14,6 +14,12 @@ public class GameManager : Singleton<GameManager>
     [SerializeField]
     private GameObject GameArena;
 
+    [SerializeField]
+    private GameObject NamePanel;
+
+    [SerializeField]
+    private TMPro.TMP_InputField nameInput;
+
     [Header("Handlers")]
 
     public LevelHandler Level;
@@ -28,6 +34,9 @@ public class GameManager : Singleton<GameManager>
 
         OnBackToMenu.AddListener(Level.ClearSpawn);
         OnBackToMenu.AddListener(Deck.ClearDeck);
+
+        nameInput.onEndEdit.AddListener(SetName);
+        NamePanel.SetActive(SaveManager.Instance.IsNewPlayer);
     }
 
     #region sequence manager
@@ -79,5 +88,18 @@ public class GameManager : Singleton<GameManager>
 
         MainMenuUI.Instance.panel[1].gameObject.SetActive(true);
         TurnManager.Instance.StartTurn();
+    }
+
+    public void SetName(string name)
+    {
+        SaveManager.Instance.playerData.PlayerName = name;
+    }
+
+    public void DoneEditingName()
+    {
+        SaveManager.Instance.playerData.PlayerName = nameInput.text;
+        SaveManager.Instance.Save();
+
+        NamePanel.SetActive(false);
     }
 }

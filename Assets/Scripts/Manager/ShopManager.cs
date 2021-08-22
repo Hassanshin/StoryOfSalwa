@@ -26,18 +26,44 @@ public class ShopManager : Singleton<ShopManager>
         gold.OnValueChanged.AddListener((a) =>
         {
             goldText.text = $"{a}";
+
+            save();
         });
-        gold.Set(1000);
 
         setData();
 
-        GameManager.Instance.Level.OnGameOver.AddListener((isWin) =>
+        GameManager.Instance.Level.OnGameOver.AddListener(onWinning);
+
+        load();
+    }
+
+    private void load()
+    {
+        if (SaveManager.Instance.IsNewPlayer)
         {
-            if (isWin)
-            {
-                gold.Add(100);
-            }
-        });
+            float startingGold = 1000;
+            gold.Set(startingGold);
+        }
+        else
+        {
+            gold.Set(SaveManager.Instance.playerData.goldAmount);
+        }
+    }
+
+    private void save()
+    {
+        SaveManager.Instance.playerData.goldAmount = gold.CurValue;
+
+        SaveManager.Instance.Save();
+    }
+
+    private void onWinning(bool isWin)
+    {
+        if (isWin)
+        {
+            gold.Add(200);
+            setData();
+        }
     }
 
     [ContextMenu("Randomize")]

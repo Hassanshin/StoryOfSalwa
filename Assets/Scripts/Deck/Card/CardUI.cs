@@ -87,7 +87,7 @@ public class CardUI : DragAndDrop
     {
         base.OnDropAlike(_draggedSlot);
 
-        if (_draggedSlot.GetComponent<CardUI>() != null)
+        if (_draggedSlot != null && _draggedSlot.TryGetComponent(out CardUI ui))
             Inventory.Instance.Swap(this, _draggedSlot.GetComponent<CardUI>());
     }
 }

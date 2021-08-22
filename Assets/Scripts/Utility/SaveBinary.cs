@@ -14,7 +14,7 @@ public class SaveBinary : MonoBehaviour
 
     private const string SAVE_FOLDER = "/saves";
 
-    private const string SAVE_EXT = ".savSn";
+    private const string SAVE_EXT = ".hash";
 
     public void Save(string saveName, object saveData)
     {
@@ -31,7 +31,7 @@ public class SaveBinary : MonoBehaviour
         formatter.Serialize(file, saveData);
         file.Close();
 #if UNITY_EDITOR
-        Debug.Log(path);
+        Debug.Log($"SAVE: {path}");
 #endif
     }
 
@@ -40,7 +40,7 @@ public class SaveBinary : MonoBehaviour
         if (!IsFileExist(fileName))
         {
 #if UNITY_EDITOR
-            Debug.Log($"Save file doesn't exist with filename: {fileName}");
+            Debug.LogError($"SAVE: file doesn't exist with filename: {fileName}");
 #endif
             return null;
         }
@@ -58,7 +58,7 @@ public class SaveBinary : MonoBehaviour
         }
         catch (Exception ex)
         {
-            Debug.LogWarning($"Failed to load file at: \n{path}\n{ex.Message}");
+            Debug.LogError($"SAVE: Failed to load file at: \n{path}\n{ex.Message}");
             file.Close();
             return null;
         }

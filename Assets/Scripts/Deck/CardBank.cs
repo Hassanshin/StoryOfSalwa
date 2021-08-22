@@ -14,6 +14,10 @@ public class CardBank : MonoBehaviour
 
     public List<CardData> DefaultCard => defaultCards;
 
+    [SerializeField]
+    private List<CardData> trunkCards = new List<CardData>();
+    public List<CardData> TrunkCards => trunkCards;
+
     public CardData GetCard(string name)
     {
         CardData x = allCards.Find((a) => a.name == name);
@@ -25,5 +29,16 @@ public class CardBank : MonoBehaviour
         }
 
         return allCards.Find((a) => a.name == name);
+    }
+
+    public List<CardData> GetCards(List<string> names)
+    {
+        List<CardData> x = new List<CardData>();
+        foreach (string name in names)
+        {
+            x.Add(GetCard(name));
+        }
+
+        return x;
     }
 }

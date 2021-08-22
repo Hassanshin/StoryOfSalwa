@@ -16,6 +16,9 @@ public class Inventory : Singleton<Inventory>
     [Header("UI")]
     public GameObject cardUiPrefab;
 
+    [SerializeField]
+    private UnityEngine.UI.Button backBtn;
+
     [Header("CardBank")]
     public CardBank cardBank;
 
@@ -23,12 +26,16 @@ public class Inventory : Singleton<Inventory>
     {
         get
         {
-            if (dTrunk.cards.Count == 5 && dDeck.cards.Count == 20)
+            if (dDeck.cards.Count == 20)
             {
+                StartCoroutine(saveDeck());
                 return true;
             }
-
-            return false;
+            else
+            {
+                Debug.Log("Deck is bad");
+                return false;
+            }
         }
     }
 
@@ -56,23 +63,68 @@ public class Inventory : Singleton<Inventory>
 
         cardBank = GetComponent<CardBank>();
         StartCoroutine(Initialize());
+
+        backBtn.onClick.AddListener(() => BackMainMenu());
     }
 
     public IEnumerator Initialize()
     {
-        yield return loadCard();
+        yield return loadDeck();
 
         yield return spawn(dBag);
         yield return spawn(dDeck);
         yield return spawn(dTrunk);
     }
 
-    private IEnumerator loadCard()
+    private IEnumerator loadDeck()
     {
         // Load Card
 
         //bag.cards.AddRange(cardBank.DefaultCard);
-        dDeck.cards.AddRange(cardBank.DefaultCard);
+
+        if (SaveManager.Instance.IsNewPlayer)
+        {
+            dDeck.cards.AddRange(cardBank.DefaultCard);
+            dTrunk.cards.AddRange(cardBank.TrunkCards);
+            yield return saveDeck();
+        }
+        else
+        {
+            dDeck.cards.AddRange(cardBank.GetCards(SaveManager.Instance.playerData.cardSave.DeckCards));
+            dTrunk.cards.AddRange(cardBank.GetCards(SaveManager.Instance.playerData.cardSave.TrunkCards));
+            dBag.cards.AddRange(cardBank.GetCards(SaveManager.Instance.playerData.cardSave.BagCards));
+        }
+
+        yield return null;
+    }
+
+    private IEnumerator saveDeck()
+    {
+        List<string> dDeckSave = new List<string>();
+        foreach (CardData item in dDeck.cards)
+        {
+            dDeckSave.Add(item.name);
+        }
+
+        SaveManager.Instance.playerData.cardSave.DeckCards = dDeckSave;
+
+        List<string> dTrunkSave = new List<string>();
+        foreach (CardData item in dTrunk.cards)
+        {
+            dTrunkSave.Add(item.name);
+        }
+
+        SaveManager.Instance.playerData.cardSave.TrunkCards = dTrunkSave;
+
+        List<string> dBagSave = new List<string>();
+        foreach (CardData item in dBag.cards)
+        {
+            dBagSave.Add(item.name);
+        }
+
+        SaveManager.Instance.playerData.cardSave.BagCards = dBagSave;
+
+        SaveManager.Instance.Save();
 
         yield return null;
     }
@@ -126,21 +178,19 @@ public class Inventory : Singleton<Inventory>
         newCard.transform.SetAsFirstSibling();
 
         dBag.cardUI.Add(newCard);
+        SaveManager.Instance.playerData.cardSave.BagCards.Add(a.name);
     }
 
     #endregion Drag Drop Card
 
-    public bool QuitSaveInventory()
+    public void BackMainMenu()
     {
         if (DeckIsFine)
         {
-            // save
-            return true;
+            MainMenuUI.Instance.DisplayOnly(0);
         }
         else
         {
-            Debug.Log("Deck is bad");
-            return false;
         }
     }
 }
