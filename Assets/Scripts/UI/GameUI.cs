@@ -15,8 +15,6 @@ public class GameUI : Singleton<GameUI>
     [SerializeField]
     private TextMeshProUGUI gameOverText;
 
-    public CardDetailHandler cardDetail;
-
     public override void Initialization()
     {
         GameManager.Instance.Level.OnGameOver.AddListener(showGameOverPanel);

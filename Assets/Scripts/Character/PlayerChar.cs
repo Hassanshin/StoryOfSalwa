@@ -22,7 +22,8 @@ public class PlayerChar : BaseChar
 
             foreach (BaseChar baseChar in targets)
             {
-                base.hit(baseChar, cardData, willHit);
+                if (!baseChar.IsDie)
+                    base.hit(baseChar, cardData, willHit);
             }
         }
         else

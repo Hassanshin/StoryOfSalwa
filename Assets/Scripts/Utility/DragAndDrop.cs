@@ -2,15 +2,19 @@ using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+[RequireComponent(typeof(Canvas))]
 [RequireComponent(typeof(CanvasGroup))]
 public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler, IDropHandler
 {
     [Tooltip("should reference the canvas scaler to drag and drop")]
     private Canvas canvas;
 
-    internal Image draggedImage;
-    internal RectTransform rect;
-    internal CanvasGroup canvasGroup;
+    private Image draggedImage;
+    private RectTransform rect;
+    private CanvasGroup canvasGroup;
+
+    private int orderDefault = 1;
+    private int orderTop = 5;
 
     private bool dropToWorld
     {
@@ -19,11 +23,21 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, ID
 
     internal virtual void Start()
     {
-        canvas = GameUI.Instance.Canvas;
+        canvas = this.GetComponent<Canvas>();
 
-        draggedImage = transform.GetChild(0).GetComponent<Image>();
-        rect = draggedImage.GetComponent<RectTransform>();
+        orderDefault = canvas.sortingOrder;
+
         canvasGroup = GetComponent<CanvasGroup>();
+
+        if (transform.childCount > 0)
+        {
+            draggedImage = transform.GetChild(0).GetComponent<Image>();
+            rect = draggedImage.GetComponent<RectTransform>();
+        }
+        else
+        {
+            Debug.LogError("DRAG N DROP : Has no child image");
+        }
     }
 
     #region drag n drop
@@ -36,6 +50,8 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, ID
         canvasGroup.interactable = true;
         canvasGroup.blocksRaycasts = true;
 
+        canvas.sortingOrder = orderDefault;
+
         if (dropToWorld)
         {
             OnDropActionWorld();
@@ -47,6 +63,8 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, ID
         draggedImage.raycastTarget = false;
         canvasGroup.interactable = false;
         canvasGroup.blocksRaycasts = false;
+
+        canvas.sortingOrder = orderTop;
     }
 
     public virtual void OnDrag(PointerEventData eventData)
@@ -56,20 +74,20 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, ID
 
     public virtual void OnDrop(PointerEventData eventData)
     {
-        OnDropActionUI(eventData.pointerDrag.GetComponent<DragAndDrop>());
+        OnDropAlike(eventData.pointerDrag.GetComponent<DragAndDrop>());
     }
 
-    public virtual void OnDropActionUI(DragAndDrop _draggedSlot)
+    public virtual void OnDropAlike(DragAndDrop _draggedSlot)
     {
 #if UNITY_EDITOR
-        //Debug.Log($"{this} dragged to {_draggedSlot}");
+        //Debug.Log($"DRAG N DROP : {this} dragged to {_draggedSlot}");
 #endif
     }
 
     public virtual void OnDropActionWorld()
     {
 #if UNITY_EDITOR
-        //Debug.Log($"{this} dragged to WORLD");
+        //Debug.Log($"DRAG N DROP : {this} dragged to WORLD");
 #endif
     }
 

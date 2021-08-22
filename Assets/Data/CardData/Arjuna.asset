@@ -28,7 +28,7 @@ MonoBehaviour:
   sfxName: sfx1
   vfxHurtName: slash1
   videoClipName: testVideo10sec
-  totalDamage: 1000
+  totalDamage: 4000
   totalAtk: 1
   lastDamageIncrease: 0
-  HitArea: 2
+  HitArea: 1

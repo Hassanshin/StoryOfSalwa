@@ -14,6 +14,8 @@ public class GameManager : Singleton<GameManager>
     [SerializeField]
     private GameObject GameArena;
 
+    [Header("Handlers")]
+
     public LevelHandler Level;
     public DeckManager Deck;
 

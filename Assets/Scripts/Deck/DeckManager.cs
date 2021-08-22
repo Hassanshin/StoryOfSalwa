@@ -22,9 +22,10 @@ public class DeckManager : MonoBehaviour
 
     public IEnumerator loadCardList()
     {
-        ui.Initialize();
+        cardList.AddRange(Inventory.Instance.DeckCards);
 
         inGameDeck.deck.AddRange(cardList);
+        yield return ui.Initialize();
 
         yield return shuffleDeck();
     }
@@ -126,6 +127,8 @@ public class DeckManager : MonoBehaviour
 
     public void ClearDeck()
     {
+        cardList.Clear();
+
         ui.StateActive(false);
         ui.ClearDeck();
         if (process != null)

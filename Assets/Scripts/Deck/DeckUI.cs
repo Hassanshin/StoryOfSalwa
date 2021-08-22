@@ -36,7 +36,7 @@ public class DeckUI : MonoBehaviour
     //[SerializeField]
     //private Transform cardUiParent;
 
-    public void Initialize()
+    public IEnumerator Initialize()
     {
         endButton.onClick.AddListener(endTurnButton);
 
@@ -48,6 +48,8 @@ public class DeckUI : MonoBehaviour
                 GameManager.Instance.Deck.LockHandCard(copy, a);
             });
         }
+
+        yield return null;
     }
 
     public IEnumerator applyHandCard(int index, CardData card)

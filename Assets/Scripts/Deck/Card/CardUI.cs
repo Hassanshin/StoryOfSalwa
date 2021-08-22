@@ -7,6 +7,7 @@ public class CardUI : DragAndDrop
 {
     [SerializeField]
     private CardData data;
+    public CardData Data => data;
 
     [SerializeField]
     private Image icon;
@@ -46,9 +47,10 @@ public class CardUI : DragAndDrop
             damage.text = $"{ atkData.healAmount}";
         }
 
+        cardBtn.onClick.RemoveAllListeners();
         cardBtn.onClick.AddListener(() =>
         {
-            GameUI.Instance.cardDetail.ViewData = data;
+            CardDetailHandler.Instance.ViewData = data;
         });
     }
 
@@ -75,5 +77,12 @@ public class CardUI : DragAndDrop
             // get target in parent
             GameManager.Instance.Level.Player.Attacking(target.parent.GetComponent<BaseChar>(), data);
         }
+    }
+
+    public override void OnDropAlike(DragAndDrop _draggedSlot)
+    {
+        base.OnDropAlike(_draggedSlot);
+
+        Inventory.Instance.Swap(this, _draggedSlot.GetComponent<CardUI>());
     }
 }
