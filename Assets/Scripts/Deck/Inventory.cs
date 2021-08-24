@@ -171,6 +171,9 @@ public class Inventory : Singleton<Inventory>
 
         // SWAP SYSTEM
         StartCoroutine(refreshAllPile());
+
+        // sfx
+        AudioManager.Instance.PlaySfx(0);
     }
 
     private IEnumerator refreshAllPile()
@@ -191,6 +194,9 @@ public class Inventory : Singleton<Inventory>
 
         dBag.cardUI.Add(newCard);
         SaveManager.Instance.playerData.cardSave.BagCards.Add(a.name);
+
+        //sfx
+        AudioManager.Instance.PlaySfx(0);
     }
 
     #endregion Drag Drop Card
@@ -212,6 +218,9 @@ public class Inventory : Singleton<Inventory>
         lastSort = index;
 
         StartCoroutine(SortNumerator(lastSort));
+
+        // sfx
+        AudioManager.Instance.PlaySfx(0);
     }
 
     private IEnumerator SortNumerator(int index)

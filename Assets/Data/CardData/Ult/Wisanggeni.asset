@@ -31,4 +31,4 @@ MonoBehaviour:
   totalDamage: 4000
   totalAtk: 1
   lastDamageIncrease: 0
-  HitArea: 1
+  HitArea: 0

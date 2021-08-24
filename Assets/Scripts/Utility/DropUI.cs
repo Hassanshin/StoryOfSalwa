@@ -9,7 +9,7 @@ public class DropUI : MonoBehaviour, IDropHandler
 
     public void OnDrop(PointerEventData eventData)
     {
-        Debug.Log($"DROP : {eventData.pointerDrag} dropped to {this}");
+        //Debug.Log($"DROP : {eventData.pointerDrag} dropped to {this}");
     }
 }
 

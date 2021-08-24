@@ -15,7 +15,7 @@ MonoBehaviour:
   type: 0
   elemType: 3
   sprite: {fileID: 3403258472632580065, guid: 5f2cb5eb0cb53854e89b725dd03de867, type: 3}
-  penjelasan: Pentil muter muter keren (Cleave)
+  penjelasan: Pentil muter muter keren (Cleave + LastDamage Increase)
   buffData:
     stun: 0
     cure: 0
@@ -28,7 +28,7 @@ MonoBehaviour:
   sfxName: sfx1
   vfxImpactName: slash1
   videoClipName: 
-  totalDamage: 300
+  totalDamage: 400
   totalAtk: 3
-  lastDamageIncrease: 0
+  lastDamageIncrease: 1
   HitArea: 1
