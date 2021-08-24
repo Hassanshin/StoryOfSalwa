@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a6d411487b09cff488262465fab0ff42, type: 3}
-  m_Name: Lesus
+  m_Name: Pedang Bayu
   m_EditorClassIdentifier: 
   type: 0
   elemType: 3
-  sprite: {fileID: 3403258472632580065, guid: 5f2cb5eb0cb53854e89b725dd03de867, type: 3}
-  penjelasan: Pentil muter muter keren (Cleave)
+  sprite: {fileID: 1676308008278888504, guid: 5f2cb5eb0cb53854e89b725dd03de867, type: 3}
+  penjelasan: "Pedang Angin tapi mantab\t"
   buffData:
     stun: 0
     cure: 0
@@ -28,7 +28,7 @@ MonoBehaviour:
   sfxName: sfx1
   vfxImpactName: slash1
   videoClipName: 
-  totalDamage: 300
-  totalAtk: 3
+  totalDamage: 100
+  totalAtk: 1
   lastDamageIncrease: 0
   HitArea: 1

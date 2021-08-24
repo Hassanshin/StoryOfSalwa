@@ -46,8 +46,8 @@ public class CardDetailHandler : Singleton<CardDetailHandler>
     [SerializeField]
     private Canvas panel;
 
-    [SerializeField]
-    private Color[] typeColor = new Color[3];
+    public Color[] typeColor = new Color[3];
+    public Sprite[] elemSprite = new Sprite[4];
 
     [SerializeField]
     private string[] elemText = new string[3];

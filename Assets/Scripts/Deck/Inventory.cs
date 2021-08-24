@@ -1,23 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Inventory : Singleton<Inventory>
 {
     [SerializeField]
     private CardPile dBag;
 
-    [SerializeField]
-    private CardPile dTrunk;
+    //[SerializeField]
+    //private CardPile dTrunk;
 
     [SerializeField]
     private CardPile dDeck;
-
-    [Header("UI")]
-    public GameObject cardUiPrefab;
-
-    [SerializeField]
-    private UnityEngine.UI.Button backBtn;
 
     [Header("CardBank")]
     public CardBank cardBank;
@@ -47,24 +42,41 @@ public class Inventory : Singleton<Inventory>
         }
     }
 
-    public List<CardData> TrunkCards
-    {
-        get
-        {
-            return dTrunk.cards;
-        }
-    }
+    //public List<CardData> TrunkCards
+    //{
+    //    get
+    //    {
+    //        return dTrunk.cards;
+    //    }
+    //}
+
+    [SerializeField]
+    private int lastSort;
+
+    [Header("UI")]
+    public GameObject cardUiPrefab;
+
+    [SerializeField]
+    private Button backBtn;
+
+    [SerializeField]
+    private Button[] sortBtn;
 
     public override void Initialization()
     {
         dBag.type = PileType.bag;
         dDeck.type = PileType.deck;
-        dTrunk.type = PileType.trunk;
+        //dTrunk.type = PileType.trunk;
 
         cardBank = GetComponent<CardBank>();
         StartCoroutine(Initialize());
 
         backBtn.onClick.AddListener(() => BackMainMenu());
+        for (int i = 0; i < sortBtn.Length; i++)
+        {
+            int copy = i + 1;
+            sortBtn[i].onClick.AddListener(() => Sort(copy));
+        }
     }
 
     public IEnumerator Initialize()
@@ -73,7 +85,7 @@ public class Inventory : Singleton<Inventory>
 
         yield return spawn(dBag);
         yield return spawn(dDeck);
-        yield return spawn(dTrunk);
+        //yield return spawn(dTrunk);
     }
 
     private IEnumerator loadDeck()
@@ -85,13 +97,13 @@ public class Inventory : Singleton<Inventory>
         if (SaveManager.Instance.IsNewPlayer)
         {
             dDeck.cards.AddRange(cardBank.DefaultCard);
-            dTrunk.cards.AddRange(cardBank.TrunkCards);
+            //dTrunk.cards.AddRange(cardBank.TrunkCards);
             yield return saveDeck();
         }
         else
         {
             dDeck.cards.AddRange(cardBank.GetCards(SaveManager.Instance.playerData.cardSave.DeckCards));
-            dTrunk.cards.AddRange(cardBank.GetCards(SaveManager.Instance.playerData.cardSave.TrunkCards));
+            //dTrunk.cards.AddRange(cardBank.GetCards(SaveManager.Instance.playerData.cardSave.TrunkCards));
             dBag.cards.AddRange(cardBank.GetCards(SaveManager.Instance.playerData.cardSave.BagCards));
         }
 
@@ -108,13 +120,13 @@ public class Inventory : Singleton<Inventory>
 
         SaveManager.Instance.playerData.cardSave.DeckCards = dDeckSave;
 
-        List<string> dTrunkSave = new List<string>();
-        foreach (CardData item in dTrunk.cards)
-        {
-            dTrunkSave.Add(item.name);
-        }
+        //List<string> dTrunkSave = new List<string>();
+        //foreach (CardData item in dTrunk.cards)
+        //{
+        //    dTrunkSave.Add(item.name);
+        //}
 
-        SaveManager.Instance.playerData.cardSave.TrunkCards = dTrunkSave;
+        //SaveManager.Instance.playerData.cardSave.TrunkCards = dTrunkSave;
 
         List<string> dBagSave = new List<string>();
         foreach (CardData item in dBag.cards)
@@ -163,9 +175,9 @@ public class Inventory : Singleton<Inventory>
 
     private IEnumerator refreshAllPile()
     {
-        yield return dBag.Refresh();
-        yield return dTrunk.Refresh();
-        yield return dDeck.Refresh();
+        yield return dBag.RefreshCardData();
+        yield return dDeck.RefreshCardData();
+        //yield return dTrunk.Refresh();
     }
 
     public void AddNewCard(CardData a)
@@ -182,6 +194,33 @@ public class Inventory : Singleton<Inventory>
     }
 
     #endregion Drag Drop Card
+
+    #region Sort
+
+    public void Sort(int index)
+    {
+        /* 1 -1 Name
+         * 2 -2 Element
+         * 3 -3 Type
+         * 4 -4 DamageTotal ?
+         */
+        if (lastSort / index == 1)
+        {
+            index *= -1;
+        }
+
+        lastSort = index;
+
+        StartCoroutine(SortNumerator(lastSort));
+    }
+
+    private IEnumerator SortNumerator(int index)
+    {
+        yield return dDeck.Sort(index);
+        yield return dBag.Sort(index);
+    }
+
+    #endregion Sort
 
     public void BackMainMenu()
     {
@@ -206,7 +245,7 @@ public class CardPile
     [Header("Components")]
     public Transform pivotCard;
 
-    public IEnumerator Refresh()
+    public IEnumerator RefreshCardData()
     {
         cards.Clear();
         for (int i = 0; i < cardUI.Count; i++)
@@ -214,5 +253,52 @@ public class CardPile
             cards.Add(cardUI[i].Data);
         }
         yield return null;
+    }
+
+    public IEnumerator RefreshCardUi()
+    {
+        for (int i = 0; i < cardUI.Count; i++)
+        {
+            cardUI[i].SetCardData(cards[i]);
+        }
+        yield return null;
+    }
+
+    public IEnumerator Sort(int index)
+    {
+        if (index == 1)
+        {
+            cards.Sort((a, b) => a.name.CompareTo(b.name));
+        }
+        else if (index == -1)
+        {
+            cards.Sort((a, b) => b.name.CompareTo(a.name));
+        }
+        else if (index == 2)
+        {
+            cards.Sort((a, b) => a.name.CompareTo(b.name));
+
+            cards.Sort((a, b) => a.elemType.CompareTo(b.elemType));
+        }
+        else if (index == -2)
+        {
+            cards.Sort((a, b) => b.name.CompareTo(a.name));
+
+            cards.Sort((a, b) => b.elemType.CompareTo(a.elemType));
+        }
+        else if (index == 3)
+        {
+            cards.Sort((a, b) => a.name.CompareTo(b.name));
+
+            cards.Sort((a, b) => a.type.CompareTo(b.type));
+        }
+        else if (index == -3)
+        {
+            cards.Sort((a, b) => b.name.CompareTo(a.name));
+
+            cards.Sort((a, b) => b.type.CompareTo(a.type));
+        }
+
+        yield return RefreshCardUi();
     }
 }

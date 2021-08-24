@@ -14,9 +14,9 @@ public class CardBank : MonoBehaviour
 
     public List<CardData> DefaultCard => defaultCards;
 
-    [SerializeField]
-    private List<CardData> trunkCards = new List<CardData>();
-    public List<CardData> TrunkCards => trunkCards;
+    //[SerializeField]
+    //private List<CardData> trunkCards = new List<CardData>();
+    //public List<CardData> TrunkCards => trunkCards;
 
     public CardData GetCard(string name)
     {

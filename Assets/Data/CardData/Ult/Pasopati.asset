@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a6d411487b09cff488262465fab0ff42, type: 3}
-  m_Name: Lesus
+  m_Name: Pasopati
   m_EditorClassIdentifier: 
-  type: 0
+  type: 1
   elemType: 3
-  sprite: {fileID: 3403258472632580065, guid: 5f2cb5eb0cb53854e89b725dd03de867, type: 3}
-  penjelasan: Pentil muter muter keren (Cleave)
+  sprite: {fileID: -936124954036847002, guid: 5f2cb5eb0cb53854e89b725dd03de867, type: 3}
+  penjelasan: "Shiled pecah keren ENGLAN ENGELAND ENGLANDO ENGLANDOR ENGALANDORA\t"
   buffData:
     stun: 0
     cure: 0
@@ -27,8 +27,8 @@ MonoBehaviour:
   animationName: atk
   sfxName: sfx1
   vfxImpactName: slash1
-  videoClipName: 
-  totalDamage: 300
-  totalAtk: 3
+  videoClipName: testVideo10sec
+  totalDamage: 4000
+  totalAtk: 1
   lastDamageIncrease: 0
   HitArea: 1

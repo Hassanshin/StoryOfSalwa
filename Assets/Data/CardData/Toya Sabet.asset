@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a6d411487b09cff488262465fab0ff42, type: 3}
-  m_Name: Arjuna
+  m_Name: Toya Sabet
   m_EditorClassIdentifier: 
   type: 0
   elemType: 2
-  sprite: {fileID: -936124954036847002, guid: 5f2cb5eb0cb53854e89b725dd03de867, type: 3}
-  penjelasan: "Shiled pecah keren ENGLAN ENGELAND ENGLANDO ENGLANDOR ENGALANDORA\t"
+  sprite: {fileID: 8616979712302491551, guid: 5f2cb5eb0cb53854e89b725dd03de867, type: 3}
+  penjelasan: Toya Pedang keren cuy (Cleave)
   buffData:
     stun: 0
     cure: 0
@@ -26,9 +26,9 @@ MonoBehaviour:
     buffDuration: 1
   animationName: atk
   sfxName: sfx1
-  vfxHurtName: slash1
-  videoClipName: testVideo10sec
-  totalDamage: 4000
+  vfxImpactName: slash1
+  videoClipName: 
+  totalDamage: 300
   totalAtk: 1
   lastDamageIncrease: 0
   HitArea: 1

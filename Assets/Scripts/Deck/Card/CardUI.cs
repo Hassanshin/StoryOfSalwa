@@ -16,6 +16,9 @@ public class CardUI : DragAndDrop
     private Image border;
 
     [SerializeField]
+    private Image elemImage;
+
+    [SerializeField]
     private TextMeshProUGUI cardName;
 
     [SerializeField]
@@ -28,13 +31,13 @@ public class CardUI : DragAndDrop
     {
         data = _data;
 
-        cardBtn.onClick.RemoveAllListeners();
-
-        icon.color = Color.white;
-        border.color = Color.white;
-
         cardName.text = data.name;
         icon.sprite = data.sprite;
+        icon.color = Color.white;
+
+        border.color = CardDetailHandler.Instance.typeColor[(int)data.type];
+
+        elemImage.sprite = CardDetailHandler.Instance.elemSprite[(int)data.elemType];
 
         if (data is CardDataAtk)
         {

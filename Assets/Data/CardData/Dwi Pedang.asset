@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Dwi Pedang
   m_EditorClassIdentifier: 
   type: 0
-  elemType: 0
+  elemType: 1
   sprite: {fileID: 4327745837452563964, guid: 5f2cb5eb0cb53854e89b725dd03de867, type: 3}
-  penjelasan: Dwi Pedang keren cuy
+  penjelasan: Dwi Pedang keren cuy (Cleave)
   buffData:
     stun: 0
     cure: 0
@@ -26,9 +26,9 @@ MonoBehaviour:
     buffDuration: 1
   animationName: atk
   sfxName: sfx1
-  vfxHurtName: slash1
+  vfxImpactName: slash1
   videoClipName: 
-  totalDamage: 500
+  totalDamage: 300
   totalAtk: 2
   lastDamageIncrease: 0
   HitArea: 1

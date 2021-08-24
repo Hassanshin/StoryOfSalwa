@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a6d411487b09cff488262465fab0ff42, type: 3}
-  m_Name: Panah
+  m_Name: Pedang Toya
   m_EditorClassIdentifier: 
   type: 0
-  elemType: 1
-  sprite: {fileID: 9122645907860882979, guid: 5f2cb5eb0cb53854e89b725dd03de867, type: 3}
-  penjelasan: 'Panah biasa aja '
+  elemType: 2
+  sprite: {fileID: 1676308008278888504, guid: 5f2cb5eb0cb53854e89b725dd03de867, type: 3}
+  penjelasan: "Pedang Air aja tapi mantab\t"
   buffData:
     stun: 0
     cure: 0
@@ -24,10 +24,11 @@ MonoBehaviour:
     evasionAmount: 0
     damagePerSecondAmount: 0
     buffDuration: 1
-  videoClipName: 
+  animationName: atk
   sfxName: sfx1
-  vfxHurtName: slash1
-  totalDamage: 99
-  totalAtk: 5
-  lastDamageIncrease: 1
+  vfxImpactName: slash1
+  videoClipName: 
+  totalDamage: 100
+  totalAtk: 1
+  lastDamageIncrease: 0
   HitArea: 1

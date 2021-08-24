@@ -20,7 +20,7 @@ public class CardData : ScriptableObject
     [Header("Effect")]
     public string animationName = "atk";
     public string sfxName = "sfx1";
-    public string vfxHurtName = "slash1";
+    public string vfxImpactName = "slash1";
     public string videoClipName = "";
 
     public bool hasVideo
@@ -114,4 +114,4 @@ public class CardData : ScriptableObject
 
 public enum CardType { Atk, Ult, Sup }
 
-public enum ElementType { Fire, Watr, Wind }
+public enum ElementType { Normal, Fire, Watr, Wind }

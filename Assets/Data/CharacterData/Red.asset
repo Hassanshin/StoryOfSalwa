@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Red
   m_EditorClassIdentifier: 
   maxHealth: 1000
-  elemType: 0
+  elemType: 1
   speed: 30
   accuracy: 100
   evasion: 0
