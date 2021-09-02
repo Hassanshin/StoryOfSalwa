@@ -10,7 +10,10 @@ public class DialogManager : Singleton<DialogManager>
 
     public UnityEvent OnDialogDone;
 
-    private Coroutine dialogCoroutine;
+    [Range(0.1f, 10)]
+    public float DialogSpeed = 5;
+
+    private Coroutine typingCoroutine;
 
     private bool next;
 
@@ -58,18 +61,32 @@ public class DialogManager : Singleton<DialogManager>
             next = false;
             DialogText dial = curDialog.Dialog[i];
 
-            dialogText.text = dial.Text;
             speakerText.text = dial.Speaker.name;
             speakerIcon.sprite = dial.Speaker.icon;
+
+            typingCoroutine = StartCoroutine(typingText(dial.Text));
 
             if (curDialog.LeftSpeaker == dial.Speaker)
             {
                 // left pane
             }
+
             yield return new WaitUntil(() => next);
+            StopCoroutine(typingCoroutine);
         }
 
         yield return DialogDone();
+    }
+
+    private IEnumerator typingText(string text)
+    {
+        dialogText.text = "";
+
+        foreach (char letter in text.ToCharArray())
+        {
+            dialogText.text += letter;
+            yield return new WaitForSecondsRealtime(0.1f / DialogSpeed);
+        }
     }
 
     public void NextDialog()

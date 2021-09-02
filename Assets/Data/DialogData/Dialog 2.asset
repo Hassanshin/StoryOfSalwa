@@ -16,8 +16,10 @@ MonoBehaviour:
   LeftSpeaker: {fileID: 11400000, guid: 2e4d99cfb0737604594a7a5efb5baf9f, type: 2}
   Dialog:
   - Speaker: {fileID: 11400000, guid: 2e4d99cfb0737604594a7a5efb5baf9f, type: 2}
-    Text: Terus gimana?
+    Text: 'Terus gimana? Kekuatan alami sang naga tidak memakan buah yang membusuk,
+      ini merupakan cara yang tidak efektif untuk membunuh nyambuk berbulu bergetar
+      yang kuat. Dengan menggunakan tangan kanan di saat yang tepat. '
   - Speaker: {fileID: 11400000, guid: ae95bcbfad51f9242bdf2be8d3456f74, type: 2}
-    Text: Lah kok tanya saya
+    Text: Bacot dah anda
   - Speaker: {fileID: 11400000, guid: 2e4d99cfb0737604594a7a5efb5baf9f, type: 2}
-    Text: Yee
+    Text: Yee baper

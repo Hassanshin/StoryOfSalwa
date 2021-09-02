@@ -15,5 +15,7 @@ public class DialogData : ScriptableObject
 public class DialogText
 {
     public CharacterData Speaker;
+
+    [TextArea(2, 5)]
     public string Text;
 }
