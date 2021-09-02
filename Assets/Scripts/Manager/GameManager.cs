@@ -25,6 +25,8 @@ public class GameManager : Singleton<GameManager>
     public LevelHandler Level;
     public DeckManager Deck;
 
+    private Coroutine GameCoroutine;
+
     private void Start()
     {
         Level = GetComponent<LevelHandler>();
@@ -49,12 +51,13 @@ public class GameManager : Singleton<GameManager>
     {
         AudioManager.Instance.PlaySfx(0);
 
-        StartCoroutine(StartGameNumerator());
+        GameCoroutine = StartCoroutine(StartGameNumerator());
     }
 
     public void BackToMain()
     {
         AudioManager.Instance.PlaySfx(0);
+        StopCoroutine(GameCoroutine);
 
         Level.OnGameOver?.Invoke(false);
         OnBackToMenu?.Invoke();
@@ -62,6 +65,8 @@ public class GameManager : Singleton<GameManager>
 
     private IEnumerator StartGameNumerator()
     {
+        yield return Level.Dialog();
+
         yield return LoadingHandler.Instance.ShowLoadingEnum();
 
         yield return ObjectPool.Instance.GeneratingPool();

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using Random = UnityEngine.Random;
 
 [System.Serializable]
 public class LevelHandler : MonoBehaviour
@@ -70,6 +71,19 @@ public class LevelHandler : MonoBehaviour
     public void SetLevelData(LevelData _data)
     {
         data = _data;
+    }
+
+    public IEnumerator Dialog()
+    {
+        if (data.dialog != null)
+        {
+            DialogManager.Instance.StartDialog(data.dialog);
+            yield return DialogManager.Instance.Dialoging();
+        }
+        else
+        {
+            Debug.Log("Dialog Null");
+        }
     }
 
     #region Win Lose
@@ -157,13 +171,17 @@ public class LevelHandler : MonoBehaviour
         }
         else
         {
-            int targetIndex = enemies.IndexOf((EnemyChar)target);
+            x.Add(target);
+            BaseChar randomTarget = enemies[Random.Range(0, enemies.Count)];
+            x.Add(randomTarget);
+            //// cleave
+            //int targetIndex = enemies.IndexOf((EnemyChar)target);
 
-            for (int i = targetIndex - 1; i < targetIndex + 2; i++)
-            {
-                if (i < 0 || i >= enemies.Count) { continue; }
-                x.Add(enemies[i]);
-            }
+            //for (int i = targetIndex - 1; i < targetIndex + 2; i++)
+            //{
+            //    if (i < 0 || i >= enemies.Count) { continue; }
+            //    x.Add(enemies[i]);
+            //}
         }
 
         return x;

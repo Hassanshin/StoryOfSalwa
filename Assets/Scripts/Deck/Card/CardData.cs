@@ -31,6 +31,14 @@ public class CardData : ScriptableObject
         }
     }
 
+    public float TotalDamage
+    {
+        get
+        {
+            return 1;
+        }
+    }
+
     public virtual void Action(BaseChar target)
     {
         instantBuff(target);
