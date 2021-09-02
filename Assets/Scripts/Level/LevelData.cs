@@ -11,5 +11,5 @@ public class LevelData : ScriptableObject
     public int totalEnemy;
 
     public CharacterData[] enemies;
-    public CharacterData player;
+    //public CharacterData player;
 }

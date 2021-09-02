@@ -75,7 +75,6 @@ public class DialogManager : Singleton<DialogManager>
     public void NextDialog()
     {
         next = true;
-        Debug.Log("Next");
     }
 
     private IEnumerator DialogDone()
@@ -88,6 +87,6 @@ public class DialogManager : Singleton<DialogManager>
 
     private void Clear()
     {
-        StopCoroutine(dialogCoroutine);
+        //StopCoroutine(dialogCoroutine);
     }
 }

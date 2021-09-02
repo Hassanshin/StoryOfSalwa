@@ -52,6 +52,10 @@ public class LevelHandler : MonoBehaviour
     }
 
     [Header("Prefabs")]
+
+    [SerializeField]
+    private CharacterData playerCharData;
+
     [SerializeField]
     private GameObject playerPrefab;
 
@@ -138,7 +142,7 @@ public class LevelHandler : MonoBehaviour
         PlayerChar _player = Instantiate(playerPrefab, pointPlayer.position, Quaternion.identity, spawnParent).GetComponent<PlayerChar>();
         player = _player;
 
-        player.SetData(data.player);
+        player.SetData(playerCharData);
 
         isGameOver = false;
 
