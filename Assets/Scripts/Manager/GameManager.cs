@@ -21,6 +21,8 @@ public class GameManager : Singleton<GameManager>
 
     private Coroutine GameCoroutine;
 
+    public bool IsInGame;
+
     private void Start()
     {
         Level = GetComponent<LevelHandler>();
@@ -52,6 +54,7 @@ public class GameManager : Singleton<GameManager>
 
         Level.OnGameOver?.Invoke(false);
         OnBackToMenu?.Invoke();
+        IsInGame = false;
     }
 
     private IEnumerator StartGameNumerator()
@@ -84,5 +87,7 @@ public class GameManager : Singleton<GameManager>
 
         MainMenuUI.Instance.panel[1].gameObject.SetActive(true);
         TurnManager.Instance.StartTurn();
+
+        IsInGame = true;
     }
 }

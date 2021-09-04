@@ -65,7 +65,10 @@ public class DeckManager : MonoBehaviour
         {
             if (inGameDeck.hand[i] != null && !inGameDeck.handLock[i])
             {
-                inGameDeck.grave.Add(inGameDeck.hand[i]);
+                if (!ui.CheckFused(i))
+                {
+                    AddToGrave(inGameDeck.hand[i]);
+                }
                 inGameDeck.hand[i] = null;
 
                 yield return ui.applyUsedCard(i);
@@ -74,6 +77,12 @@ public class DeckManager : MonoBehaviour
         }
 
         process = null;
+    }
+
+    public void AddToGrave(CardData card)
+    {
+        inGameDeck.grave.Add(card);
+        updateNumber();
     }
 
     private IEnumerator drawCard(int index)

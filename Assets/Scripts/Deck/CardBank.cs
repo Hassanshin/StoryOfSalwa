@@ -18,7 +18,7 @@ public class CardBank : MonoBehaviour
     //private List<CardData> trunkCards = new List<CardData>();
     //public List<CardData> TrunkCards => trunkCards;
 
-    public CardData GetCard(string name)
+    private CardData GetCard(string name)
     {
         CardData x = allCards.Find((a) => a.name == name);
 

@@ -27,7 +27,10 @@ public class CardUI : DragAndDrop
     [SerializeField]
     private Button cardBtn;
 
-    public void SetCardData(CardData _data)
+    private bool isFused;
+    public bool IsFused => isFused;
+
+    public void SetCardData(CardData _data, bool Fused = false)
     {
         data = _data;
 
@@ -36,8 +39,8 @@ public class CardUI : DragAndDrop
         icon.color = Color.white;
 
         border.color = CardDetailHandler.Instance.typeColor[(int)data.type];
-
         elemImage.sprite = CardDetailHandler.Instance.elemSprite[(int)data.elemType];
+        isFused = Fused;
 
         if (data is CardDataAtk)
         {
@@ -92,6 +95,15 @@ public class CardUI : DragAndDrop
         base.OnDropAlike(_draggedSlot);
 
         if (_draggedSlot != null && _draggedSlot.TryGetComponent(out CardUI ui))
-            Inventory.Instance.Swap(this, ui);
+        {
+            if (GameManager.Instance.IsInGame)
+            {
+                CardFusions.Instance.Fusion(this, ui);
+            }
+            else
+            {
+                Inventory.Instance.Swap(this, ui);
+            }
+        }
     }
 }

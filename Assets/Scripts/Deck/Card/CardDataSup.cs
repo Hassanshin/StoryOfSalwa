@@ -8,6 +8,15 @@ public class CardDataSup : CardData
     [Header("Sup Stats")]
     public float healAmount = 0;
 
+    public override bool hasEffect
+    {
+        get
+        {
+            return base.hasEffect && (healAmount != 0 || buffData.hasBuffEffect);
+            //return healAmount != 0 || buffData.hasBuffEffect;
+        }
+    }
+
     public CardDataSup()
     {
         type = CardType.Sup;

@@ -31,6 +31,14 @@ public class CardData : ScriptableObject
         }
     }
 
+    public virtual bool hasEffect
+    {
+        get
+        {
+            return true;
+        }
+    }
+
     public float TotalDamage
     {
         get

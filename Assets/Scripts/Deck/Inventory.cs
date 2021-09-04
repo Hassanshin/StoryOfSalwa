@@ -68,10 +68,9 @@ public class Inventory : Singleton<Inventory>
         dDeck.type = PileType.deck;
         //dTrunk.type = PileType.trunk;
 
-        cardBank = GetComponent<CardBank>();
         StartCoroutine(Initialize());
 
-        backBtn.onClick.AddListener(() => BackMainMenu());
+        //backBtn.onClick.AddListener(() => BackMainMenu());
         for (int i = 0; i < sortBtn.Length; i++)
         {
             int copy = i + 1;
@@ -162,7 +161,10 @@ public class Inventory : Singleton<Inventory>
 
     public void Swap(CardUI a, CardUI b)
     {
-        Debug.Log($"Swap: {a.Data.name}: - {b.Data.name}:");
+        Debug.Log($"Dragged: {a.Data.name}: - {b.Data.name}:");
+
+        // sfx
+        AudioManager.Instance.PlaySfx(0);
 
         CardData c = a.Data;
 
@@ -171,9 +173,6 @@ public class Inventory : Singleton<Inventory>
 
         // SWAP SYSTEM
         StartCoroutine(refreshAllPile());
-
-        // sfx
-        AudioManager.Instance.PlaySfx(0);
     }
 
     private IEnumerator refreshAllPile()
@@ -233,13 +232,6 @@ public class Inventory : Singleton<Inventory>
 
     public void BackMainMenu()
     {
-        if (DeckIsFine)
-        {
-            MainMenuUI.Instance.DisplayOnly(0);
-        }
-        else
-        {
-        }
     }
 }
 

@@ -7,6 +7,8 @@ public class PlayerChar : BaseChar
 {
     public void DeckAttacking(BaseChar target, CardData cardData, int cardIndex)
     {
+        if (!cardData.hasEffect) { Debug.Log($"{this.name} card has no Effect, also check the Buff Duration "); return; }
+
         Attacking(target, cardData);
         StartCoroutine(GameManager.Instance.Deck.UsedCard(cardData, cardIndex));
     }

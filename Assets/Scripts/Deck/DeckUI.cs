@@ -52,6 +52,11 @@ public class DeckUI : MonoBehaviour
         yield return null;
     }
 
+    public bool CheckFused(int index)
+    {
+        return cardUiList[index].IsFused || cardUiList[index].Data == null;
+    }
+
     public IEnumerator applyHandCard(int index, CardData card)
     {
         // draw animation

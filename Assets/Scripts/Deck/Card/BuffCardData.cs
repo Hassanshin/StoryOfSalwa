@@ -15,5 +15,13 @@ public class BuffCardData
     public float damagePerSecondAmount = 0;
 
     [Header("Buff Duration", order = 2)]
-    [Range(1, 5)] public int buffDuration = 1;
+    [Range(0, 8)] public int buffDuration = 1;
+
+    public bool hasBuffEffect
+    {
+        get
+        {
+            return buffDuration > 0;
+        }
+    }
 }
