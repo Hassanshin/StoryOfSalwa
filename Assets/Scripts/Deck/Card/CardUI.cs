@@ -82,7 +82,8 @@ public class CardUI : DragAndDrop
         if (target != null && data != null)
         {
             // get target in parent
-            GameManager.Instance.Level.Player.Attacking(target.parent.GetComponent<BaseChar>(), data);
+            int cardIndex = transform.GetSiblingIndex();
+            GameManager.Instance.Level.Player.DeckAttacking(target.parent.GetComponent<BaseChar>(), data, cardIndex);
         }
     }
 
@@ -91,6 +92,6 @@ public class CardUI : DragAndDrop
         base.OnDropAlike(_draggedSlot);
 
         if (_draggedSlot != null && _draggedSlot.TryGetComponent(out CardUI ui))
-            Inventory.Instance.Swap(this, _draggedSlot.GetComponent<CardUI>());
+            Inventory.Instance.Swap(this, ui);
     }
 }

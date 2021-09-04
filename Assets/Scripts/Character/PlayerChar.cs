@@ -5,12 +5,10 @@ using UnityEngine;
 
 public class PlayerChar : BaseChar
 {
-    public override void Attacking(BaseChar target, CardData cardData)
+    public void DeckAttacking(BaseChar target, CardData cardData, int cardIndex)
     {
-        // animating
-        base.Attacking(target, cardData);
-
-        StartCoroutine(GameManager.Instance.Deck.UsedCard(cardData));
+        Attacking(target, cardData);
+        StartCoroutine(GameManager.Instance.Deck.UsedCard(cardData, cardIndex));
     }
 
     protected override void hit(BaseChar target, CardData cardData, bool willHit)

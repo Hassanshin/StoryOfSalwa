@@ -39,10 +39,6 @@ public class DialogManager : Singleton<DialogManager>
     public override void Initialization()
     {
         nextBtn.onClick.AddListener(NextDialog);
-        OnDialogDone.AddListener(() =>
-        {
-            Debug.Log("Dialog Done");
-        });
 
         GameManager.Instance.OnBackToMenu.AddListener(Clear);
     }

@@ -105,10 +105,8 @@ public class DeckManager : MonoBehaviour
         ui.UpdateNumber(inGameDeck.deck.Count, inGameDeck.grave.Count);
     }
 
-    public IEnumerator UsedCard(CardData card)
+    public IEnumerator UsedCard(CardData card, int index)
     {
-        int index = Array.IndexOf(inGameDeck.hand, card);
-
         inGameDeck.hand[index] = null;
         inGameDeck.grave.Add(card);
 
