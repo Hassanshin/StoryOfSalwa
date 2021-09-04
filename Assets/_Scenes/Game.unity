@@ -193,9 +193,11 @@ MonoBehaviour:
   levelDatas:
   - {fileID: 11400000, guid: ee93bdb828702ff4f95dbeb7c32e1b4f, type: 2}
   - {fileID: 11400000, guid: 2e6557776a0acee4896d6f23a82da25c, type: 2}
+  - {fileID: 11400000, guid: e592fa173dcdc2e4ea53cc202037d4a8, type: 2}
   levelButtons:
   - {fileID: 1230165080}
   - {fileID: 419047789}
+  - {fileID: 602061716}
 --- !u!114 &119580
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2552,13 +2554,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f54f7c9d17d3c574897878914dea737c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: ee93bdb828702ff4f95dbeb7c32e1b4f, type: 2}
+  LvlData: {fileID: 0}
   OnGameOver:
     m_PersistentCalls:
       m_Calls: []
   playerCharData: {fileID: 11400000, guid: 97f9b25184b1c5e4285d0e32e21f23af, type: 2}
   playerPrefab: {fileID: 1542404202821175709, guid: fa0cbf9998016d54a96cacebaca47160, type: 3}
   enemyPrefab: {fileID: 1795406315204459834, guid: 9c5eec5de970e5c4cbc41772709efd51, type: 3}
+  enemyBossPrefab: {fileID: 3759750600903548275, guid: 7fa938b41959b3248bb93d8879b2a3ee, type: 3}
   spawnParent: {fileID: 107915986}
   pointPlayer: {fileID: 52233717}
   pointEnemy: {fileID: 2143759419}
@@ -13701,7 +13704,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1434435420
 MonoBehaviour:
   m_ObjectHideFlags: 0

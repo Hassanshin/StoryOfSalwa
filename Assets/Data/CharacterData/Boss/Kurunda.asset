@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e9dcb7f696a50b4a847c6a6c377084d, type: 3}
+  m_Name: Kurunda
+  m_EditorClassIdentifier: 
+  isBoss: 1
+  maxHealth: 2000
+  elemType: 0
+  speed: 50
+  accuracy: 100
+  evasion: 0
+  atk:
+  - card: {fileID: 11400000, guid: 282c6905f28079b47b27317d289f2aaf, type: 2}
+    coolDown: 0
+  - card: {fileID: 11400000, guid: 9552b1511d13d614891b5362aab6cd95, type: 2}
+    coolDown: 3
+  - card: {fileID: 11400000, guid: 34f29aedf50ecdd48a66e50eca745446, type: 2}
+    coolDown: 8
+  icon: {fileID: -4302407081911426973, guid: 82f5d269d6687c54387fed3f657ab320, type: 3}
+  anim: {fileID: 9100000, guid: 88904b068ab15e64a9e6f41ebbbf0662, type: 2}
+  Tint: {r: 0.509434, g: 0, b: 0, a: 1}

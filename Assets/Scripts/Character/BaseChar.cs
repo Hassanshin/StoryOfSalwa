@@ -68,7 +68,7 @@ public class BaseChar : MonoBehaviour
 
         if (data.atk.Count <= 0)
         {
-            Debug.LogError($"{data.name} doesn't have any attack move");
+            Debug.LogError($"{data.name} doesn't have any attack move, check his CharacterData!");
         }
     }
 

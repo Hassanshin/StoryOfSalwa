@@ -6,6 +6,7 @@ using UnityEngine;
 public class CharacterData : ScriptableObject
 {
     [Header("stats")]
+    public bool isBoss = false;
     public float maxHealth = 1000;
     public ElementType elemType;
 

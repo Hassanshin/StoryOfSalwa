@@ -9,7 +9,7 @@ using Random = UnityEngine.Random;
 public class LevelHandler : MonoBehaviour
 {
     [SerializeField]
-    private LevelData data;
+    private LevelData LvlData;
 
     private bool isGameOver;
     public bool IsGameOver => isGameOver;
@@ -51,6 +51,8 @@ public class LevelHandler : MonoBehaviour
         }
     }
 
+    private EnemyChar enemyBoss;
+
     [Header("Prefabs")]
 
     [SerializeField]
@@ -61,6 +63,9 @@ public class LevelHandler : MonoBehaviour
 
     [SerializeField]
     private GameObject enemyPrefab;
+
+    [SerializeField]
+    private GameObject enemyBossPrefab;
 
     [Header("Components")]
     [SerializeField]
@@ -74,14 +79,14 @@ public class LevelHandler : MonoBehaviour
 
     public void SetLevelData(LevelData _data)
     {
-        data = _data;
+        LvlData = _data;
     }
 
     public IEnumerator Dialog()
     {
-        if (data.dialog != null)
+        if (LvlData.dialog != null)
         {
-            DialogManager.Instance.StartDialog(data.dialog);
+            DialogManager.Instance.StartDialog(LvlData.dialog);
             yield return DialogManager.Instance.Dialoging();
         }
         else
@@ -118,12 +123,27 @@ public class LevelHandler : MonoBehaviour
 
     public IEnumerator spawnEnemy()
     {
-        for (int i = 0; i < data.enemies.Length; i++)
+        for (int i = 0; i < LvlData.enemies.Length; i++)
         {
-            EnemyChar _enemy = Instantiate(enemyPrefab, enemyPosGenerated(i), Quaternion.identity, spawnParent).GetComponent<EnemyChar>();
+            CharacterData enemyData = LvlData.enemies[i];
+
+            GameObject prefab = enemyData.isBoss ? enemyBossPrefab : enemyPrefab;
+            EnemyChar _enemy = Instantiate(prefab, enemyPosGenerated(i), Quaternion.identity, spawnParent).GetComponent<EnemyChar>();
 
             enemies.Add(_enemy);
-            _enemy.SetData(data.enemies[i]); // set data
+            _enemy.SetData(enemyData); // set data
+
+            if (enemyData.isBoss)
+            {
+                if (enemyBoss == null)
+                {
+                    enemyBoss = _enemy;
+                }
+                else
+                {
+                    Debug.LogError("There can't be 2 bosses!, Check your Level Data");
+                }
+            }
         }
 
         yield return null;
