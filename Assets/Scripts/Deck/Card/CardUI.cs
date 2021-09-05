@@ -87,7 +87,7 @@ public class CardUI : DragAndDrop
         {
             // get target in parent
             int cardIndex = transform.GetSiblingIndex();
-            GameManager.Instance.Level.Player.DeckAttacking(target.parent.GetComponent<BaseChar>(), data, cardIndex);
+            GameManager.Instance.Level.Player.DeckAttacking(target.parent.GetComponent<BaseChar>(), this, cardIndex);
         }
     }
 

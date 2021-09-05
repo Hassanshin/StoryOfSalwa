@@ -7,6 +7,7 @@ using TMPro;
 public class MainMenuUI : Singleton<MainMenuUI>
 {
     public List<Canvas> panel = new List<Canvas>();
+    public List<Image> ShopPanel = new List<Image>();
 
     [Header("Name")]
     [SerializeField]
@@ -60,15 +61,11 @@ public class MainMenuUI : Singleton<MainMenuUI>
         GameManager.Instance.BackToMain();
     }
 
-    /// <summary>
-    ///
-    /// </summary>
-    /// <param name="index">0 Main, 1 Game, 2 Video, 3 Shop</param>
-    public void DisplayOnly(int index)
+    public void HideAllShopPanel()
     {
-        for (int i = 0; i < panel.Count; i++)
+        for (int i = 0; i < ShopPanel.Count; i++)
         {
-            panel[i].gameObject.SetActive(i == index);
+            ShopPanel[i].gameObject.SetActive(false);
         }
     }
 

@@ -65,9 +65,10 @@ public class DeckManager : MonoBehaviour
         {
             if (inGameDeck.hand[i] != null && !inGameDeck.handLock[i])
             {
-                if (!ui.CheckFused(i))
+                CardUI cardUi = null;
+                if (!ui.CheckFused(i, out cardUi))
                 {
-                    AddToGrave(inGameDeck.hand[i]);
+                    AddToGrave(cardUi);
                 }
                 inGameDeck.hand[i] = null;
 
@@ -79,9 +80,10 @@ public class DeckManager : MonoBehaviour
         process = null;
     }
 
-    public void AddToGrave(CardData card)
+    public void AddToGrave(CardUI card)
     {
-        inGameDeck.grave.Add(card);
+        if (card.IsFused) { return; }
+        inGameDeck.grave.Add(card.Data);
         updateNumber();
     }
 
@@ -114,10 +116,10 @@ public class DeckManager : MonoBehaviour
         ui.UpdateNumber(inGameDeck.deck.Count, inGameDeck.grave.Count);
     }
 
-    public IEnumerator UsedCard(CardData card, int index)
+    public IEnumerator UsedCard(CardUI card, int index)
     {
         inGameDeck.hand[index] = null;
-        inGameDeck.grave.Add(card);
+        AddToGrave(card);
 
         updateNumber();
 

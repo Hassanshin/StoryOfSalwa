@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class CardFusions : Singleton<CardFusions>
@@ -7,6 +9,20 @@ public class CardFusions : Singleton<CardFusions>
     private FuseData[] FuseDatas;
 
     private Coroutine fusingRoutine;
+
+    #region UI
+
+    [Header("UI")]
+    [SerializeField]
+    private Transform parentUi;
+
+    [SerializeField]
+    private GameObject fusionUiPrefab;
+
+    [SerializeField]
+    private List<FusionUI> fusionUi = new List<FusionUI>();
+
+    #endregion UI
 
     private CardData fuse(CardData a, CardData b)
     {
@@ -33,8 +49,8 @@ public class CardFusions : Singleton<CardFusions>
 
         if (newCard != null)
         {
-            GameManager.Instance.Deck.AddToGrave(a.Data);
-            GameManager.Instance.Deck.AddToGrave(b.Data);
+            GameManager.Instance.Deck.AddToGrave(a);
+            GameManager.Instance.Deck.AddToGrave(b);
 
             b.SetBlank();
 
@@ -52,6 +68,37 @@ public class CardFusions : Singleton<CardFusions>
             a.SetCardData(newCard, true);
         }
     }
+
+    #region UI
+
+    public void LoadFusionList()
+    {
+        StartCoroutine(loadFusionYield());
+    }
+
+    private IEnumerator loadFusionYield()
+    {
+        if (fusionUi.Count > 0)
+        {
+            for (int i = 0; i < fusionUi.Count; i++)
+            {
+                Destroy(fusionUi[i].gameObject);
+            }
+
+            fusionUi.Clear();
+        }
+
+        for (int i = 0; i < FuseDatas.Length; i++)
+        {
+            FusionUI spawn = Instantiate(fusionUiPrefab, parentUi).GetComponent<FusionUI>();
+            spawn.Data = FuseDatas[i];
+            fusionUi.Add(spawn);
+        }
+
+        yield return null;
+    }
+
+    #endregion UI
 }
 
 [System.Serializable]

@@ -52,8 +52,9 @@ public class DeckUI : MonoBehaviour
         yield return null;
     }
 
-    public bool CheckFused(int index)
+    public bool CheckFused(int index, out CardUI cardUi)
     {
+        cardUi = cardUiList[index];
         return cardUiList[index].IsFused || cardUiList[index].Data == null;
     }
 
