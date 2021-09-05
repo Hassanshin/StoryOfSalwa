@@ -6,6 +6,8 @@ public class CardFusions : Singleton<CardFusions>
     [SerializeField]
     private FuseData[] FuseDatas;
 
+    private Coroutine fusingRoutine;
+
     private CardData fuse(CardData a, CardData b)
     {
         foreach (FuseData data in FuseDatas)
@@ -22,6 +24,11 @@ public class CardFusions : Singleton<CardFusions>
 
     public void Fusion(CardUI a, CardUI b)
     {
+        fusingRoutine = StartCoroutine(fusingYield(a, b));
+    }
+
+    private IEnumerator fusingYield(CardUI a, CardUI b)
+    {
         CardData newCard = fuse(a.Data, b.Data);
 
         if (newCard != null)
@@ -29,10 +36,20 @@ public class CardFusions : Singleton<CardFusions>
             GameManager.Instance.Deck.AddToGrave(a.Data);
             GameManager.Instance.Deck.AddToGrave(b.Data);
 
-            b.SetCardData(newCard, true);
-            a.SetBlank();
+            b.SetBlank();
 
-            // remove 2 material
+            // FX
+            LeanTween.scale(a.gameObject, Vector3.one * 1.5f, 0.2f).setLoopPingPong(1).setEaseOutQuint();
+            yield return new WaitForSeconds(0.4f);
+            AudioManager.Instance.PlaySfx(2);
+
+            GameObject vfx = ObjectPool.Instance.Spawn("VFX_DisintegrateUI", a.transform);
+            LeanTween.delayedCall(vfx, 0.5f, () =>
+            {
+                ObjectPool.Instance.BackToPool(vfx);
+            });
+
+            a.SetCardData(newCard, true);
         }
     }
 }

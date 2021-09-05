@@ -28,4 +28,4 @@ MonoBehaviour:
   sfxName: sfx1
   vfxImpactName: slash1
   videoClipName: 
-  healAmount: 0
+  healAmount: 50

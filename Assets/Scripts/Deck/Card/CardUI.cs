@@ -66,6 +66,7 @@ public class CardUI : DragAndDrop
         cardName.text = blankText;
 
         data = null;
+        isFused = false;
 
         icon.color = new Color(0, 0, 0, 0);
         border.color = new Color(0, 0, 0, 0);
