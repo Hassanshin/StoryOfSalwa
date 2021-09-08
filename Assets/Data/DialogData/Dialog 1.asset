@@ -16,12 +16,35 @@ MonoBehaviour:
   LeftSpeaker: {fileID: 11400000, guid: 97f9b25184b1c5e4285d0e32e21f23af, type: 2}
   Dialog:
   - Speaker: {fileID: 11400000, guid: 97f9b25184b1c5e4285d0e32e21f23af, type: 2}
-    Text: Halo
-  - Speaker: {fileID: 11400000, guid: ae95bcbfad51f9242bdf2be8d3456f74, type: 2}
-    Text: Nggak
+    Text: What was just happen here?
+  - Speaker: {fileID: 11400000, guid: c0ea421fbd4af1940aa5b9a6b0b474f9, type: 2}
+    Text: Help.. Help me..
   - Speaker: {fileID: 11400000, guid: 97f9b25184b1c5e4285d0e32e21f23af, type: 2}
-    Text: Yee
-  - Speaker: {fileID: 11400000, guid: 03f0f30ed33e5284d883b39f3339b25f, type: 2}
-    Text: Yaelah
+    Text: Are you okay ma'am?
+  - Speaker: {fileID: 11400000, guid: c0ea421fbd4af1940aa5b9a6b0b474f9, type: 2}
+    Text: My husband and my son..
+  - Speaker: {fileID: 11400000, guid: c0ea421fbd4af1940aa5b9a6b0b474f9, type: 2}
+    Text: Buto, they are...
   - Speaker: {fileID: 11400000, guid: 97f9b25184b1c5e4285d0e32e21f23af, type: 2}
-    Text: Makan tuh kacang
+    Text: 'Calm down ma''am, what happen? where are they now?
+
+'
+  - Speaker: {fileID: 11400000, guid: c0ea421fbd4af1940aa5b9a6b0b474f9, type: 2}
+    Text: 'We were just collecting herbs near the village.
+
+'
+  - Speaker: {fileID: 11400000, guid: c0ea421fbd4af1940aa5b9a6b0b474f9, type: 2}
+    Text: 'Then suddenly a group of buto came and attack us.
+
+'
+  - Speaker: {fileID: 11400000, guid: 97f9b25184b1c5e4285d0e32e21f23af, type: 2}
+    Text: 'You can leave this to me, but you should leave this place immediately,
+      its not safe here.
+
+'
+  - Speaker: {fileID: 11400000, guid: c0ea421fbd4af1940aa5b9a6b0b474f9, type: 2}
+    Text: I understand.
+  - Speaker: {fileID: 11400000, guid: c0ea421fbd4af1940aa5b9a6b0b474f9, type: 2}
+    Text: But be careful dear, they are so many of them.
+  - Speaker: {fileID: 11400000, guid: c0ea421fbd4af1940aa5b9a6b0b474f9, type: 2}
+    Text: Please bring back my son and husband.
