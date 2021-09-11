@@ -13,7 +13,11 @@ MonoBehaviour:
   m_Name: 1 2
   m_EditorClassIdentifier: 
   dialog: {fileID: 11400000, guid: ab762f30d5d8abc4c86de9ce262f0345, type: 2}
-  totalEnemy: 3
   enemies:
   - {fileID: 11400000, guid: ae95bcbfad51f9242bdf2be8d3456f74, type: 2}
   - {fileID: 11400000, guid: 5c36aec496733d943b2bb1dbfc9f87a1, type: 2}
+  Rewards:
+  - Amount: 150
+    CardReward: {fileID: 0}
+  - Amount: 0
+    CardReward: {fileID: 11400000, guid: 9552b1511d13d614891b5362aab6cd95, type: 2}

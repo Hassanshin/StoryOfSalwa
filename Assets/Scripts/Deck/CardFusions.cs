@@ -6,7 +6,7 @@ using UnityEngine;
 public class CardFusions : Singleton<CardFusions>
 {
     [SerializeField]
-    private FuseData[] FuseDatas;
+    private FusionData FuseDatas;
 
     private Coroutine fusingRoutine;
 
@@ -26,7 +26,7 @@ public class CardFusions : Singleton<CardFusions>
 
     private CardData fuse(CardData a, CardData b)
     {
-        foreach (FuseData data in FuseDatas)
+        foreach (FuseData data in FuseDatas.Datas)
         {
             if ((a == data.FusionMaterial[0] && b == data.FusionMaterial[1]) ||
                 (a == data.FusionMaterial[1] && b == data.FusionMaterial[0]))
@@ -88,10 +88,10 @@ public class CardFusions : Singleton<CardFusions>
             fusionUi.Clear();
         }
 
-        for (int i = 0; i < FuseDatas.Length; i++)
+        for (int i = 0; i < FuseDatas.Datas.Length; i++)
         {
             FusionUI spawn = Instantiate(fusionUiPrefab, parentUi).GetComponent<FusionUI>();
-            spawn.Data = FuseDatas[i];
+            spawn.Data = FuseDatas.Datas[i];
             fusionUi.Add(spawn);
         }
 
@@ -99,12 +99,4 @@ public class CardFusions : Singleton<CardFusions>
     }
 
     #endregion UI
-}
-
-[System.Serializable]
-public class FuseData
-{
-    public CardData[] FusionMaterial = new CardData[2];
-
-    public CardData FusionProduct;
 }

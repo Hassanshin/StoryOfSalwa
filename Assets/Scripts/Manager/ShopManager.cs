@@ -32,8 +32,6 @@ public class ShopManager : Singleton<ShopManager>
 
         setData();
 
-        GameManager.Instance.Level.OnGameOver.AddListener(onWinning);
-
         load();
     }
 
@@ -57,16 +55,7 @@ public class ShopManager : Singleton<ShopManager>
         SaveManager.Instance.Save();
     }
 
-    private void onWinning(bool isWin)
-    {
-        if (isWin)
-        {
-            gold.Add(200);
-            setData();
-        }
-    }
-
-    [ContextMenu("Randomize")]
+    [ContextMenu("Randomize")] // split this to randomize value
     private void setData()
     {
         List<CardData> all = Inventory.Instance.cardBank.AllCards;
@@ -102,6 +91,32 @@ public class ShopManager : Singleton<ShopManager>
         }
     }
 
+    public void ProcessReward(RewardData[] rewards)
+    {
+        foreach (RewardData reward in rewards)
+        {
+            if (reward.CardReward != null)
+            {
+                Inventory.Instance.AddNewCard(reward.CardReward);
+            }
+            else if (reward.Amount > 0)
+            {
+                gold.Add(reward.Amount);
+            }
+            else
+            {
+#if UNITY_EDITOR
+                Debug.LogError("reward is null");
+#endif
+            }
+        }
+
+        // random shop
+        setData();
+
+        save();
+    }
+
     private bool buy(int i)
     {
         CardSell _card = cardSell[i];
@@ -135,27 +150,5 @@ public class CardSell
     {
         this.card = card;
         this.price = price;
-    }
-}
-
-[System.Serializable]
-public class Currency
-{
-    [SerializeField]
-    private float value;
-    public float CurValue => value;
-
-    public UnityEngine.Events.UnityEvent<float> OnValueChanged;
-
-    public void Set(float a)
-    {
-        value = a;
-        OnValueChanged?.Invoke(value);
-    }
-
-    public void Add(float a)
-    {
-        value += a;
-        OnValueChanged?.Invoke(value);
     }
 }

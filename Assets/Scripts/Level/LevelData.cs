@@ -5,10 +5,14 @@ using UnityEngine;
 
 public class LevelData : ScriptableObject
 {
+    [Header("Dialog")]
     public DialogData dialog;
 
     [Header("Enemy")]
 
     public CharacterData[] enemies;
     //public CharacterData player;
+
+    [Header("Reward")]
+    public RewardData[] Rewards;
 }

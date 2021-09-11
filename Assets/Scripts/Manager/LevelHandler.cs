@@ -110,6 +110,7 @@ public class LevelHandler : MonoBehaviour
         if (!allEnemiesDie) { return; }
 
         Debug.Log("WIN");
+        ShopManager.Instance.ProcessReward(LvlData.Rewards);
         gameOver(true);
     }
 
@@ -120,6 +121,8 @@ public class LevelHandler : MonoBehaviour
     }
 
     #endregion Win Lose
+
+    #region Spawn
 
     public IEnumerator spawnEnemy()
     {
@@ -180,6 +183,8 @@ public class LevelHandler : MonoBehaviour
         Destroy(player.gameObject);
         player = null;
     }
+
+    #endregion Spawn
 
     public List<BaseChar> GetEnemiesInRange(BaseChar target, int range)
     {

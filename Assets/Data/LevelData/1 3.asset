@@ -15,3 +15,8 @@ MonoBehaviour:
   dialog: {fileID: 11400000, guid: 5931f21d0fa225a4783a51d7efb469fe, type: 2}
   enemies:
   - {fileID: 11400000, guid: 03f0f30ed33e5284d883b39f3339b25f, type: 2}
+  Rewards:
+  - Amount: 200
+    CardReward: {fileID: 0}
+  - Amount: 0
+    CardReward: {fileID: 11400000, guid: bb9697195fc5b8d43aa19fbcc06189b4, type: 2}

@@ -7,7 +7,13 @@ public class PlayerChar : BaseChar
 {
     public void DeckAttacking(BaseChar target, CardUI cardUi, int cardIndex)
     {
-        if (!cardUi.Data.hasEffect) { Debug.Log($"{cardUi.Data.name} card has no Effect, also check the Buff Duration "); return; }
+        if (!cardUi.Data.hasEffect)
+        {
+#if UNITY_EDITOR
+            Debug.Log($"{cardUi.Data.name} card has no Effect, also check the Buff Duration ");
+#endif
+            return;
+        }
 
         Attacking(target, cardUi.Data);
         StartCoroutine(GameManager.Instance.Deck.UsedCard(cardUi, cardIndex));
