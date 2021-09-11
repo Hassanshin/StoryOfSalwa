@@ -5,6 +5,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
+using UnityEngine.EventSystems;
 
 public class ShopManager : Singleton<ShopManager>
 {
@@ -114,7 +115,7 @@ public class ShopManager : Singleton<ShopManager>
         // random shop
         setData();
 
-        save();
+        SaveManager.Instance.playerData.goldAmount = gold.CurValue;
     }
 
     private bool buy(int i)
@@ -137,6 +138,30 @@ public class ShopManager : Singleton<ShopManager>
             Debug.Log("Not enough money");
             return false;
         }
+    }
+
+    public void Sell(PointerEventData data)
+    {
+        if (!data.pointerDrag.TryGetComponent(out CardUI cardUi))
+        {
+            return;
+        }
+
+        if (cardUi.transform.parent.name == "Bag")
+        {
+            sellCard(cardUi);
+        }
+        else
+        {
+#if UNITY_EDITOR
+            Debug.Log("Can only sell cards from bag pile");
+#endif
+        }
+    }
+
+    private void sellCard(CardUI cardUi)
+    {
+        Inventory.Instance.RemoveCard(cardUi);
     }
 }
 

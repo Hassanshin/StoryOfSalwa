@@ -182,6 +182,8 @@ public class Inventory : Singleton<Inventory>
         //yield return dTrunk.Refresh();
     }
 
+    #endregion Drag Drop Card
+
     public void AddNewCard(CardData a)
     {
         Debug.Log($"Added: {a.name}");
@@ -190,15 +192,36 @@ public class Inventory : Singleton<Inventory>
         CardUI newCard = Instantiate(cardUiPrefab, dBag.pivotCard).GetComponent<CardUI>();
         newCard.SetCardData(a);
         newCard.transform.SetAsFirstSibling();
-
         dBag.cardUI.Add(newCard);
-        SaveManager.Instance.playerData.cardSave.BagCards.Add(a.name);
+
+        SaveManager.Instance.playerData.cardSave.BagCards.Insert(0, a.name);
+        save();
 
         //sfx
         AudioManager.Instance.PlaySfx(0);
     }
 
-    #endregion Drag Drop Card
+    public void RemoveCard(CardUI a)
+    {
+        dBag.cards.Remove(a.Data);
+
+        SaveManager.Instance.playerData.cardSave.BagCards.Remove(a.Data.name);
+
+        dBag.cardUI.Remove(a);
+        Destroy(a.gameObject);
+
+        save();
+
+        StartCoroutine(dBag.RefreshCardUi());
+
+        //sfx
+        AudioManager.Instance.PlaySfx(2);
+    }
+
+    private void save()
+    {
+        SaveManager.Instance.Save();
+    }
 
     #region Sort
 
@@ -303,3 +326,5 @@ public class CardPile
         yield return RefreshCardUi();
     }
 }
+
+public enum PileType { bag, deck, trunk }
