@@ -24,7 +24,7 @@ MonoBehaviour:
   - Speaker: {fileID: 11400000, guid: 1556207519bda5d4f84b7efb124f9cf6, type: 2}
     Text: "How can we trust you?\r"
   - Speaker: {fileID: 11400000, guid: 391480205be32524da3844be20bcd9e4, type: 2}
-    Text: What's this fuss about?
+    Text: What is this fuss about?
   - Speaker: {fileID: 11400000, guid: 1556207519bda5d4f84b7efb124f9cf6, type: 2}
     Text: "Pardon me your highness, this young lady here claims to be an envoy from
       the Mt. Black camp.\r"
@@ -37,7 +37,7 @@ MonoBehaviour:
   - Speaker: {fileID: 11400000, guid: 97f9b25184b1c5e4285d0e32e21f23af, type: 2}
     Text: (Gives the recruitment scroll)
   - Speaker: {fileID: 0}
-    Text: Hmm, I don't know what this is, and it's definitely not a scroll made in
+    Text: Hmm, I don't know what is this, and it's definitely not a scroll made in
       Tenja.
   - Speaker: {fileID: 11400000, guid: 1556207519bda5d4f84b7efb124f9cf6, type: 2}
     Text: I'm sorry but you must go now.
@@ -48,10 +48,10 @@ MonoBehaviour:
   - Speaker: {fileID: 11400000, guid: 97f9b25184b1c5e4285d0e32e21f23af, type: 2}
     Text: They need reinforcements within 5 days.
   - Speaker: {fileID: 11400000, guid: 97f9b25184b1c5e4285d0e32e21f23af, type: 2}
-    Text: The enemy number keep growing while the troops getting lesser
+    Text: The enemy number keep growing while the troops getting lesser.
   - Speaker: {fileID: 11400000, guid: 1556207519bda5d4f84b7efb124f9cf6, type: 2}
     Text: We know that better than anyone else. but the king is on his way back from
-      the Black forest, come back after the king returns from his trip.
+      the Black forest, come back after the king returns.
   - Speaker: {fileID: 11400000, guid: 391480205be32524da3844be20bcd9e4, type: 2}
     Text: Fight me!
   - Speaker: {fileID: 11400000, guid: 1556207519bda5d4f84b7efb124f9cf6, type: 2}
@@ -59,10 +59,9 @@ MonoBehaviour:
   - Speaker: {fileID: 11400000, guid: 97f9b25184b1c5e4285d0e32e21f23af, type: 2}
     Text: ...
   - Speaker: {fileID: 11400000, guid: 391480205be32524da3844be20bcd9e4, type: 2}
-    Text: 'I am Nalin, the second person who has absolute command after the king.
-      Princess of the Tenja.
-
-'
+    Text: I am Nalin, the Princess of Tenja.
+  - Speaker: {fileID: 11400000, guid: 391480205be32524da3844be20bcd9e4, type: 2}
+    Text: the second person who has absolute command after the king.
   - Speaker: {fileID: 11400000, guid: 391480205be32524da3844be20bcd9e4, type: 2}
     Text: 'I know we are at our worst here as well, but they still our people.
 
@@ -72,4 +71,4 @@ MonoBehaviour:
     Text: Pardon me your highness, but we don't know if she really is a human or
       a monster in disguise.
   - Speaker: {fileID: 11400000, guid: 391480205be32524da3844be20bcd9e4, type: 2}
-    Text: Prepare the arena, we will only know after the fight.
+    Text: Prepare the arena, we can only know after the fight.

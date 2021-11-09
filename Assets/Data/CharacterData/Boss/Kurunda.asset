@@ -13,17 +13,17 @@ MonoBehaviour:
   m_Name: Kurunda
   m_EditorClassIdentifier: 
   isBoss: 1
-  maxHealth: 2000
+  maxHealth: 8000
   elemType: 0
-  speed: 50
+  speed: 80
   accuracy: 100
   evasion: 0
   atk:
-  - card: {fileID: 11400000, guid: 282c6905f28079b47b27317d289f2aaf, type: 2}
+  - card: {fileID: 11400000, guid: 7e8a260814c7b3b4ea03230c354fcf5d, type: 2}
     coolDown: 0
-  - card: {fileID: 11400000, guid: 9552b1511d13d614891b5362aab6cd95, type: 2}
-    coolDown: 3
-  - card: {fileID: 11400000, guid: 34f29aedf50ecdd48a66e50eca745446, type: 2}
+  - card: {fileID: 11400000, guid: 5aa0403fe1341b24aad6ea8f5bd40c9c, type: 2}
+    coolDown: 5
+  - card: {fileID: 11400000, guid: 094efe01f6e9243408922fe81f12330d, type: 2}
     coolDown: 8
   icon: {fileID: -4302407081911426973, guid: 82f5d269d6687c54387fed3f657ab320, type: 3}
   anim: {fileID: 9100000, guid: 88904b068ab15e64a9e6f41ebbbf0662, type: 2}

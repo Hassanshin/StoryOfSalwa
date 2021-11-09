@@ -12,13 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e9dcb7f696a50b4a847c6a6c377084d, type: 3}
   m_Name: Gantari
   m_EditorClassIdentifier: 
-  isBoss: 0
-  maxHealth: 1000
-  elemType: 0
-  speed: 50
+  isBoss: 1
+  maxHealth: 800
+  elemType: 1
+  speed: 70
   accuracy: 100
   evasion: 0
-  atk: []
+  atk:
+  - card: {fileID: 11400000, guid: b8665ce4161eb91459cab3d2f81ae1e7, type: 2}
+    coolDown: 0
+  - card: {fileID: 11400000, guid: 5d9715b209f199a40aeaf52cf2fc8050, type: 2}
+    coolDown: 3
+  - card: {fileID: 11400000, guid: 493a3c45fcd7d8d409b121d0d6d56d4c, type: 2}
+    coolDown: 5
   icon: {fileID: 0}
   anim: {fileID: 0}
   Tint: {r: 1, g: 1, b: 1, a: 1}

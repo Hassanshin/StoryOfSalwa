@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 2
   elemType: 1
-  sprite: {fileID: 8444848628205088410, guid: 5f2cb5eb0cb53854e89b725dd03de867, type: 3}
-  penjelasan: "This gemstone created from Krakatau lava, many claims whoever held
-    this stone will able to use the power of fire.\t\r"
+  sprite: {fileID: 21300000, guid: 5b14898220c75b542b6061bea4982afa, type: 3}
+  penjelasan: Watu means stone while geni means fire. This gemstone created from
+    Krakatau lava, many claims whoever held this stone will able to use the power
+    of fire.
   buffData:
     stun: 0
     cure: 0

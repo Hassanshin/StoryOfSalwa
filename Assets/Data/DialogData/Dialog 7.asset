@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Dialog 7
   m_EditorClassIdentifier: 
   Background: {fileID: 0}
-  LeftSpeaker: {fileID: 0}
+  LeftSpeaker: {fileID: 11400000, guid: 97f9b25184b1c5e4285d0e32e21f23af, type: 2}
   Dialog:
   - Speaker: {fileID: 11400000, guid: 97f9b25184b1c5e4285d0e32e21f23af, type: 2}
-    Text: Woah, now it's even scarier than i ever imagine
+    Text: Well, now it's even scarier than i ever imagine
   - Speaker: {fileID: 11400000, guid: 3a3cb3eaa3eeae3448dcb63fecf2f06c, type: 2}
     Text: Hrrrr..
   - Speaker: {fileID: 11400000, guid: 97f9b25184b1c5e4285d0e32e21f23af, type: 2}

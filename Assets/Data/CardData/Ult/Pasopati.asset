@@ -13,9 +13,14 @@ MonoBehaviour:
   m_Name: Pasopati
   m_EditorClassIdentifier: 
   type: 1
-  elemType: 3
-  sprite: {fileID: -936124954036847002, guid: 5f2cb5eb0cb53854e89b725dd03de867, type: 3}
-  penjelasan: "Shiled pecah keren ENGLAN ENGELAND ENGLANDO ENGLANDOR ENGALANDORA\t"
+  elemType: 0
+  sprite: {fileID: 21300000, guid: 2d81e5d89d4579e44813bb1104428334, type: 3}
+  penjelasan: 'Paso means Accurate, Pati means Dead. Like it name, this arrow of
+    death have massive power in it. Some says it will never miss the target no matter
+    what.
+
+
+    Dmg 250 + 15% Enemy Health.'
   buffData:
     stun: 0
     cure: 0
@@ -28,7 +33,7 @@ MonoBehaviour:
   sfxName: sfx1
   vfxImpactName: slash1
   videoClipName: testVideo10sec
-  totalDamage: 4000
-  totalAtk: 1
-  lastDamageIncrease: 0
+  totalDamage: 2500
+  totalAtk: 5
+  lastDamageIncrease: 1
   HitArea: 0

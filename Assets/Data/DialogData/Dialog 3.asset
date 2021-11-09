@@ -18,17 +18,19 @@ MonoBehaviour:
   - Speaker: {fileID: 11400000, guid: 97f9b25184b1c5e4285d0e32e21f23af, type: 2}
     Text: "Sir, are you okay?\r"
   - Speaker: {fileID: 11400000, guid: 1738c35eb83534c4d9aec4e5d68db000, type: 2}
-    Text: Ughh, Ahh... who are you..?
+    Text: Ughh, uhh... who are you..?
   - Speaker: {fileID: 11400000, guid: 97f9b25184b1c5e4285d0e32e21f23af, type: 2}
     Text: "Ah, my name is..\r"
   - Speaker: {fileID: 11400000, guid: 1738c35eb83534c4d9aec4e5d68db000, type: 2}
-    Text: Oh that scroll, are you going to Mitja Castle?
+    Text: 'That scroll..
+
+      Are you going to Mitja Castle young lady?'
   - Speaker: {fileID: 11400000, guid: 97f9b25184b1c5e4285d0e32e21f23af, type: 2}
     Text: Yes sir, I was looking for a way to Mitja Castle.
   - Speaker: {fileID: 11400000, guid: 97f9b25184b1c5e4285d0e32e21f23af, type: 2}
     Text: Thank goodness, ughh..
   - Speaker: {fileID: 11400000, guid: 1738c35eb83534c4d9aec4e5d68db000, type: 2}
-    Text: Can you give us here a little help?
+    Text: Can you give us here a little help by any chance?
   - Speaker: {fileID: 11400000, guid: 97f9b25184b1c5e4285d0e32e21f23af, type: 2}
     Text: I'm...
   - Speaker: {fileID: 11400000, guid: 1738c35eb83534c4d9aec4e5d68db000, type: 2}
@@ -36,29 +38,31 @@ MonoBehaviour:
 
 '
   - Speaker: {fileID: 11400000, guid: 1738c35eb83534c4d9aec4e5d68db000, type: 2}
-    Text: 'As you can see, things are messed up here and we lack of troops to block
+    Text: 'As you can see, things are messed up here and we lack of troops to held
       all the buto and the lelembut from entering the village. '
   - Speaker: {fileID: 11400000, guid: 1738c35eb83534c4d9aec4e5d68db000, type: 2}
-    Text: Even some of my men getting out of control.
+    Text: Even some of my men getting out of control because of this unpleasant aura.
   - Speaker: {fileID: 11400000, guid: 1738c35eb83534c4d9aec4e5d68db000, type: 2}
-    Text: Seems the explosion is the one causing this unpleasant aura.
+    Text: Seems the explosion is the one causing all this.
   - Speaker: {fileID: 11400000, guid: 97f9b25184b1c5e4285d0e32e21f23af, type: 2}
     Text: ...
   - Speaker: {fileID: 11400000, guid: 1738c35eb83534c4d9aec4e5d68db000, type: 2}
-    Text: "It only takes 7 days and all of us here will be flattened with the ground,
-      we can't wait any longer.\r"
+    Text: "It only takes 7 days and all of us here will be flattened with the ground.\nWe
+      can't wait any longer.\r"
   - Speaker: {fileID: 11400000, guid: 1738c35eb83534c4d9aec4e5d68db000, type: 2}
-    Text: "Can you go to Tenja castle and tell me what's going on here?\r"
+    Text: "Can you go to Tenja castle and tell them what's going on here?\r"
   - Speaker: {fileID: 11400000, guid: 1738c35eb83534c4d9aec4e5d68db000, type: 2}
     Text: "We need reinforcements and logistics supply as soon as possible.\r"
   - Speaker: {fileID: 11400000, guid: 97f9b25184b1c5e4285d0e32e21f23af, type: 2}
-    Text: But it will take 4 days from this place to get to the Tenja castle, is
-      that even possible?
+    Text: But sir, it will take 4 days from this place to get to the Tenja castle,
+      is that even possible?
   - Speaker: {fileID: 11400000, guid: 1738c35eb83534c4d9aec4e5d68db000, type: 2}
-    Text: "Ahh, you can go through the underground passage used for mining.\r"
+    Text: "Ahh, you can go through the old underground mine nearby.\r"
   - Speaker: {fileID: 11400000, guid: 1738c35eb83534c4d9aec4e5d68db000, type: 2}
-    Text: Of course it can't be used to send troops, but at least it can be used
-      for one person.
+    Text: Of course it can't be used to send troops, but at least you can use it
+      to go to Tenja Castle
+  - Speaker: {fileID: 11400000, guid: 1738c35eb83534c4d9aec4e5d68db000, type: 2}
+    Text: But Becareful, the passage is very old. Maybe the God be with you.
   - Speaker: {fileID: 11400000, guid: 97f9b25184b1c5e4285d0e32e21f23af, type: 2}
     Text: Alright then i will go, hang on a little longer.
   - Speaker: {fileID: 11400000, guid: 1738c35eb83534c4d9aec4e5d68db000, type: 2}

@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   elemType: 1
-  sprite: {fileID: 9122645907860882979, guid: 5f2cb5eb0cb53854e89b725dd03de867, type: 3}
-  penjelasan: Panah api aja (All damage)
+  sprite: {fileID: 21300000, guid: 013fbb23dafc5f148b0fbb4a8387555f, type: 3}
+  penjelasan: "Hit the target with a Fire Bolt. \n\nDamage 40 to wind, 60% to fire,
+    10% to water. "
   buffData:
     stun: 0
     cure: 0
@@ -28,7 +29,7 @@ MonoBehaviour:
   sfxName: sfx1
   vfxImpactName: slash1
   videoClipName: 
-  totalDamage: 200
+  totalDamage: 400
   totalAtk: 1
-  lastDamageIncrease: 1
-  HitArea: 2
+  lastDamageIncrease: 0
+  HitArea: 0

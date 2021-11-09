@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e9dcb7f696a50b4a847c6a6c377084d, type: 3}
   m_Name: Player
   m_EditorClassIdentifier: 
-  maxHealth: 1000
+  isBoss: 0
+  maxHealth: 200
   elemType: 0
-  speed: 80.3
+  speed: 80
   accuracy: 100
   evasion: 0
   atk:

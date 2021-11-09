@@ -16,7 +16,7 @@ MonoBehaviour:
   LeftSpeaker: {fileID: 11400000, guid: 97f9b25184b1c5e4285d0e32e21f23af, type: 2}
   Dialog:
   - Speaker: {fileID: 11400000, guid: 391480205be32524da3844be20bcd9e4, type: 2}
-    Text: "Tchh, what a shame.\r"
+    Text: "Tchh, what a shame.\r."
   - Speaker: {fileID: 11400000, guid: 391480205be32524da3844be20bcd9e4, type: 2}
     Text: Alright, you seems too good at using your sense to be one of the lelembut
       disguise.
@@ -30,9 +30,10 @@ MonoBehaviour:
     Text: "They tried hard to keep all the Buto and Lelembut from going further into
       the village.\r"
   - Speaker: {fileID: 11400000, guid: 391480205be32524da3844be20bcd9e4, type: 2}
-    Text: It was so obvious that this was not something came from the ordinary.
+    Text: I know something is not right in here.
   - Speaker: {fileID: 11400000, guid: 391480205be32524da3844be20bcd9e4, type: 2}
-    Text: What's with this aura? Why are the buto and lelembut getting so out of
-      control?
+    Text: This aura.. The buto and lelembut which are getting so out of control..
   - Speaker: {fileID: 11400000, guid: 391480205be32524da3844be20bcd9e4, type: 2}
-    Text: Even King Gantari and my father intervened. this is absolutely bizzare.
+    Text: Even King Gantari and my father intervened.
+  - Speaker: {fileID: 11400000, guid: 391480205be32524da3844be20bcd9e4, type: 2}
+    Text: This is just not right.

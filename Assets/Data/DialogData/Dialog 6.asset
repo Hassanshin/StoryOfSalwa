@@ -45,11 +45,11 @@ MonoBehaviour:
     Text: Enough of this emotional moment, we need to keep on guard.
   - Speaker: {fileID: 11400000, guid: 1556207519bda5d4f84b7efb124f9cf6, type: 2}
     Text: "I can't repay your kindness with anything, but I can give you some information
-      that might be useful on your trip to Mitja.\r"
+      that might be useful on your journey to Mitja.\r"
   - Speaker: {fileID: 11400000, guid: 1556207519bda5d4f84b7efb124f9cf6, type: 2}
-    Text: "It might be very difficult to get to the Mitja Kingdom because King Gantari
-      placed a very strong guard figure deep inside the Pine Forest, \t\t\t    the
-      only entrance to the Mitja kingdom."
+    Text: It might be very difficult to get to the Mitja Kingdom because King Gantari
+      placed a very strong guard figure deep inside the Pine Forest, the only entrance
+      to the Mitja Castle
   - Speaker: {fileID: 11400000, guid: 97f9b25184b1c5e4285d0e32e21f23af, type: 2}
     Text: 'Thanks for the information.
 
@@ -59,4 +59,4 @@ MonoBehaviour:
   - Speaker: {fileID: 11400000, guid: 1556207519bda5d4f84b7efb124f9cf6, type: 2}
     Text: I didn't mean to scare you but..
   - Speaker: {fileID: 11400000, guid: 1556207519bda5d4f84b7efb124f9cf6, type: 2}
-    Text: I heard the guard in the Pine Forest wasn't a human.
+    Text: I heard the guard in the Pine Forest isn't a human.
